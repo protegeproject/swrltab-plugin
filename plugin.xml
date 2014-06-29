@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?eclipse version="3.0"?>
+
+<plugin>
+
+	<extension id="SWRLTab" point="org.protege.editor.core.application.WorkspaceTab">
+		<label value="SWRLTab"/>
+		<class value="org.swrltab.ui.SWRLTab"/>
+		<index value="X"/>
+		<editorKitId value="OWLEditorKit"/>
+  </extension>
+
+	<extension id="SQWRLTab" point="org.protege.editor.core.application.WorkspaceTab">
+		<label value="SQWRLTab"/>
+		<class value="org.swrltab.ui.SQWRLTab"/>
+		<index value="Y"/>
+		<editorKitId value="OWLEditorKit"/>
+  </extension>
+  
+</plugin>
