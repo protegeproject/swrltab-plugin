@@ -4,12 +4,15 @@
 	
 	<groupId>org.swrltab</groupId>
  	<artifactId>swrltab-plugin</artifactId>
-	<version>1.0</version>
+	<version>1.0-SNAPSHOT</version>
   <name>SWRLTab Plugin</name>
 	<description>SWRLTab Plugin for Desktop Protege, 5.0 and later</description>
 	<packaging>bundle</packaging>
 	
 	<properties>
+    <owlapi.version>3.5.0</owlapi.version>
+    <protege.version>5.0.0-beta-15</protege.version> 
+    <swrlapi.version>1.0-SNAPSHOT</swrlapi.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
   
@@ -18,13 +21,31 @@
     <dependency>
       <groupId>net.sourceforge.owlapi</groupId>
       <artifactId>owlapi-distribution</artifactId>
-      <version>3.5.0</version>
+      <version>${owlapi.version}</version>
     </dependency>
 
     <dependency>
 			<groupId>edu.stanford.protege</groupId>
       <artifactId>org.protege.editor.owl</artifactId>
-			<version>4.3.0</version>
+			<version>${protege.version}</version>
+    </dependency>
+
+		<dependency>
+			<groupId>edu.stanford.protege</groupId>
+			<artifactId>org.protege.common</artifactId>
+			<version>${protege.version}</version>
+		</dependency>
+
+    <dependency>
+			<groupId>org.swrlapi</groupId>
+      <artifactId>swrlapi</artifactId>
+			<version>${swrlapi.version}</version>
+    </dependency>
+
+    <dependency>
+			<groupId>org.swrlapi</groupId>
+      <artifactId>swrlapi-drools-engine</artifactId>
+			<version>${swrlapi.version}</version>
     </dependency>
 
 	</dependencies>
@@ -57,9 +78,11 @@
 							org.protege.editor.owl.*;version="5.0", <!-- equivalent to [5.0,infinity) -->
 							*
 						</Import-Package>
+            <Embed-Dependency>org.swrlapi</Embed-Dependency>
 						<Include-Resource>plugin.xml, {maven-resources}</Include-Resource>
 					</instructions>
 					<executions>
+
 						<execution>
 							<id>bundle-manifest</id>
 							<phase>install</phase>
@@ -67,6 +90,7 @@
 								<goal>manifest</goal>
 							</goals>   
 						</execution>
+
 					</executions>
 				</configuration>
       </plugin>
