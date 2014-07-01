@@ -38,16 +38,27 @@ public class SWRLTab extends OWLWorkspaceViewsTab
 	{
 		super.initialise();
 
+		log.info("Allo");
+
+		this.modelManager = getOWLModelManager();
+
+		log.info("Allo " + this.modelManager);
+
 		// Get the active OWL ontology
 		OWLOntology ontology = this.modelManager.getActiveOntology();
 
+		log.info("Allo" + ontology);
+
 		// Create a SWRLAPI OWL ontology from the active OWL ontology
 		SWRLAPIOWLOntology swrlapiOWLOntology = SWRLAPIFactory.createSWRLAPIOWLOntology(ontology);
+
+		log.info("Allo, allo");
 
 		// Create a Drools-based query engine
 		SWRLRuleEngine ruleEngine = SWRLAPIFactory.createSQWRLQueryEngine(swrlapiOWLOntology,
 				new DroolsSWRLRuleEngineCreator());
 
+		log.info("Allo, allo");
 		// Create the application model, supplying it with the ontology and rule engine
 		SWRLAPIApplicationModel applicationModel = SWRLAPIFactory.createSWRLAPIApplicationModel(swrlapiOWLOntology,
 				ruleEngine);
@@ -62,7 +73,6 @@ public class SWRLTab extends OWLWorkspaceViewsTab
 		setLayout(new BorderLayout());
 		add(rulesView);
 
-		this.modelManager = getOWLModelManager();
 		this.modelManager.addListener(listener);
 
 		log.info("SWRLTab initialized");

@@ -68,21 +68,38 @@
 				<version>2.4.0</version>
 				<extensions>true</extensions>
 				<configuration>
+
 					<instructions>
 						<Bundle-Activator>org.protege.editor.owl.ProtegeOWL</Bundle-Activator>
-						<Bundle-ClassPath>.</Bundle-ClassPath>
 						<Bundle-SymbolicName>${project.artifactId};singleton:=true</Bundle-SymbolicName>
-						<Bundle-Vendor>The Protege Development Team</Bundle-Vendor>
+						<Include-Resource>plugin.xml, {maven-resources}</Include-Resource>
 						<Import-Package>
+              !com.ibm.wsdl.extensions.soap,
+              !com.sun.codemodel, !com.sun.jimi.core, !com.sun.net.ssl.*, !com.sun.tools.*,
+              !javax.jms, !javax.mail.*, !javax.servlet.*, !javax.wsdl.*, !javax.xml.rpc.*,
+              !com.thoughtworks.*,
+              !com.google.*,
+              !org.apache.bsf.*, !org.apache.commons.*,
+              !org.antlr.stringtemplate,
+							!org.codehaus.*,
+							!org.eclipse.core.*, !org.eclipse.equinox.*, !org.eclipse.jdt.internal.*, !org.eclipse.jface.*, !org.eclipse.text.edits,
+							!org.exolab.*,
+              !org.osgi.service.prefs,
+              !org.quartz,
+              !sun.awt.image.codec, !sun.misc, !sun.security.provider,
 							org.apache.log4j.*;version="[1.2,2)", 
 							org.protege.editor.owl.*;version="5.0", <!-- equivalent to [5.0,infinity) -->
 							*
 						</Import-Package>
-            <Embed-Dependency>org.swrlapi</Embed-Dependency>
-						<Include-Resource>plugin.xml, {maven-resources}</Include-Resource>
+            <Embed-Dependency>
+							swrlapi, swrlapi-drools-engine, axis, jep,
+							drools-compiler, drools-core, 
+							knowledge-api, knowledge-internal-api, antlr-runtime, org.eclipse.jdt.core, mvel2
+						</Embed-Dependency>
+            <Embed-Transitive>true</Embed-Transitive>
 					</instructions>
-					<executions>
 
+					<executions>
 						<execution>
 							<id>bundle-manifest</id>
 							<phase>install</phase>
@@ -90,7 +107,6 @@
 								<goal>manifest</goal>
 							</goals>   
 						</execution>
-
 					</executions>
 				</configuration>
       </plugin>
