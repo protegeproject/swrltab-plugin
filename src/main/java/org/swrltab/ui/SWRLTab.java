@@ -38,27 +38,34 @@ public class SWRLTab extends OWLWorkspaceViewsTab
 	{
 		super.initialise();
 
-		log.info("Allo");
-
 		this.modelManager = getOWLModelManager();
+		this.modelManager.addListener(listener);
 
-		log.info("Allo " + this.modelManager);
+		log.info("SWRLTab initialized");
 
+		update();
+	}
+
+	@Override
+	public void dispose()
+	{
+		super.dispose();
+		this.modelManager.removeListener(listener);
+		log.info("SWRLTab disposed");
+	}
+
+	private void update()
+	{
 		// Get the active OWL ontology
 		OWLOntology ontology = this.modelManager.getActiveOntology();
-
-		log.info("Allo" + ontology);
 
 		// Create a SWRLAPI OWL ontology from the active OWL ontology
 		SWRLAPIOWLOntology swrlapiOWLOntology = SWRLAPIFactory.createSWRLAPIOWLOntology(ontology);
 
-		log.info("Allo, allo");
-
-		// Create a Drools-based query engine
+		// Create a Drools-based rule engine
 		SWRLRuleEngine ruleEngine = SWRLAPIFactory.createSQWRLQueryEngine(swrlapiOWLOntology,
 				new DroolsSWRLRuleEngineCreator());
 
-		log.info("Allo, allo");
 		// Create the application model, supplying it with the ontology and rule engine
 		SWRLAPIApplicationModel applicationModel = SWRLAPIFactory.createSWRLAPIApplicationModel(swrlapiOWLOntology,
 				ruleEngine);
@@ -70,20 +77,9 @@ public class SWRLTab extends OWLWorkspaceViewsTab
 		Icon ruleEngineIcon = DroolsFactory.getSWRLRuleEngineIcon();
 		SWRLAPIRulesView rulesView = new SWRLAPIRulesView(applicationController, ruleEngineIcon);
 
+		removeAll();
 		setLayout(new BorderLayout());
 		add(rulesView);
-
-		this.modelManager.addListener(listener);
-
-		log.info("SWRLTab initialized");
-	}
-
-	@Override
-	public void dispose()
-	{
-		super.dispose();
-		this.modelManager.removeListener(listener);
-		log.info("SWRLTab disposed");
 	}
 
 	private class SWRLTabListener implements OWLModelManagerListener
@@ -93,6 +89,7 @@ public class SWRLTab extends OWLWorkspaceViewsTab
 		{
 			if (event.getType() == EventType.ACTIVE_ONTOLOGY_CHANGED) {
 				log.info("The ontology has changed!");
+				update();
 			}
 		}
 	}
