@@ -80,23 +80,25 @@
               !com.thoughtworks.*,
               !com.google.*,
               !org.apache.bsf.*, !org.apache.commons.*,
-              !org.antlr.stringtemplate,
-							!org.codehaus.*,
+ 							!org.codehaus.*,
 							!org.eclipse.core.*, !org.eclipse.equinox.*, !org.eclipse.jdt.internal.*, !org.eclipse.jface.*, !org.eclipse.text.edits,
 							!org.exolab.*,
               !org.osgi.service.prefs,
               !org.quartz,
               !sun.awt.image.codec, !sun.misc, !sun.security.provider,
-							org.apache.log4j.*;version="[1.2,2)", 
+							org.apache.log4j.*;version="[1.2,2)",
 							org.protege.editor.owl.*;version="5.0", <!-- equivalent to [5.0,infinity) -->
 							*
 						</Import-Package>
+            <Embed-Transitive>true</Embed-Transitive>
+
             <Embed-Dependency>
 							swrlapi, swrlapi-drools-engine, axis, jep,
 							drools-compiler, drools-core, 
-							knowledge-api, knowledge-internal-api, antlr-runtime, org.eclipse.jdt.core, mvel2
+							knowledge-api, knowledge-internal-api, 
+              org.eclipse.jdt.core, 
+              antlr-runtime, stringtemplate, antlr, xml-resolver, mvel2
 						</Embed-Dependency>
-            <Embed-Transitive>true</Embed-Transitive>
 					</instructions>
 
 					<executions>

@@ -18,15 +18,18 @@ import org.swrlapi.drools.DroolsFactory;
 import org.swrlapi.drools.DroolsSWRLRuleEngineCreator;
 import org.swrlapi.ui.controller.SWRLAPIApplicationController;
 import org.swrlapi.ui.model.SWRLAPIApplicationModel;
+import org.swrlapi.ui.view.SWRLAPIView;
 import org.swrlapi.ui.view.rules.SWRLAPIRulesView;
 
-public class SWRLTab extends OWLWorkspaceViewsTab
+public class SWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 {
 	private static final Logger log = Logger.getLogger(SWRLTab.class);
 	private static final long serialVersionUID = 1L;
 
-	private OWLModelManager modelManager;
+	private final Icon ruleEngineIcon = DroolsFactory.getSWRLRuleEngineIcon();
+
 	private final SWRLTabListener listener = new SWRLTabListener();
+	private OWLModelManager modelManager;
 
 	public SWRLTab()
 	{
@@ -54,27 +57,25 @@ public class SWRLTab extends OWLWorkspaceViewsTab
 		log.info("SWRLTab disposed");
 	}
 
-	private void update()
+	@Override
+	public void update()
 	{
 		// Get the active OWL ontology
 		OWLOntology ontology = this.modelManager.getActiveOntology();
 
 		// Create a SWRLAPI OWL ontology from the active OWL ontology
-		SWRLAPIOWLOntology swrlapiOWLOntology = SWRLAPIFactory.createSWRLAPIOWLOntology(ontology);
+		SWRLAPIOWLOntology swrlapiOWLOntology = SWRLAPIFactory.createOntology(ontology);
 
 		// Create a Drools-based rule engine
-		SWRLRuleEngine ruleEngine = SWRLAPIFactory.createSQWRLQueryEngine(swrlapiOWLOntology,
-				new DroolsSWRLRuleEngineCreator());
+		SWRLRuleEngine ruleEngine = SWRLAPIFactory.createQueryEngine(swrlapiOWLOntology, new DroolsSWRLRuleEngineCreator());
 
 		// Create the application model, supplying it with the ontology and rule engine
-		SWRLAPIApplicationModel applicationModel = SWRLAPIFactory.createSWRLAPIApplicationModel(swrlapiOWLOntology,
-				ruleEngine);
+		SWRLAPIApplicationModel applicationModel = SWRLAPIFactory.createApplicationModel(swrlapiOWLOntology, ruleEngine);
 
 		// Create the application controller
-		SWRLAPIApplicationController applicationController = SWRLAPIFactory
-				.createSWRLAPIApplicationController(applicationModel);
+		SWRLAPIApplicationController applicationController = SWRLAPIFactory.createApplicationController(applicationModel);
 
-		Icon ruleEngineIcon = DroolsFactory.getSWRLRuleEngineIcon();
+		// Create the
 		SWRLAPIRulesView rulesView = new SWRLAPIRulesView(applicationController, ruleEngineIcon);
 
 		removeAll();

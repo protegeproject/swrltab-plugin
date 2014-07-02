@@ -1,7 +1,7 @@
 # swrltab-plugin
 
 This repository contains the OWLAPI-based SWRLTab plugin for the Protege Desktop ontology 
-editor (*versions 5.0 and higher*).  
+editor (*version 5.0 and higher*).  
 
 The Maven POM file in the top-level directory packages the plug-in code into the required OSGi bundle format 
 using the [Maven Bundle Plugin](http://felix.apache.org/site/apache-felix-maven-bundle-plugin-bnd.html).
