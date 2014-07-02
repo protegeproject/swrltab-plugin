@@ -16,6 +16,7 @@ import org.swrlapi.core.SWRLAPIOWLOntology;
 import org.swrlapi.core.SWRLRuleEngine;
 import org.swrlapi.drools.DroolsFactory;
 import org.swrlapi.drools.DroolsSWRLRuleEngineCreator;
+import org.swrlapi.exceptions.SWRLAPIException;
 import org.swrlapi.ui.controller.SWRLAPIApplicationController;
 import org.swrlapi.ui.model.SWRLAPIApplicationModel;
 import org.swrlapi.ui.view.SWRLAPIView;
@@ -25,8 +26,6 @@ public class SQWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 {
 	private static final Logger log = Logger.getLogger(SQWRLTab.class);
 	private static final long serialVersionUID = 1L;
-
-	private final Icon ruleEngineIcon = DroolsFactory.getSWRLRuleEngineIcon();
 
 	private final SQWRLTabListener listener = new SQWRLTabListener();
 	private OWLModelManager modelManager;
@@ -45,8 +44,6 @@ public class SQWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 		this.modelManager.addListener(listener);
 
 		log.info("SQWRLTab initialized");
-
-		update();
 	}
 
 	@Override
@@ -60,27 +57,34 @@ public class SQWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 	@Override
 	public void update()
 	{
-		// Get the active OWL ontology
-		OWLOntology ontology = this.modelManager.getActiveOntology();
-
-		// Create a SWRLAPI OWL ontology from the active OWL ontology
-		SWRLAPIOWLOntology swrlapiOWLOntology = SWRLAPIFactory.createOntology(ontology);
-
-		// Create a Drools-based query engine
-		SWRLRuleEngine queryEngine = SWRLAPIFactory
-				.createQueryEngine(swrlapiOWLOntology, new DroolsSWRLRuleEngineCreator());
-
-		// Create the application model, supplying it with the ontology and rule engine
-		SWRLAPIApplicationModel applicationModel = SWRLAPIFactory.createApplicationModel(swrlapiOWLOntology, queryEngine);
-
-		// Create an application controller
-		SWRLAPIApplicationController applicationController = SWRLAPIFactory.createApplicationController(applicationModel);
-
-		SWRLAPIQueriesView queriesView = new SWRLAPIQueriesView(applicationController, ruleEngineIcon);
-
 		removeAll();
-		setLayout(new BorderLayout());
-		add(queriesView);
+
+		try {
+			// Get the active OWL ontology
+			OWLOntology ontology = this.modelManager.getActiveOntology();
+
+			// Create a SWRLAPI OWL ontology from the active OWL ontology
+			SWRLAPIOWLOntology swrlapiOWLOntology = SWRLAPIFactory.createOntology(ontology);
+
+			// Create a Drools-based query engine
+			SWRLRuleEngine queryEngine = SWRLAPIFactory.createQueryEngine(swrlapiOWLOntology,
+					new DroolsSWRLRuleEngineCreator());
+
+			// Create the application model, supplying it with the ontology and rule engine
+			SWRLAPIApplicationModel applicationModel = SWRLAPIFactory.createApplicationModel(swrlapiOWLOntology, queryEngine);
+
+			// Create an application controller
+			SWRLAPIApplicationController applicationController = SWRLAPIFactory.createApplicationController(applicationModel);
+
+			Icon ruleEngineIcon = DroolsFactory.getSWRLRuleEngineIcon();
+
+			SWRLAPIQueriesView queriesView = new SWRLAPIQueriesView(applicationController, ruleEngineIcon);
+
+			setLayout(new BorderLayout());
+			add(queriesView);
+		} catch (SWRLAPIException e) {
+			log.warn("Error updating SQWRLTab", e);
+		}
 	}
 
 	private class SQWRLTabListener implements OWLModelManagerListener
