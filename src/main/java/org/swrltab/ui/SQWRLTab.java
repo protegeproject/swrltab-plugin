@@ -10,14 +10,13 @@ import org.protege.editor.owl.model.event.EventType;
 import org.protege.editor.owl.model.event.OWLModelManagerChangeEvent;
 import org.protege.editor.owl.model.event.OWLModelManagerListener;
 import org.protege.editor.owl.ui.OWLWorkspaceViewsTab;
-import org.semanticweb.owlapi.model.OWLOntology;
 import org.swrlapi.core.SWRLAPIFactory;
 import org.swrlapi.core.SWRLAPIOWLOntology;
 import org.swrlapi.core.SWRLRuleEngine;
 import org.swrlapi.drools.DroolsFactory;
 import org.swrlapi.drools.DroolsSWRLRuleEngineCreator;
 import org.swrlapi.exceptions.SWRLAPIException;
-import org.swrlapi.ui.controller.SWRLAPIApplicationController;
+import org.swrlapi.ui.dialog.SWRLAPIApplicationDialogManager;
 import org.swrlapi.ui.model.SWRLAPIApplicationModel;
 import org.swrlapi.ui.view.SWRLAPIView;
 import org.swrlapi.ui.view.queries.SWRLAPIQueriesView;
@@ -29,6 +28,12 @@ public class SQWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 
 	private final SQWRLTabListener listener = new SQWRLTabListener();
 	private OWLModelManager modelManager;
+	private SWRLAPIApplicationModel applicationModel;
+	private SWRLAPIApplicationDialogManager applicationDialogManager;
+	private SWRLAPIQueriesView queriesView;
+	private SWRLAPIOWLOntology swrlapiOWLOntology;
+	private SWRLRuleEngine queryEngine;
+	private Icon ruleEngineIcon;
 
 	public SQWRLTab()
 	{
@@ -41,9 +46,35 @@ public class SQWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 		super.initialise();
 
 		this.modelManager = getOWLModelManager();
-		this.modelManager.addListener(listener);
 
-		log.info("SQWRLTab initialized");
+		try {
+			// Create a SWRLAPI OWL ontology from the active OWL ontology
+			this.swrlapiOWLOntology = SWRLAPIFactory.createOntology(this.modelManager.getActiveOntology());
+
+			// Create a Drools-based query engine
+			this.queryEngine = SWRLAPIFactory.createQueryEngine(swrlapiOWLOntology, new DroolsSWRLRuleEngineCreator());
+
+			// Create the Drools rule engine icon
+			this.ruleEngineIcon = DroolsFactory.getSWRLRuleEngineIcon();
+
+			// Create the application model, supplying it with the ontology and rule engine
+			this.applicationModel = SWRLAPIFactory.createApplicationModel(swrlapiOWLOntology, queryEngine);
+
+			// Create the application dialog manager
+			this.applicationDialogManager = SWRLAPIFactory.createApplicationDialogManager(applicationModel);
+
+			// Create the primary SQWRLTab view
+			this.queriesView = new SWRLAPIQueriesView(applicationModel, applicationDialogManager, ruleEngineIcon);
+
+			setLayout(new BorderLayout());
+			add(queriesView);
+
+			this.modelManager.addListener(listener);
+
+			log.info("SQWRLTab initialized");
+		} catch (SWRLAPIException e) {
+			log.warn("Error initializing SQWRLTab", e);
+		}
 	}
 
 	@Override
@@ -57,34 +88,7 @@ public class SQWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 	@Override
 	public void update()
 	{
-		removeAll();
 
-		try {
-			// Get the active OWL ontology
-			OWLOntology ontology = this.modelManager.getActiveOntology();
-
-			// Create a SWRLAPI OWL ontology from the active OWL ontology
-			SWRLAPIOWLOntology swrlapiOWLOntology = SWRLAPIFactory.createOntology(ontology);
-
-			// Create a Drools-based query engine
-			SWRLRuleEngine queryEngine = SWRLAPIFactory.createQueryEngine(swrlapiOWLOntology,
-					new DroolsSWRLRuleEngineCreator());
-
-			// Create the application model, supplying it with the ontology and rule engine
-			SWRLAPIApplicationModel applicationModel = SWRLAPIFactory.createApplicationModel(swrlapiOWLOntology, queryEngine);
-
-			// Create an application controller
-			SWRLAPIApplicationController applicationController = SWRLAPIFactory.createApplicationController(applicationModel);
-
-			Icon ruleEngineIcon = DroolsFactory.getSWRLRuleEngineIcon();
-
-			SWRLAPIQueriesView queriesView = new SWRLAPIQueriesView(applicationController, ruleEngineIcon);
-
-			setLayout(new BorderLayout());
-			add(queriesView);
-		} catch (SWRLAPIException e) {
-			log.warn("Error updating SQWRLTab", e);
-		}
 	}
 
 	private class SQWRLTabListener implements OWLModelManagerListener
