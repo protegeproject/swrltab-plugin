@@ -1,5 +1,7 @@
 # swrltab-plugin
 
+*This plugin will be released in late August, 2014.*
+
 This repository contains the OWLAPI-based SWRLTab plugin for the Protege Desktop ontology 
 editor (*version 5.0 and higher*).  
 
