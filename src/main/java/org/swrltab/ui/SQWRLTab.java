@@ -67,7 +67,7 @@ public class SQWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 	public void update()
 	{
 		try {
-			log.info("The ontology has changed!");
+			log.info("SQWRLTab updated!");
 
 			// Create a SWRLAPI OWL ontology from the active OWL ontology
 			this.swrlapiOWLOntology = SWRLAPIFactory.createOntology(this.modelManager.getActiveOntology());
