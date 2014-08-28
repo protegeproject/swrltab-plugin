@@ -23,8 +23,9 @@ import org.swrlapi.ui.view.rules.SWRLAPIRulesView;
 
 public class SWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 {
-	private static final Logger log = Logger.getLogger(SWRLTab.class);
 	private static final long serialVersionUID = 1L;
+
+	private static final Logger log = Logger.getLogger(SWRLTab.class);
 
 	private final SWRLTabListener listener = new SWRLTabListener();
 	private OWLModelManager modelManager;
@@ -45,9 +46,12 @@ public class SWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 	{
 		super.initialise();
 
+		log.info("SWRLTab initializing...");
+
 		this.modelManager = getOWLModelManager();
 
 		try {
+			log.info("aktive " + this.modelManager.getActiveOntology());
 			// Create a SWRLAPI OWL ontology from the active OWL ontology
 			this.swrlapiOWLOntology = SWRLAPIFactory.createOntology(this.modelManager.getActiveOntology());
 
@@ -73,7 +77,9 @@ public class SWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 
 			log.info("SWRLTab initialized");
 		} catch (SWRLAPIException e) {
-			log.warn("Error initializing SWRLTab", e);
+			log.error("Error initializing SWRLTab", e);
+		} catch (RuntimeException e) {
+			log.error("Error initializing SWRLTab", e);
 		}
 	}
 

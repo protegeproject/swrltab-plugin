@@ -73,7 +73,9 @@ public class SQWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 
 			log.info("SQWRLTab initialized");
 		} catch (SWRLAPIException e) {
-			log.warn("Error initializing SQWRLTab", e);
+			log.error("Error initializing SQWRLTab", e);
+		} catch (RuntimeException e) {
+			log.error("Error initializing SQWRLTab", e);
 		}
 	}
 
