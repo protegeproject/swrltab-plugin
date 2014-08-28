@@ -52,6 +52,9 @@ public class SQWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 
 		setLayout(new BorderLayout());
 
+		if (this.modelManager.getActiveOntology() != null)
+			update();
+
 		log.info("SQWRLTab initialized");
 	}
 
