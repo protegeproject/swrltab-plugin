@@ -27,14 +27,15 @@ public class SWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 
 	private static final Logger log = Logger.getLogger(SWRLTab.class);
 
-	private final SWRLTabListener listener = new SWRLTabListener();
 	private OWLModelManager modelManager;
+	private SWRLAPIOWLOntology swrlapiOWLOntology;
+	private SWRLRuleEngine ruleEngine;
 	private SWRLAPIApplicationModel applicationModel;
 	private SWRLAPIApplicationDialogManager applicationDialogManager;
 	private SWRLAPIRulesView rulesView;
-	private SWRLAPIOWLOntology swrlapiOWLOntology;
-	private SWRLRuleEngine ruleEngine;
+
 	private Icon ruleEngineIcon;
+	private final SWRLTabListener listener = new SWRLTabListener();
 
 	public SWRLTab()
 	{
@@ -49,38 +50,11 @@ public class SWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 		log.info("SWRLTab initializing...");
 
 		this.modelManager = getOWLModelManager();
+		this.modelManager.addListener(this.listener);
 
-		try {
-			log.info("aktive " + this.modelManager.getActiveOntology());
-			// Create a SWRLAPI OWL ontology from the active OWL ontology
-			this.swrlapiOWLOntology = SWRLAPIFactory.createOntology(this.modelManager.getActiveOntology());
+		setLayout(new BorderLayout());
 
-			// Create a Drools-based rule engine
-			this.ruleEngine = SWRLAPIFactory.createQueryEngine(swrlapiOWLOntology, new DroolsSWRLRuleEngineCreator());
-
-			// Create the Drools rule engine icon
-			this.ruleEngineIcon = DroolsFactory.getSWRLRuleEngineIcon();
-
-			// Create the application model, supplying it with the ontology and rule engine
-			this.applicationModel = SWRLAPIFactory.createApplicationModel(swrlapiOWLOntology, ruleEngine);
-
-			// Create the application dialog manager
-			this.applicationDialogManager = SWRLAPIFactory.createApplicationDialogManager(applicationModel);
-
-			// Create the main SWRLTab plugin view
-			this.rulesView = new SWRLAPIRulesView(applicationModel, applicationDialogManager, ruleEngineIcon);
-
-			setLayout(new BorderLayout());
-			add(this.rulesView);
-
-			this.modelManager.addListener(this.listener);
-
-			log.info("SWRLTab initialized");
-		} catch (SWRLAPIException e) {
-			log.error("Error initializing SWRLTab", e);
-		} catch (RuntimeException e) {
-			log.error("Error initializing SWRLTab", e);
-		}
+		log.info("SWRLTab initialized");
 	}
 
 	@Override
@@ -94,8 +68,34 @@ public class SWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 	@Override
 	public void update()
 	{
-		removeAll();
+		try {
+			log.info("The ontology has changed!");
 
+			// Create a SWRLAPI OWL ontology from the active OWL ontology
+			this.swrlapiOWLOntology = SWRLAPIFactory.createOntology(this.modelManager.getActiveOntology());
+
+			// Create a Drools-based rule engine
+			this.ruleEngine = SWRLAPIFactory.createQueryEngine(this.swrlapiOWLOntology, new DroolsSWRLRuleEngineCreator());
+
+			// Create the Drools rule engine icon
+			this.ruleEngineIcon = DroolsFactory.getSWRLRuleEngineIcon();
+
+			// Create the application model, supplying it with the ontology and rule engine
+			this.applicationModel = SWRLAPIFactory.createApplicationModel(swrlapiOWLOntology, ruleEngine);
+
+			// Create the application dialog manager
+			this.applicationDialogManager = SWRLAPIFactory.createApplicationDialogManager(applicationModel);
+
+			if (this.rulesView != null)
+				remove(rulesView);
+
+			// Create the main SWRLTab plugin view
+			this.rulesView = new SWRLAPIRulesView(applicationModel, applicationDialogManager, ruleEngineIcon);
+			add(this.rulesView);
+
+		} catch (RuntimeException e) {
+			log.error("Error updating SWRLTab", e);
+		}
 	}
 
 	private class SWRLTabListener implements OWLModelManagerListener
@@ -104,7 +104,6 @@ public class SWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 		public void handleChange(OWLModelManagerChangeEvent event)
 		{
 			if (event.getType() == EventType.ACTIVE_ONTOLOGY_CHANGED) {
-				log.info("The ontology has changed!");
 				update();
 			}
 		}

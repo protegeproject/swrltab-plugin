@@ -24,15 +24,17 @@ import org.swrlapi.ui.view.queries.SWRLAPIQueriesView;
 public class SQWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 {
 	private static final Logger log = Logger.getLogger(SQWRLTab.class);
+
 	private static final long serialVersionUID = 1L;
 
-	private final SQWRLTabListener listener = new SQWRLTabListener();
 	private OWLModelManager modelManager;
 	private SWRLAPIApplicationModel applicationModel;
 	private SWRLAPIApplicationDialogManager applicationDialogManager;
 	private SWRLAPIQueriesView queriesView;
 	private SWRLAPIOWLOntology swrlapiOWLOntology;
 	private SWRLRuleEngine queryEngine;
+
+	private final SQWRLTabListener listener = new SQWRLTabListener();
 	private Icon ruleEngineIcon;
 
 	public SQWRLTab()
@@ -46,8 +48,27 @@ public class SQWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 		super.initialise();
 
 		this.modelManager = getOWLModelManager();
+		this.modelManager.addListener(listener);
 
+		setLayout(new BorderLayout());
+
+		log.info("SQWRLTab initialized");
+	}
+
+	@Override
+	public void dispose()
+	{
+		super.dispose();
+		this.modelManager.removeListener(listener);
+		log.info("SQWRLTab disposed");
+	}
+
+	@Override
+	public void update()
+	{
 		try {
+			log.info("The ontology has changed!");
+
 			// Create a SWRLAPI OWL ontology from the active OWL ontology
 			this.swrlapiOWLOntology = SWRLAPIFactory.createOntology(this.modelManager.getActiveOntology());
 
@@ -63,34 +84,16 @@ public class SQWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 			// Create the application dialog manager
 			this.applicationDialogManager = SWRLAPIFactory.createApplicationDialogManager(applicationModel);
 
+			if (this.queriesView != null)
+				remove(queriesView);
+
 			// Create the primary SQWRLTab view
 			this.queriesView = new SWRLAPIQueriesView(applicationModel, applicationDialogManager, ruleEngineIcon);
 
-			setLayout(new BorderLayout());
-			add(queriesView);
-
-			this.modelManager.addListener(listener);
-
-			log.info("SQWRLTab initialized");
-		} catch (SWRLAPIException e) {
-			log.error("Error initializing SQWRLTab", e);
+			add(this.queriesView);
 		} catch (RuntimeException e) {
-			log.error("Error initializing SQWRLTab", e);
+			log.error("Error updating SQWRLTab", e);
 		}
-	}
-
-	@Override
-	public void dispose()
-	{
-		super.dispose();
-		this.modelManager.removeListener(listener);
-		log.info("SQWRLTab disposed");
-	}
-
-	@Override
-	public void update()
-	{
-
 	}
 
 	private class SQWRLTabListener implements OWLModelManagerListener
@@ -99,7 +102,6 @@ public class SQWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 		public void handleChange(OWLModelManagerChangeEvent event)
 		{
 			if (event.getType() == EventType.ACTIVE_ONTOLOGY_CHANGED) {
-				log.info("The ontology has changed!");
 				update();
 			}
 		}
