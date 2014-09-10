@@ -5,8 +5,8 @@
 This repository contains the SWRLAPI-based SWRLTab plugin for the Protege Desktop ontology 
 editor (*version 5.0 and higher*). 
 
-Plugin documentation can be found here [https://github.com/protegeproject/swrltab-plugin/wiki here].
-Documentation for the SWRLAPI can be found [https://github.com/protegeproject/swrlapi/wiki here].
+Plugin documentation can be found [here](https://github.com/protegeproject/swrltab-plugin/wiki).
+Documentation for the SWRLAPI can be found [here](https://github.com/protegeproject/swrlapi/wiki).
 
 #### Building
 
