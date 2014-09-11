@@ -23,7 +23,7 @@ To build and run this plugin, you must have the following items installed:
 
 #### Build and install the SWRLTab plug-in
 
-1. Get a copy of the example code:
+1. Get a copy of the latest code:
 
    git clone https://github.com/protegeproject/swrltab-plugin.git swrltab-plugin
     
@@ -31,7 +31,7 @@ To build and run this plugin, you must have the following items installed:
 
 3. Type mvn clean package.  On build completion, the "target" directory will contain a swrltab-plugin-${version}.jar file.
 
-4. Copy the JAR file from the target directory to the "plugins" subdirectory of your Protege distribution (e.g.,
+4. Copy the JAR file from the target directory to the "plugins" subdirectory of your Protege installation (e.g.,
 /Applications/Protege_5.0_beta/plugins/)
  
 #### View the Plugin in Protege
@@ -54,7 +54,7 @@ SQWRLTab:
 
 #### Questions
 
-If you have questions about this plug-in, please navigate to the main
+If you have questions about this plug-in, please go to the main
 Protege website and subscribe to the [Protege Developer Support
 mailing list](http://protege.stanford.edu/support.php#mailingListSupport).
 After subscribing, send messages to protege-dev at lists.stanford.edu.

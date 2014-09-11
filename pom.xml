@@ -10,19 +10,12 @@
 	<packaging>bundle</packaging>
 	
 	<properties>
-    <owlapi.version>3.5.0</owlapi.version>
     <protege.version>5.0.0-beta-15</protege.version> 
     <swrlapi.version>1.0-SNAPSHOT</swrlapi.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
   
 	<dependencies>
-
-    <dependency>
-      <groupId>net.sourceforge.owlapi</groupId>
-      <artifactId>owlapi-distribution</artifactId>
-      <version>${owlapi.version}</version>
-    </dependency>
 
     <dependency>
 			<groupId>edu.stanford.protege</groupId>
