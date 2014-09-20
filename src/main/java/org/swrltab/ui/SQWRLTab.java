@@ -66,8 +66,6 @@ public class SQWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 	public void update()
 	{
 		try {
-			log.info("SQWRLTab updated!");
-
 			// Create a SWRLAPI OWL ontology from the active OWL ontology
 			this.swrlapiOWLOntology = SWRLAPIFactory.createOntology(this.modelManager.getActiveOntology());
 
@@ -90,6 +88,8 @@ public class SQWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 			this.queriesView = new SWRLAPIQueriesView(applicationModel, applicationDialogManager, ruleEngineIcon);
 
 			add(this.queriesView);
+
+			log.info("SQWRLTab updated!");
 		} catch (RuntimeException e) {
 			log.error("Error updating SQWRLTab", e);
 		}
