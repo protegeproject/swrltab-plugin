@@ -1,9 +1,5 @@
 package org.swrltab.ui;
 
-import java.awt.BorderLayout;
-
-import javax.swing.Icon;
-
 import org.apache.log4j.Logger;
 import org.protege.editor.owl.model.OWLModelManager;
 import org.protege.editor.owl.model.event.EventType;
@@ -15,11 +11,13 @@ import org.swrlapi.core.SWRLAPIOWLOntology;
 import org.swrlapi.core.SWRLRuleEngine;
 import org.swrlapi.drools.core.DroolsFactory;
 import org.swrlapi.drools.core.DroolsSWRLRuleEngineCreator;
-import org.swrlapi.exceptions.SWRLAPIException;
 import org.swrlapi.ui.dialog.SWRLAPIApplicationDialogManager;
 import org.swrlapi.ui.model.SWRLAPIApplicationModel;
 import org.swrlapi.ui.view.SWRLAPIView;
 import org.swrlapi.ui.view.rules.SWRLAPIRulesView;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class SWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 {
@@ -47,8 +45,6 @@ public class SWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 	{
 		super.initialise();
 
-		log.info("SWRLTab initializing...");
-
 		this.modelManager = getOWLModelManager();
 		this.modelManager.addListener(this.listener);
 
@@ -56,8 +52,6 @@ public class SWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 
 		if (this.modelManager.getActiveOntology() != null)
 			update();
-
-		log.info("SWRLTab initialized");
 	}
 
 	@Override
