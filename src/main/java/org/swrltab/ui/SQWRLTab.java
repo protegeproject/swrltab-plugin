@@ -31,9 +31,10 @@ public class SQWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 	private SWRLAPIQueriesView queriesView;
 	private SWRLAPIOWLOntology swrlapiOWLOntology;
 	private SWRLRuleEngine queryEngine;
-
-	private final SQWRLTabListener listener = new SQWRLTabListener();
 	private Icon ruleEngineIcon;
+	private final SQWRLTabListener listener = new SQWRLTabListener();
+
+	private boolean updating = false;
 
 	public SQWRLTab()
 	{
@@ -65,6 +66,7 @@ public class SQWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 	@Override
 	public void update()
 	{
+		updating = true;
 		try {
 			// Create a SWRLAPI OWL ontology from the active OWL ontology
 			this.swrlapiOWLOntology = SWRLAPIFactory.createOntology(this.modelManager.getActiveOntology());
@@ -89,10 +91,11 @@ public class SQWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 
 			add(this.queriesView);
 
-			log.info("SQWRLTab updated!");
+			log.info("SQWRLTab updated");
 		} catch (RuntimeException e) {
 			log.error("Error updating SQWRLTab", e);
 		}
+		updating = false;
 	}
 
 	private class SQWRLTabListener implements OWLModelManagerListener
@@ -100,9 +103,12 @@ public class SQWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 		@Override
 		public void handleChange(OWLModelManagerChangeEvent event)
 		{
-			if (event.getType() == EventType.ACTIVE_ONTOLOGY_CHANGED) {
-				update();
-			}
+			if (!updating) {
+				if (event.getType() == EventType.ACTIVE_ONTOLOGY_CHANGED) {
+					update();
+				}
+			} else
+				log.info("SQWRLTab Ignoring update");
 		}
 	}
 }
