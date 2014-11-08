@@ -4,7 +4,7 @@
 	
 	<groupId>org.swrltab</groupId>
  	<artifactId>swrltab-plugin</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.0.5</version>
   <name>SWRLTab Plugin</name>
 	<description>SWRLTab Plugin for Desktop Protege 5.0+</description>
   <url>https://github.com/protegeproject/swrltab-plugin/wiki</url>
@@ -12,7 +12,10 @@
 	
 	<properties>
     <protege.version>5.0.0-beta-15</protege.version> 
-    <swrlapi.version>1.0-SNAPSHOT</swrlapi.version>
+    <swrlapi.version>1.0.5</swrlapi.version>
+    <junit.version>4.11</junit.version>
+    <log4j.version>1.2.17</log4j.version>
+    <hamcrest.version>1.3</hamcrest.version>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -25,12 +28,13 @@
 			<version>${protege.version}</version>
     </dependency>
 
+<!--
 		<dependency>
 			<groupId>edu.stanford.protege</groupId>
 			<artifactId>org.protege.common</artifactId>
 			<version>${protege.version}</version>
 		</dependency>
-
+-->
     <dependency>
 			<groupId>org.swrlapi</groupId>
       <artifactId>swrlapi</artifactId>
@@ -41,6 +45,24 @@
 			<groupId>org.swrlapi</groupId>
       <artifactId>swrlapi-drools-engine</artifactId>
 			<version>${swrlapi.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junit.version}</version>
+    </dependency>
+
+    <dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+      <version>${log4j.version}</version>
+    </dependency>    
+
+    <dependency>
+	    <groupId>org.hamcrest</groupId>
+	    <artifactId>hamcrest-core</artifactId>
+	    <version>${hamcrest.version}</version>
     </dependency>
 
 	</dependencies>
@@ -68,33 +90,26 @@
 						<Bundle-Activator>org.protege.editor.owl.ProtegeOWL</Bundle-Activator>
 						<Bundle-SymbolicName>${project.artifactId};singleton:=true</Bundle-SymbolicName>
 						<Include-Resource>plugin.xml, {maven-resources}</Include-Resource>
-						<Import-Package>
-              !com.ibm.wsdl.extensions.soap,
-              !com.sun.codemodel, !com.sun.jimi.core, !com.sun.net.ssl.*, !com.sun.tools.*,
+
+            <Import-Package>
+              !org.eclipse.core.*, !org.eclipse.equinox.*, !org.eclipse.jdt.internal.*, !org.eclipse.jface.*, !org.eclipse.text.edits,
+              !org.dom4j.*, !org.jdom.*, !org.joda.time.*, !org.kxml2.io.*,
+              !com.sun.net.ssl.*, !com.sun.tools.*, !com.sun.org.apache.xml.internal.serialize.*, !javax.inject.*, !javax.jmdns.*,
+              !sun.awt.image.codec, !sun.misc, !sun.security.provider, !sun.reflect.*,
+              !net.sf.cglib.proxy.*, !nu.xom.*, !org.apache.tools.ant.*,
+              !com.bea.xml.stream, !com.google.protobuf, !com.ibm.uvm.tools, !com.ibm.wsdl.extensions.soap,
+              !com.sun.codemodel, !com.sun.java.swing.plaf.windows, !com.sun.jdmk.comm, !com.sun.jimi.core,
               !javax.jms, !javax.mail.*, !javax.servlet.*, !javax.wsdl.*, !javax.xml.rpc.*,
               !com.thoughtworks.*,
               !com.google.*,
               !org.apache.bsf.*, !org.apache.commons.*,
  							!org.codehaus.*,
-							!org.eclipse.core.*, !org.eclipse.equinox.*, !org.eclipse.jdt.internal.*, !org.eclipse.jface.*, !org.eclipse.text.edits,
 							!org.exolab.*,
-              !org.osgi.service.prefs,
-              !org.quartz,
-              !sun.awt.image.codec, !sun.misc, !sun.security.provider,
-							org.apache.log4j.*;version="[1.2,2)",
-							org.protege.editor.owl.*;version="5.0", <!-- equivalent to [5.0,infinity) -->
-							*
-						</Import-Package>
-            <Embed-Transitive>true</Embed-Transitive>
-
-            <Embed-Dependency>
-							swrlapi, swrlapi-drools-engine, axis, jep,
-							drools-compiler, drools-core, 
-							knowledge-api, knowledge-internal-api, 
-              org.eclipse.jdt.core, 
-              antlr-runtime, stringtemplate, antlr, xml-resolver, mvel2
-						</Embed-Dependency>
-					</instructions>
+              !org.quartz.*,
+              org.protege.editor.owl.*;version="5.0",
+  						*;
+            </Import-Package>
+   				</instructions>
 
 					<executions>
 						<execution>
