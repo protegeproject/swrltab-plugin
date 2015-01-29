@@ -1,6 +1,6 @@
 # swrltab-plugin
 
-*This plugin will be released in late September, 2014.*
+*This plugin will be released with the next Protege 5.0 beta, which should be in early 2015.*
 
 This repository contains the SWRLAPI-based SWRLTab plugin for the Protege Desktop ontology 
 editor (*version 5.0 and higher*). 
