@@ -1,6 +1,6 @@
 # swrltab-plugin
 
-*This plugin will be released in late September, 2014.*
+*This plugin will be released in late April, 2015.*
 
 This repository contains the SWRLAPI-based SWRLTab plugin for the Protege Desktop ontology 
 editor (*version 5.0 and higher*). 
@@ -27,9 +27,15 @@ To build and run this plugin, you must have the following items installed:
 
    git clone https://github.com/protegeproject/swrltab-plugin.git swrltab-plugin
     
-2. Change into the swrltab-plugin directory.
+2. Change into the swrltab-plugin directory:
 
-3. Type mvn clean package.  On build completion, the "target" directory will contain a swrltab-plugin-${version}.jar file.
+  cd swrltab-plugin
+
+3. Build it with Maven:
+
+  mvn clean package.  
+
+On build completion, the "target" directory will contain a swrltab-plugin-${version}.jar file.
 
 4. Copy the JAR file from the target directory to the "plugins" subdirectory of your Protege installation (e.g.,
 /Applications/Protege_5.0_beta/plugins/)
