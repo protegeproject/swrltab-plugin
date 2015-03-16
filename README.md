@@ -8,18 +8,16 @@ editor (*version 5.0 and higher*).
 Plugin documentation can be found [here](https://github.com/protegeproject/swrltab-plugin/wiki).
 Documentation for the SWRLAPI can be found [here](https://github.com/protegeproject/swrlapi/wiki).
 
-#### Prerequisites
+#### Building Prerequisites
 
 To build and run this plugin, you must have the following items installed:
 
 + Apache's [Maven](http://maven.apache.org/index.html).
 + A tool for checking out a [Git](http://git-scm.com/) repository.
-+ A Protege distribution (5.0 beta or higher)  [Protege 5.0.0 beta SNAPSHOT builds](http://protege.stanford.edu/download/protege/5.0/snapshots/).
++ A Protege distribution (5.0 beta or higher)  [Protege 5.0 beta SNAPSHOT builds](http://protege.stanford.edu/download/protege/5.0/snapshots/).
 
 #### Building
 
-The Maven POM file in the top-level directory packages the plug-in code into the required OSGi bundle format 
-using the [Maven Bundle Plugin](http://felix.apache.org/site/apache-felix-maven-bundle-plugin-bnd.html).
 
 Get a copy of the latest code:
 
@@ -31,11 +29,14 @@ Change into the swrltab-plugin directory:
 
 Build it with Maven:
 
-    mvn clean package.  
+    mvn clean package  
 
 On build completion, the ```target``` directory will contain a swrltab-plugin-${version}.jar file.
 
-Copy the JAR file from the target directory to the "plugins" subdirectory of your Protege installation (e.g.,
+The Maven POM file generates this JAR in the OSGi bundle format required by Protege's plugin-in
+using the [Maven Bundle Plugin](http://felix.apache.org/site/apache-felix-maven-bundle-plugin-bnd.html).
+
+To install this plug-in into your local Protege copy the JAR file from the target directory to the "plugins" subdirectory of your Protege installation (e.g.,
 /Applications/Protege_5.0_beta/plugins/).
  
 #### View the Plugin in Protege
