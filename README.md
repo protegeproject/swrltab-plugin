@@ -36,7 +36,7 @@ Build it with Maven:
 On build completion, the ```target``` directory will contain a swrltab-plugin-${version}.jar file.
 
 Copy the JAR file from the target directory to the "plugins" subdirectory of your Protege installation (e.g.,
-```/Applications/Protege_5.0_beta/plugins/```)
+/Applications/Protege_5.0_beta/plugins/).
  
 #### View the Plugin in Protege
 
