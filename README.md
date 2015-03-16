@@ -18,7 +18,6 @@ To build and run this plugin, you must have the following items installed:
 
 #### Building
 
-
 Get a copy of the latest code:
 
     git clone https://github.com/protegeproject/swrltab-plugin.git swrltab-plugin
