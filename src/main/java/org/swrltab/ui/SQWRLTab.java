@@ -69,7 +69,7 @@ public class SQWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 		updating = true;
 		try {
 			// Create a SWRLAPI OWL ontology from the active OWL ontology
-			this.swrlapiOWLOntology = SWRLAPIFactory.createOntology(this.modelManager.getActiveOntology());
+			this.swrlapiOWLOntology = SWRLAPIFactory.createSWRLAPIOntology(this.modelManager.getActiveOntology());
 
 			// Create a Drools-based query engine
 			this.queryEngine = SWRLAPIFactory.createSWRLRuleEngine(swrlapiOWLOntology, new DroolsSWRLRuleEngineCreator());
