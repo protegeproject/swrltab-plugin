@@ -78,10 +78,10 @@ public class SWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 			this.ruleEngineIcon = DroolsFactory.getSWRLRuleEngineIcon();
 
 			// Create the application model, supplying it with the ontology and rule engine
-			this.applicationModel = SWRLAPIFactory.createApplicationModel(swrlapiOWLOntology, ruleEngine);
+			this.applicationModel = SWRLAPIFactory.createSWRLAPIApplicationModel(swrlapiOWLOntology, ruleEngine);
 
 			// Create the application dialog manager
-			this.applicationDialogManager = SWRLAPIFactory.createApplicationDialogManager(applicationModel);
+			this.applicationDialogManager = SWRLAPIFactory.createSWRLAPIApplicationDialogManager(applicationModel);
 
 			if (this.rulesView != null)
 				remove(this.rulesView);
