@@ -14,7 +14,7 @@ import org.swrlapi.core.SWRLAPIFactory;
 import org.swrlapi.core.SWRLAPIOWLOntology;
 import org.swrlapi.core.SWRLRuleEngine;
 import org.swrlapi.drools.core.DroolsFactory;
-import org.swrlapi.ui.dialog.SWRLAPIApplicationDialogManager;
+import org.swrlapi.ui.dialog.SWRLRuleEngineDialogManager;
 import org.swrlapi.ui.model.SWRLRuleEngineModel;
 import org.swrlapi.ui.view.SWRLAPIView;
 import org.swrlapi.ui.view.rules.SWRLAPIRulesView;
@@ -28,8 +28,8 @@ public class SWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 	private OWLModelManager modelManager;
 	private SWRLAPIOWLOntology swrlapiOWLOntology;
 	private SWRLRuleEngine ruleEngine;
-	private SWRLRuleEngineModel applicationModel;
-	private SWRLAPIApplicationDialogManager applicationDialogManager;
+	private SWRLRuleEngineModel swrlRuleEngineModel;
+	private SWRLRuleEngineDialogManager ruleEngineDialogManager;
 	private SWRLAPIRulesView rulesView;
 	private Icon ruleEngineIcon;
 	private final SWRLTabListener listener = new SWRLTabListener();
@@ -77,17 +77,17 @@ public class SWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 			// Create the Drools rule engine icon
 			this.ruleEngineIcon = DroolsFactory.getSWRLRuleEngineIcon();
 
-			// Create the application model, supplying it with the ontology and rule engine
-			this.applicationModel = SWRLAPIFactory.createSWRLRuleEngineModel(ruleEngine);
+			// Create the rule engine model, supplying it with the ontology and rule engine
+			this.swrlRuleEngineModel = SWRLAPIFactory.createSWRLRuleEngineModel(ruleEngine);
 
-			// Create the application dialog manager
-			this.applicationDialogManager = SWRLAPIFactory.createSWRLAPIApplicationDialogManager(applicationModel);
+			// Create the rule engine dialog manager
+			this.ruleEngineDialogManager = SWRLAPIFactory.createSWRLRuleEngineDialogManager(swrlRuleEngineModel);
 
 			if (this.rulesView != null)
 				remove(this.rulesView);
 
 			// Create the main SWRLTab plugin view
-			this.rulesView = new SWRLAPIRulesView(applicationModel, applicationDialogManager, ruleEngineIcon);
+			this.rulesView = new SWRLAPIRulesView(swrlRuleEngineModel, ruleEngineDialogManager, ruleEngineIcon);
 			add(this.rulesView);
 
 			log.info("SWRLTab updated");

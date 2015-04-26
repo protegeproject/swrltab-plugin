@@ -14,7 +14,7 @@ import org.swrlapi.core.SWRLAPIFactory;
 import org.swrlapi.core.SWRLAPIOWLOntology;
 import org.swrlapi.drools.core.DroolsFactory;
 import org.swrlapi.sqwrl.SQWRLQueryEngine;
-import org.swrlapi.ui.dialog.SWRLAPIApplicationDialogManager;
+import org.swrlapi.ui.dialog.SWRLRuleEngineDialogManager;
 import org.swrlapi.ui.model.SQWRLQueryEngineModel;
 import org.swrlapi.ui.view.SWRLAPIView;
 import org.swrlapi.ui.view.queries.SWRLAPIQueriesView;
@@ -27,7 +27,7 @@ public class SQWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 
 	private OWLModelManager modelManager;
 	private SQWRLQueryEngineModel sqwrlQueryEngineModel;
-	private SWRLAPIApplicationDialogManager applicationDialogManager;
+	private SWRLRuleEngineDialogManager dialogManager;
 	private SWRLAPIQueriesView queriesView;
 	private SWRLAPIOWLOntology swrlapiOWLOntology;
 	private SQWRLQueryEngine queryEngine;
@@ -77,17 +77,17 @@ public class SQWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 			// Create the Drools rule engine icon
 			this.ruleEngineIcon = DroolsFactory.getSWRLRuleEngineIcon();
 
-			// Create the application model, supplying it with the ontology and rule engine
+			// Create the query engine model, supplying it with the ontology and query engine
 			this.sqwrlQueryEngineModel = SWRLAPIFactory.createSQWRLQueryEngineModel(queryEngine);
 
-			// Create the application dialog manager
-			this.applicationDialogManager = SWRLAPIFactory.createSWRLAPIApplicationDialogManager(sqwrlQueryEngineModel);
+			// Create the dialog manager
+			this.dialogManager = SWRLAPIFactory.createSWRLRuleEngineDialogManager(sqwrlQueryEngineModel);
 
 			if (this.queriesView != null)
 				remove(queriesView);
 
 			// Create the primary SQWRLTab view
-			this.queriesView = new SWRLAPIQueriesView(sqwrlQueryEngineModel, applicationDialogManager, ruleEngineIcon);
+			this.queriesView = new SWRLAPIQueriesView(sqwrlQueryEngineModel, dialogManager, ruleEngineIcon);
 
 			add(this.queriesView);
 
