@@ -15,7 +15,7 @@ import org.swrlapi.core.SWRLAPIOWLOntology;
 import org.swrlapi.core.SWRLRuleEngine;
 import org.swrlapi.drools.core.DroolsFactory;
 import org.swrlapi.ui.dialog.SWRLAPIApplicationDialogManager;
-import org.swrlapi.ui.model.SWRLAPIApplicationModel;
+import org.swrlapi.ui.model.SWRLRuleEngineModel;
 import org.swrlapi.ui.view.SWRLAPIView;
 import org.swrlapi.ui.view.rules.SWRLAPIRulesView;
 
@@ -28,7 +28,7 @@ public class SWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 	private OWLModelManager modelManager;
 	private SWRLAPIOWLOntology swrlapiOWLOntology;
 	private SWRLRuleEngine ruleEngine;
-	private SWRLAPIApplicationModel applicationModel;
+	private SWRLRuleEngineModel applicationModel;
 	private SWRLAPIApplicationDialogManager applicationDialogManager;
 	private SWRLAPIRulesView rulesView;
 	private Icon ruleEngineIcon;
@@ -78,7 +78,7 @@ public class SWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 			this.ruleEngineIcon = DroolsFactory.getSWRLRuleEngineIcon();
 
 			// Create the application model, supplying it with the ontology and rule engine
-			this.applicationModel = SWRLAPIFactory.createSWRLAPIApplicationModel(ruleEngine);
+			this.applicationModel = SWRLAPIFactory.createSWRLRuleEngineModel(ruleEngine);
 
 			// Create the application dialog manager
 			this.applicationDialogManager = SWRLAPIFactory.createSWRLAPIApplicationDialogManager(applicationModel);
