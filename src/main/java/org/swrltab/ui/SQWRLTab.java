@@ -14,7 +14,7 @@ import org.swrlapi.core.SWRLAPIFactory;
 import org.swrlapi.core.SWRLAPIOWLOntology;
 import org.swrlapi.drools.core.DroolsFactory;
 import org.swrlapi.sqwrl.SQWRLQueryEngine;
-import org.swrlapi.ui.dialog.SWRLRuleEngineDialogManager;
+import org.swrlapi.ui.dialog.SWRLAPIDialogManager;
 import org.swrlapi.ui.model.SQWRLQueryEngineModel;
 import org.swrlapi.ui.view.SWRLAPIView;
 import org.swrlapi.ui.view.queries.SWRLAPIQueriesView;
@@ -27,7 +27,7 @@ public class SQWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 
 	private OWLModelManager modelManager;
 	private SQWRLQueryEngineModel sqwrlQueryEngineModel;
-	private SWRLRuleEngineDialogManager dialogManager;
+	private SWRLAPIDialogManager dialogManager;
 	private SWRLAPIQueriesView queriesView;
 	private SWRLAPIOWLOntology swrlapiOWLOntology;
 	private SQWRLQueryEngine queryEngine;
@@ -81,7 +81,7 @@ public class SQWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 			this.sqwrlQueryEngineModel = SWRLAPIFactory.createSQWRLQueryEngineModel(queryEngine);
 
 			// Create the dialog manager
-			this.dialogManager = SWRLAPIFactory.createSWRLRuleEngineDialogManager(sqwrlQueryEngineModel);
+			this.dialogManager = SWRLAPIFactory.createSWRLAPIDialogManager(sqwrlQueryEngineModel);
 
 			if (this.queriesView != null)
 				remove(queriesView);

@@ -14,10 +14,10 @@ import org.swrlapi.core.SWRLAPIFactory;
 import org.swrlapi.core.SWRLAPIOWLOntology;
 import org.swrlapi.core.SWRLRuleEngine;
 import org.swrlapi.drools.core.DroolsFactory;
-import org.swrlapi.ui.dialog.SWRLRuleEngineDialogManager;
+import org.swrlapi.ui.dialog.SWRLAPIDialogManager;
 import org.swrlapi.ui.model.SWRLRuleEngineModel;
 import org.swrlapi.ui.view.SWRLAPIView;
-import org.swrlapi.ui.view.rules.SWRLAPIRulesView;
+import org.swrlapi.ui.view.rules.SWRLRulesView;
 
 public class SWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 {
@@ -29,8 +29,8 @@ public class SWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 	private SWRLAPIOWLOntology swrlapiOWLOntology;
 	private SWRLRuleEngine ruleEngine;
 	private SWRLRuleEngineModel swrlRuleEngineModel;
-	private SWRLRuleEngineDialogManager ruleEngineDialogManager;
-	private SWRLAPIRulesView rulesView;
+	private SWRLAPIDialogManager ruleEngineDialogManager;
+	private SWRLRulesView rulesView;
 	private Icon ruleEngineIcon;
 	private final SWRLTabListener listener = new SWRLTabListener();
 
@@ -81,13 +81,13 @@ public class SWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 			this.swrlRuleEngineModel = SWRLAPIFactory.createSWRLRuleEngineModel(ruleEngine);
 
 			// Create the rule engine dialog manager
-			this.ruleEngineDialogManager = SWRLAPIFactory.createSWRLRuleEngineDialogManager(swrlRuleEngineModel);
+			this.ruleEngineDialogManager = SWRLAPIFactory.createSWRLAPIDialogManager(swrlRuleEngineModel);
 
 			if (this.rulesView != null)
 				remove(this.rulesView);
 
 			// Create the main SWRLTab plugin view
-			this.rulesView = new SWRLAPIRulesView(swrlRuleEngineModel, ruleEngineDialogManager, ruleEngineIcon);
+			this.rulesView = new SWRLRulesView(swrlRuleEngineModel, ruleEngineDialogManager, ruleEngineIcon);
 			add(this.rulesView);
 
 			log.info("SWRLTab updated");
