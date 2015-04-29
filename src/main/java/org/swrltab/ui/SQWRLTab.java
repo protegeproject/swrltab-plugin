@@ -10,8 +10,8 @@ import org.protege.editor.owl.model.event.EventType;
 import org.protege.editor.owl.model.event.OWLModelManagerChangeEvent;
 import org.protege.editor.owl.model.event.OWLModelManagerListener;
 import org.protege.editor.owl.ui.OWLWorkspaceViewsTab;
+import org.semanticweb.owlapi.model.OWLOntology;
 import org.swrlapi.core.SWRLAPIFactory;
-import org.swrlapi.core.SWRLAPIOWLOntology;
 import org.swrlapi.drools.core.DroolsFactory;
 import org.swrlapi.sqwrl.SQWRLQueryEngine;
 import org.swrlapi.ui.dialog.SWRLAPIDialogManager;
@@ -29,7 +29,7 @@ public class SQWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 	private SQWRLQueryEngineModel sqwrlQueryEngineModel;
 	private SWRLAPIDialogManager dialogManager;
 	private SWRLAPIQueriesView queriesView;
-	private SWRLAPIOWLOntology swrlapiOWLOntology;
+	private OWLOntology ontology;
 	private SQWRLQueryEngine queryEngine;
 	private Icon ruleEngineIcon;
 	private final SQWRLTabListener listener = new SQWRLTabListener();
@@ -68,11 +68,11 @@ public class SQWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 	{
 		updating = true;
 		try {
-			// Create a SWRLAPI OWL ontology from the active OWL ontology
-			this.swrlapiOWLOntology = SWRLAPIFactory.createSWRLAPIOntology(this.modelManager.getActiveOntology());
+			// Get the active OWL ontology
+			this.ontology = this.modelManager.getActiveOntology();
 
 			// Create a Drools-based query engine
-			this.queryEngine = swrlapiOWLOntology.createSQWRLQueryEngine(DroolsFactory.getSWRLRuleEngineCreator());
+			this.queryEngine = SWRLAPIFactory.createSQWRLQueryEngine(ontology);
 
 			// Create the Drools rule engine icon
 			this.ruleEngineIcon = DroolsFactory.getSWRLRuleEngineIcon();
