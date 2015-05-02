@@ -74,11 +74,11 @@ public class SQWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
       // Create a Drools-based query engine
       this.queryEngine = SWRLAPIFactory.createSQWRLQueryEngine(this.ontology);
 
-      // Create the Drools rule engine icon
-      this.ruleEngineIcon = DroolsFactory.getSWRLRuleEngineIcon();
+      // Get the rule engine icon
+      this.ruleEngineIcon = this.queryEngine.getSWRLRuleEngineIcon();
 
       // Create the query engine model, supplying it with the ontology and query engine
-      this.sqwrlQueryEngineModel = SWRLAPIFactory.createSQWRLQueryEngineModel(this.queryEngine);
+      this.sqwrlQueryEngineModel = this.queryEngine.createSQWRLQueryEngineModel();
 
       // Create the dialog manager
       this.dialogManager = SWRLAPIFactory.createSWRLAPIDialogManager(this.sqwrlQueryEngineModel);

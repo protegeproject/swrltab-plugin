@@ -1,9 +1,5 @@
 package org.swrltab.ui;
 
-import java.awt.BorderLayout;
-
-import javax.swing.Icon;
-
 import org.apache.log4j.Logger;
 import org.protege.editor.owl.model.OWLModelManager;
 import org.protege.editor.owl.model.event.EventType;
@@ -13,11 +9,13 @@ import org.protege.editor.owl.ui.OWLWorkspaceViewsTab;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.swrlapi.core.SWRLAPIFactory;
 import org.swrlapi.core.SWRLRuleEngine;
-import org.swrlapi.drools.core.DroolsFactory;
 import org.swrlapi.ui.dialog.SWRLAPIDialogManager;
 import org.swrlapi.ui.model.SWRLRuleEngineModel;
 import org.swrlapi.ui.view.SWRLAPIView;
 import org.swrlapi.ui.view.rules.SWRLRulesView;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class SWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 {
@@ -75,10 +73,10 @@ public class SWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
       this.ruleEngine = SWRLAPIFactory.createSWRLRuleEngine(this.ontology);
 
       // Create the Drools rule engine icon
-      this.ruleEngineIcon = DroolsFactory.getSWRLRuleEngineIcon();
+      this.ruleEngineIcon = this.ruleEngine.getSWRLRuleEngineIcon();
 
       // Create the rule engine model, supplying it with the ontology and rule engine
-      this.swrlRuleEngineModel = SWRLAPIFactory.createSWRLRuleEngineModel(this.ruleEngine);
+      this.swrlRuleEngineModel = this.ruleEngine.createSWRLRuleEngineModel();
 
       // Create the rule engine dialog manager
       this.ruleEngineDialogManager = SWRLAPIFactory.createSWRLAPIDialogManager(this.swrlRuleEngineModel);
