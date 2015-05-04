@@ -1,9 +1,5 @@
 package org.swrltab.ui;
 
-import java.awt.BorderLayout;
-
-import javax.swing.Icon;
-
 import org.apache.log4j.Logger;
 import org.protege.editor.owl.model.OWLModelManager;
 import org.protege.editor.owl.model.event.EventType;
@@ -12,12 +8,14 @@ import org.protege.editor.owl.model.event.OWLModelManagerListener;
 import org.protege.editor.owl.ui.OWLWorkspaceViewsTab;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.swrlapi.core.SWRLAPIFactory;
-import org.swrlapi.drools.core.DroolsFactory;
 import org.swrlapi.sqwrl.SQWRLQueryEngine;
 import org.swrlapi.ui.dialog.SWRLAPIDialogManager;
 import org.swrlapi.ui.model.SQWRLQueryEngineModel;
 import org.swrlapi.ui.view.SWRLAPIView;
 import org.swrlapi.ui.view.queries.SWRLAPIQueriesView;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class SQWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 {
@@ -71,17 +69,17 @@ public class SQWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
       // Get the active OWL ontology
       this.ontology = this.modelManager.getActiveOntology();
 
-      // Create a Drools-based query engine
+      // Create a SQWRL query engine
       this.queryEngine = SWRLAPIFactory.createSQWRLQueryEngine(this.ontology);
 
       // Get the rule engine icon
-      this.ruleEngineIcon = this.queryEngine.getSWRLRuleEngineIcon();
+      this.ruleEngineIcon = this.queryEngine.getRuleEngineIcon();
 
-      // Create the query engine model, supplying it with the ontology and query engine
-      this.sqwrlQueryEngineModel = this.queryEngine.createSQWRLQueryEngineModel();
+      // Create the query engine model, supplying it with the query engine
+      this.sqwrlQueryEngineModel = SWRLAPIFactory.createSQWRLQueryEngineModel(this.queryEngine);
 
       // Create the dialog manager
-      this.dialogManager = SWRLAPIFactory.createSWRLAPIDialogManager(this.sqwrlQueryEngineModel);
+      this.dialogManager = SWRLAPIFactory.createDialogManager(this.sqwrlQueryEngineModel);
 
       if (this.queriesView != null)
         remove(this.queriesView);

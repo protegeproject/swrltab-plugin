@@ -27,7 +27,7 @@ public class SWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
   private OWLOntology ontology;
   private SWRLRuleEngine ruleEngine;
   private SWRLRuleEngineModel swrlRuleEngineModel;
-  private SWRLAPIDialogManager ruleEngineDialogManager;
+  private SWRLAPIDialogManager dialogManager;
   private SWRLRulesView rulesView;
   private Icon ruleEngineIcon;
   private final SWRLTabListener listener = new SWRLTabListener();
@@ -73,19 +73,19 @@ public class SWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
       this.ruleEngine = SWRLAPIFactory.createSWRLRuleEngine(this.ontology);
 
       // Create the Drools rule engine icon
-      this.ruleEngineIcon = this.ruleEngine.getSWRLRuleEngineIcon();
+      this.ruleEngineIcon = this.ruleEngine.getRuleEngineIcon();
 
       // Create the rule engine model, supplying it with the ontology and rule engine
-      this.swrlRuleEngineModel = this.ruleEngine.createSWRLRuleEngineModel();
+      this.swrlRuleEngineModel = SWRLAPIFactory.createSWRLRuleEngineModel(this.ruleEngine);
 
       // Create the rule engine dialog manager
-      this.ruleEngineDialogManager = SWRLAPIFactory.createSWRLAPIDialogManager(this.swrlRuleEngineModel);
+      this.dialogManager = SWRLAPIFactory.createDialogManager(this.swrlRuleEngineModel);
 
       if (this.rulesView != null)
         remove(this.rulesView);
 
       // Create the main SWRLTab plugin view
-      this.rulesView = new SWRLRulesView(this.swrlRuleEngineModel, this.ruleEngineDialogManager, this.ruleEngineIcon);
+      this.rulesView = new SWRLRulesView(this.swrlRuleEngineModel, this.dialogManager, this.ruleEngineIcon);
       add(this.rulesView);
 
       log.info("SWRLTab updated");
