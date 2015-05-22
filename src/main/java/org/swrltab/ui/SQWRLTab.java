@@ -1,5 +1,6 @@
 package org.swrltab.ui;
 
+import checkers.nullness.quals.NonNull;
 import org.apache.log4j.Logger;
 import org.protege.editor.owl.model.OWLModelManager;
 import org.protege.editor.owl.model.event.EventType;
@@ -99,7 +100,7 @@ public class SQWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
   private class SQWRLTabListener implements OWLModelManagerListener
   {
     @Override
-    public void handleChange(OWLModelManagerChangeEvent event)
+    public void handleChange(@NonNull OWLModelManagerChangeEvent event)
     {
       if (!SQWRLTab.this.updating) {
         if (event.getType() == EventType.ACTIVE_ONTOLOGY_CHANGED) {

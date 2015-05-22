@@ -1,5 +1,6 @@
 package org.swrltab.ui;
 
+import checkers.nullness.quals.NonNull;
 import org.apache.log4j.Logger;
 import org.protege.editor.owl.model.OWLModelManager;
 import org.protege.editor.owl.model.event.EventType;
@@ -7,8 +8,8 @@ import org.protege.editor.owl.model.event.OWLModelManagerChangeEvent;
 import org.protege.editor.owl.model.event.OWLModelManagerListener;
 import org.protege.editor.owl.ui.OWLWorkspaceViewsTab;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.swrlapi.factory.SWRLAPIFactory;
 import org.swrlapi.core.SWRLRuleEngine;
+import org.swrlapi.factory.SWRLAPIFactory;
 import org.swrlapi.ui.dialog.SWRLAPIDialogManager;
 import org.swrlapi.ui.model.SWRLRuleEngineModel;
 import org.swrlapi.ui.view.SWRLAPIView;
@@ -98,7 +99,7 @@ public class SWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
   private class SWRLTabListener implements OWLModelManagerListener
   {
     @Override
-    public void handleChange(OWLModelManagerChangeEvent event)
+    public void handleChange(@NonNull OWLModelManagerChangeEvent event)
     {
       if (!SWRLTab.this.updating) {
         if (event.getType() == EventType.ACTIVE_ONTOLOGY_CHANGED) {
