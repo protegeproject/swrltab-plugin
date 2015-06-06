@@ -20,93 +20,87 @@ import java.awt.*;
 
 public class SWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 {
-  private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-  private static final Logger log = Logger.getLogger(SWRLTab.class);
+	private static final Logger log = Logger.getLogger(SWRLTab.class);
 
-  private OWLModelManager modelManager;
-  private OWLOntology ontology;
-  private SWRLRuleEngine ruleEngine;
-  private SWRLRuleEngineModel swrlRuleEngineModel;
-  private SWRLAPIDialogManager dialogManager;
-  private SWRLRulesView rulesView;
-  private Icon ruleEngineIcon;
-  private final SWRLTabListener listener = new SWRLTabListener();
+	private OWLModelManager modelManager;
+	private OWLOntology ontology;
+	private SWRLRuleEngine ruleEngine;
+	private SWRLRuleEngineModel swrlRuleEngineModel;
+	private SWRLAPIDialogManager dialogManager;
+	private SWRLRulesView rulesView;
+	private Icon ruleEngineIcon;
+	private final SWRLTabListener listener = new SWRLTabListener();
 
-  private boolean updating = false;
+	private boolean updating = false;
 
-  public SWRLTab()
-  {
-    setToolTipText("SWRLTab");
-  }
+	public SWRLTab()
+	{
+		setToolTipText("SWRLTab");
+	}
 
-  @Override
-  public void initialise()
-  {
-    super.initialise();
+	@Override public void initialise()
+	{
+		super.initialise();
 
-    this.modelManager = getOWLModelManager();
-    this.modelManager.addListener(this.listener);
+		this.modelManager = getOWLModelManager();
+		this.modelManager.addListener(this.listener);
 
-    setLayout(new BorderLayout());
+		setLayout(new BorderLayout());
 
-    if (this.modelManager.getActiveOntology() != null)
-      update();
-  }
+		if (this.modelManager.getActiveOntology() != null)
+			update();
+	}
 
-  @Override
-  public void dispose()
-  {
-    super.dispose();
-    this.modelManager.removeListener(this.listener);
-    log.info("SWRLTab disposed");
-  }
+	@Override public void dispose()
+	{
+		super.dispose();
+		this.modelManager.removeListener(this.listener);
+		log.info("SWRLTab disposed");
+	}
 
-  @Override
-  public void update()
-  {
-    this.updating = true;
-    try {
-      // Create a SWRLAPI OWL ontology from the active OWL ontology
-      this.ontology = this.modelManager.getActiveOntology();
+	@Override public void update()
+	{
+		this.updating = true;
+		try {
+			// Create a SWRLAPI OWL ontology from the active OWL ontology
+			this.ontology = this.modelManager.getActiveOntology();
 
-      // Create a Drools-based rule engine
-      this.ruleEngine = SWRLAPIFactory.createSWRLRuleEngine(this.ontology);
+			// Create a Drools-based rule engine
+			this.ruleEngine = SWRLAPIFactory.createSWRLRuleEngine(this.ontology);
 
-      // Create the Drools rule engine icon
-      this.ruleEngineIcon = this.ruleEngine.getRuleEngineIcon();
+			// Create the rule engine model, supplying it with the ontology and rule engine
+			this.swrlRuleEngineModel = SWRLAPIFactory.createSWRLRuleEngineModel(this.ruleEngine);
 
-      // Create the rule engine model, supplying it with the ontology and rule engine
-      this.swrlRuleEngineModel = SWRLAPIFactory.createSWRLRuleEngineModel(this.ruleEngine);
+			// Create the rule engine dialog manager
+			this.dialogManager = SWRLAPIFactory.createDialogManager(this.swrlRuleEngineModel);
 
-      // Create the rule engine dialog manager
-      this.dialogManager = SWRLAPIFactory.createDialogManager(this.swrlRuleEngineModel);
+			if (this.rulesView != null)
+				remove(this.rulesView);
 
-      if (this.rulesView != null)
-        remove(this.rulesView);
+			// Create the main SWRLTab plugin view
+			this.rulesView = new SWRLRulesView(this.swrlRuleEngineModel, this.dialogManager,
+					this.ruleEngine.getRuleEngineIcon());
+			add(this.rulesView);
 
-      // Create the main SWRLTab plugin view
-      this.rulesView = new SWRLRulesView(this.swrlRuleEngineModel, this.dialogManager, this.ruleEngineIcon);
-      add(this.rulesView);
+			log.info("SWRLTab updated");
+		} catch (RuntimeException e) {
+			log.error("Error updating SWRLTab", e);
+		}
+		this.updating = false;
+	}
 
-      log.info("SWRLTab updated");
-    } catch (RuntimeException e) {
-      log.error("Error updating SWRLTab", e);
-    }
-    this.updating = false;
-  }
-
-  private class SWRLTabListener implements OWLModelManagerListener
-  {
-    @Override
-    public void handleChange(@NonNull OWLModelManagerChangeEvent event)
-    {
-      if (!SWRLTab.this.updating) {
-        if (event.getType() == EventType.ACTIVE_ONTOLOGY_CHANGED) {
-          update();
-        }
-      } else
-        log.info("SWRLTab Ignoring update");
-    }
-  }
+	private class SWRLTabListener implements OWLModelManagerListener
+	{
+		@Override public void handleChange(@NonNull OWLModelManagerChangeEvent event)
+		{
+			if (!SWRLTab.this.updating) {
+				if (event.getType() == EventType.ACTIVE_ONTOLOGY_CHANGED) {
+					update();
+				}
+			} else
+				log.info("SWRLTab Ignoring update");
+		}
+	}
 }

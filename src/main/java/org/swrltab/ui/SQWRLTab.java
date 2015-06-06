@@ -13,7 +13,7 @@ import org.swrlapi.sqwrl.SQWRLQueryEngine;
 import org.swrlapi.ui.dialog.SWRLAPIDialogManager;
 import org.swrlapi.ui.model.SQWRLQueryEngineModel;
 import org.swrlapi.ui.view.SWRLAPIView;
-import org.swrlapi.ui.view.queries.SWRLAPIQueriesView;
+import org.swrlapi.ui.view.queries.SQWRLQueriesView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,7 +27,7 @@ public class SQWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
   private OWLModelManager modelManager;
   private SQWRLQueryEngineModel sqwrlQueryEngineModel;
   private SWRLAPIDialogManager dialogManager;
-  private SWRLAPIQueriesView queriesView;
+  private SQWRLQueriesView queriesView;
   private OWLOntology ontology;
   private SQWRLQueryEngine queryEngine;
   private Icon ruleEngineIcon;
@@ -73,9 +73,6 @@ public class SQWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
       // Create a SQWRL query engine
       this.queryEngine = SWRLAPIFactory.createSQWRLQueryEngine(this.ontology);
 
-      // Get the rule engine icon
-      this.ruleEngineIcon = this.queryEngine.getRuleEngineIcon();
-
       // Create the query engine model, supplying it with the query engine
       this.sqwrlQueryEngineModel = SWRLAPIFactory.createSQWRLQueryEngineModel(this.queryEngine);
 
@@ -86,7 +83,7 @@ public class SQWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
         remove(this.queriesView);
 
       // Create the primary SQWRLTab view
-      this.queriesView = new SWRLAPIQueriesView(this.sqwrlQueryEngineModel, this.dialogManager, this.ruleEngineIcon);
+      this.queriesView = new SQWRLQueriesView(this.sqwrlQueryEngineModel, this.dialogManager, this.queryEngine.getRuleEngineIcon());
 
       add(this.queriesView);
 
