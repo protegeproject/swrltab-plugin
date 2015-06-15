@@ -1,6 +1,6 @@
 # swrltab-plugin
 
-*This plugin will be released in late April, 2015.*
+*The SWRLTab Plugin has not yet been released. This plugin and related libraries are built using the latest 4.0.2 version of the OWLAPI and the current Protégé 5.0.0 Beta 17 has not yet been updated to use this version. The upcoming Beta 18 release of Protégé will use the latest OWLAPI version. The SWRLTab plugin will be released at the same time.*
 
 This repository contains the SWRLAPI-based SWRLTab plugin for the Protégé 5.0+ Desktop ontology editor. 
 
