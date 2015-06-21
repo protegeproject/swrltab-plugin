@@ -83,7 +83,7 @@ public class SQWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
         remove(this.queriesView);
 
       // Create the primary SQWRLTab view
-      this.queriesView = new SQWRLQueriesView(this.sqwrlQueryEngineModel, this.dialogManager, this.queryEngine.getRuleEngineIcon());
+      this.queriesView = new SQWRLQueriesView(this.sqwrlQueryEngineModel, this.dialogManager);
 
       add(this.queriesView);
 

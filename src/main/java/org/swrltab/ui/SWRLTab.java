@@ -80,8 +80,7 @@ public class SWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 				remove(this.rulesView);
 
 			// Create the main SWRLTab plugin view
-			this.rulesView = new SWRLRulesView(this.swrlRuleEngineModel, this.dialogManager,
-					this.ruleEngine.getRuleEngineIcon());
+			this.rulesView = new SWRLRulesView(this.swrlRuleEngineModel, this.dialogManager);
 			add(this.rulesView);
 
 			log.info("SWRLTab updated");
