@@ -71,7 +71,7 @@ public class SWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 			this.ruleEngine = SWRLAPIFactory.createSWRLRuleEngine(this.ontology);
 
 			// Create the rule engine model, supplying it with the ontology and rule engine
-			this.swrlRuleEngineModel = SWRLAPIFactory.createSWRLRuleEngineModel(this.ruleEngine);
+			this.swrlRuleEngineModel = SWRLAPIFactory.createSWRLRuleEngineModel(this.ontology, this.ruleEngine);
 
 			// Create the rule engine dialog manager
 			this.dialogManager = SWRLAPIFactory.createDialogManager(this.swrlRuleEngineModel);

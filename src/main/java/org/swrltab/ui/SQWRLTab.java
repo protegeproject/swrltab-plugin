@@ -74,7 +74,7 @@ public class SQWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
       this.queryEngine = SWRLAPIFactory.createSQWRLQueryEngine(this.ontology);
 
       // Create the query engine model, supplying it with the query engine
-      this.sqwrlQueryEngineModel = SWRLAPIFactory.createSQWRLQueryEngineModel(this.queryEngine);
+      this.sqwrlQueryEngineModel = SWRLAPIFactory.createSQWRLQueryEngineModel(this.ontology, this.queryEngine);
 
       // Create the dialog manager
       this.dialogManager = SWRLAPIFactory.createDialogManager(this.sqwrlQueryEngineModel);
