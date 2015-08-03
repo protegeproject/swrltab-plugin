@@ -13,9 +13,10 @@ Documentation for the SWRLAPI can be found [here](https://github.com/protegeproj
 
 To build and run this plugin you must have the following items installed:
 
-+ Apache's [Maven](http://maven.apache.org/index.html).
-+ A tool for checking out a [Git](http://git-scm.com/) repository.
-+ A Protégé (5.0 beta or higher) distribution. Download [here](http://protege.stanford.edu/download/protege/5.0/snapshots/).
++ Apache's [Maven](http://maven.apache.org/index.html)
++ A tool for checking out a [Git](http://git-scm.com/) repository
++ [Java 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
++ A Protégé (5.0 beta 18 or higher) distribution. Download [here](http://protege.stanford.edu/download/protege/5.0/snapshots/)
 
 #### Building
 
