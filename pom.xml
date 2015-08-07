@@ -1,48 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	
-	<groupId>edu.stanford.swrl</groupId>
- 	<artifactId>swrltab-plugin</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+  <modelVersion>4.0.0</modelVersion>
+  
+  <groupId>edu.stanford.swrl</groupId>
+  <artifactId>swrltab-plugin</artifactId>
+  <version>1.0.0</version>
   <name>SWRLTab Protege 5.0+ Plugin</name>
-	<description>SWRLTab Plugin for Desktop Protege 5.0+</description>
+  <description>SWRLTab Plugin for Desktop Protege 5.0+</description>
   <url>https://github.com/protegeproject/swrltab-plugin/wiki</url>
-	<packaging>bundle</packaging>
-	
-	<properties>
+  <packaging>bundle</packaging>
+  
+  <properties>
     <java.version>1.8</java.version> 
 
     <protege.version>5.0.0-beta-15</protege.version> 
-    <swrlapi.version>1.0.0-SNAPSHOT</swrlapi.version>
+    <swrlapi.version>1.0.0</swrlapi.version>
     <log4j.version>1.2.17</log4j.version>
 
     <checker.framework.version>1.7.5</checker.framework.version>
     
     <maven.compiler.plugin.version>2.3.2</maven.compiler.plugin.version>
-    <maven.bundle.plugin.version>2.4.0</maven.bundle.plugin.version>
+    <maven.bundle.plugin.version>2.5.3</maven.bundle.plugin.version>
 
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
   
-	<dependencies>
+  <dependencies>
 
     <dependency>
-			<groupId>edu.stanford.protege</groupId>
+      <groupId>edu.stanford.protege</groupId>
       <artifactId>org.protege.editor.owl</artifactId>
-			<version>${protege.version}</version>
+      <version>${protege.version}</version>
     </dependency>
 
     <dependency>
-			<groupId>edu.stanford.swrl</groupId>
+      <groupId>edu.stanford.swrl</groupId>
       <artifactId>swrlapi</artifactId>
-			<version>${swrlapi.version}</version>
+      <version>${swrlapi.version}</version>
     </dependency>
 
     <dependency>
-			<groupId>edu.stanford.swrl</groupId>
+      <groupId>edu.stanford.swrl</groupId>
       <artifactId>swrlapi-drools-engine</artifactId>
-			<version>${swrlapi.version}</version>
+      <version>${swrlapi.version}</version>
     </dependency>
 
     <dependency>
@@ -51,53 +51,53 @@
       <version>${checker.framework.version}</version>
     </dependency>
 
-	</dependencies>
+  </dependencies>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>${maven.compiler.plugin.version}</version>
-				<configuration>
-					<source>${java.version}</source>
-					<target>${java.version}</target>
-				</configuration>
-			</plugin>
+  <build>
+    <plugins>
+      <plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-compiler-plugin</artifactId>
+	<version>${maven.compiler.plugin.version}</version>
+	<configuration>
+	  <source>${java.version}</source>
+	  <target>${java.version}</target>
+	</configuration>
+      </plugin>
       
       <plugin>
-				<groupId>org.apache.felix</groupId>
-				<artifactId>maven-bundle-plugin</artifactId>
-				<version>${maven.bundle.plugin.version}</version>
-				<extensions>true</extensions>
-				<configuration>
+	<groupId>org.apache.felix</groupId>
+	<artifactId>maven-bundle-plugin</artifactId>
+	<version>${maven.bundle.plugin.version}</version>
+	<extensions>true</extensions>
+	<configuration>
 
-					<instructions>
-						<Bundle-Activator>org.protege.editor.owl.ProtegeOWL</Bundle-Activator>
-						<Bundle-SymbolicName>${project.artifactId};singleton:=true</Bundle-SymbolicName>
-						<Include-Resource>plugin.xml, {maven-resources}</Include-Resource>
+	  <instructions>
+	    <Bundle-Activator>org.protege.editor.owl.ProtegeOWL</Bundle-Activator>
+	    <Bundle-SymbolicName>${project.artifactId};singleton:=true</Bundle-SymbolicName>
+	    <Include-Resource>plugin.xml, {maven-resources}</Include-Resource>
             <Bundle-ClassPath>.</Bundle-ClassPath>
             <Import-Package>
               org.apache.log4j.*;version="[1.2,2)", 
               org.protege.editor.owl.*;version="[5.0, 6.0)",
-              org.swrlapi.*;version="1.0.6",
+              org.swrlapi.*;version="${swrlapi.version}",
               *
             </Import-Package>
-   				</instructions>
+   	  </instructions>
 
-					<executions>
-						<execution>
-							<id>bundle-manifest</id>
-							<phase>install</phase>
-							<goals>    
-								<goal>manifest</goal>
-							</goals>   
-						</execution>
-					</executions>
-				</configuration>
+	  <executions>
+	    <execution>
+	      <id>bundle-manifest</id>
+	      <phase>install</phase>
+	      <goals>    
+		<goal>manifest</goal>
+	      </goals>   
+	    </execution>
+	  </executions>
+	</configuration>
       </plugin>
       
-		</plugins>
+    </plugins>
 
-	</build>
+  </build>
 </project>
