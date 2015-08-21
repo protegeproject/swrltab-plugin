@@ -15,7 +15,6 @@ import org.swrlapi.ui.model.SQWRLQueryEngineModel;
 import org.swrlapi.ui.view.SWRLAPIView;
 import org.swrlapi.ui.view.queries.SQWRLQueriesView;
 
-import javax.swing.*;
 import java.awt.*;
 
 public class SQWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
@@ -25,12 +24,8 @@ public class SQWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
   private static final long serialVersionUID = 1L;
 
   private OWLModelManager modelManager;
-  private SQWRLQueryEngineModel sqwrlQueryEngineModel;
-  private SWRLRuleEngineDialogManager dialogManager;
   private SQWRLQueriesView queriesView;
-  private OWLOntology ontology;
-  private SQWRLQueryEngine queryEngine;
-  private Icon ruleEngineIcon;
+
   private final SQWRLTabListener listener = new SQWRLTabListener();
 
   private boolean updating = false;
@@ -68,22 +63,22 @@ public class SQWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
     this.updating = true;
     try {
       // Get the active OWL ontology
-      this.ontology = this.modelManager.getActiveOntology();
+      OWLOntology ontology = this.modelManager.getActiveOntology();
 
       // Create a SQWRL query engine
-      this.queryEngine = SWRLAPIFactory.createSQWRLQueryEngine(this.ontology);
+      SQWRLQueryEngine queryEngine = SWRLAPIFactory.createSQWRLQueryEngine(ontology);
 
-      // Create the query engine model, supplying it with the query engine
-      this.sqwrlQueryEngineModel = SWRLAPIFactory.createSQWRLQueryEngineModel(this.queryEngine);
+      // Create a query engine model. This is the core plugin model.
+      SQWRLQueryEngineModel sqwrlQueryEngineModel = SWRLAPIFactory.createSQWRLQueryEngineModel(queryEngine);
 
       // Create the dialog manager
-      this.dialogManager = SWRLAPIFactory.createSWRLRuleEngineDialogManager(this.sqwrlQueryEngineModel);
+      SWRLRuleEngineDialogManager dialogManager = SWRLAPIFactory.createSWRLRuleEngineDialogManager(sqwrlQueryEngineModel);
 
       if (this.queriesView != null)
         remove(this.queriesView);
 
       // Create the primary SQWRLTab view
-      this.queriesView = new SQWRLQueriesView(this.sqwrlQueryEngineModel, this.dialogManager);
+      this.queriesView = new SQWRLQueriesView(sqwrlQueryEngineModel, dialogManager);
 
       add(this.queriesView);
 
