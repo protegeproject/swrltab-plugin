@@ -10,7 +10,7 @@ import org.protege.editor.owl.ui.OWLWorkspaceViewsTab;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.swrlapi.factory.SWRLAPIFactory;
 import org.swrlapi.sqwrl.SQWRLQueryEngine;
-import org.swrlapi.ui.dialog.SWRLAPIDialogManager;
+import org.swrlapi.ui.dialog.SWRLRuleEngineDialogManager;
 import org.swrlapi.ui.model.SQWRLQueryEngineModel;
 import org.swrlapi.ui.view.SWRLAPIView;
 import org.swrlapi.ui.view.queries.SQWRLQueriesView;
@@ -26,7 +26,7 @@ public class SQWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 
   private OWLModelManager modelManager;
   private SQWRLQueryEngineModel sqwrlQueryEngineModel;
-  private SWRLAPIDialogManager dialogManager;
+  private SWRLRuleEngineDialogManager dialogManager;
   private SQWRLQueriesView queriesView;
   private OWLOntology ontology;
   private SQWRLQueryEngine queryEngine;
@@ -74,10 +74,10 @@ public class SQWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
       this.queryEngine = SWRLAPIFactory.createSQWRLQueryEngine(this.ontology);
 
       // Create the query engine model, supplying it with the query engine
-      this.sqwrlQueryEngineModel = SWRLAPIFactory.createSQWRLQueryEngineModel(this.ontology, this.queryEngine);
+      this.sqwrlQueryEngineModel = SWRLAPIFactory.createSQWRLQueryEngineModel(this.queryEngine);
 
       // Create the dialog manager
-      this.dialogManager = SWRLAPIFactory.createDialogManager(this.sqwrlQueryEngineModel);
+      this.dialogManager = SWRLAPIFactory.createSWRLRuleEngineDialogManager(this.sqwrlQueryEngineModel);
 
       if (this.queriesView != null)
         remove(this.queriesView);
