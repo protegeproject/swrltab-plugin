@@ -8,6 +8,7 @@ import org.protege.editor.owl.model.event.OWLModelManagerChangeEvent;
 import org.protege.editor.owl.model.event.OWLModelManagerListener;
 import org.protege.editor.owl.ui.OWLWorkspaceViewsTab;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.swrlapi.factory.SWRLAPIFactory;
 import org.swrlapi.sqwrl.SQWRLQueryEngine;
 import org.swrlapi.ui.dialog.SWRLRuleEngineDialogManager;
@@ -35,8 +36,7 @@ public class SQWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
     setToolTipText("SQWRLTab");
   }
 
-  @Override
-  public void initialise()
+  @Override public void initialise()
   {
     super.initialise();
 
@@ -49,30 +49,31 @@ public class SQWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
       update();
   }
 
-  @Override
-  public void dispose()
+  @Override public void dispose()
   {
     super.dispose();
     this.modelManager.removeListener(this.listener);
     log.info("SQWRLTab disposed");
   }
 
-  @Override
-  public void update()
+  @Override public void update()
   {
     this.updating = true;
     try {
       // Get the active OWL ontology
       OWLOntology ontology = this.modelManager.getActiveOntology();
 
+      DefaultPrefixManager prefixManager = null; // TODO
+
       // Create a SQWRL query engine
-      SQWRLQueryEngine queryEngine = SWRLAPIFactory.createSQWRLQueryEngine(ontology);
+      SQWRLQueryEngine queryEngine = SWRLAPIFactory.createSQWRLQueryEngine(ontology, prefixManager);
 
       // Create a query engine model. This is the core plugin model.
       SQWRLQueryEngineModel sqwrlQueryEngineModel = SWRLAPIFactory.createSQWRLQueryEngineModel(queryEngine);
 
       // Create the dialog manager
-      SWRLRuleEngineDialogManager dialogManager = SWRLAPIFactory.createSWRLRuleEngineDialogManager(sqwrlQueryEngineModel);
+      SWRLRuleEngineDialogManager dialogManager = SWRLAPIFactory
+        .createSWRLRuleEngineDialogManager(sqwrlQueryEngineModel);
 
       if (this.queriesView != null)
         remove(this.queriesView);
@@ -91,8 +92,7 @@ public class SQWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 
   private class SQWRLTabListener implements OWLModelManagerListener
   {
-    @Override
-    public void handleChange(@NonNull OWLModelManagerChangeEvent event)
+    @Override public void handleChange(@NonNull OWLModelManagerChangeEvent event)
     {
       if (!SQWRLTab.this.updating) {
         if (event.getType() == EventType.ACTIVE_ONTOLOGY_CHANGED) {

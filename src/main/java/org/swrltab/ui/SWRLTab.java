@@ -8,6 +8,7 @@ import org.protege.editor.owl.model.event.OWLModelManagerChangeEvent;
 import org.protege.editor.owl.model.event.OWLModelManagerListener;
 import org.protege.editor.owl.ui.OWLWorkspaceViewsTab;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.swrlapi.core.SWRLRuleEngine;
 import org.swrlapi.factory.SWRLAPIFactory;
 import org.swrlapi.ui.dialog.SWRLRuleEngineDialogManager;
@@ -62,8 +63,10 @@ public class SWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 			// Get the active OWL ontology
 			OWLOntology ontology = this.modelManager.getActiveOntology();
 
+			DefaultPrefixManager prefixManager = null; // TODO
+
 			// Create a rule engine
-			SWRLRuleEngine ruleEngine = SWRLAPIFactory.createSWRLRuleEngine(ontology);
+			SWRLRuleEngine ruleEngine = SWRLAPIFactory.createSWRLRuleEngine(ontology, prefixManager);
 
 			// Create a rule engine model. This is the core plugin model.
 			SWRLRuleEngineModel swrlRuleEngineModel = SWRLAPIFactory.createSWRLRuleEngineModel(ruleEngine);
