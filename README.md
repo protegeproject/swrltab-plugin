@@ -5,7 +5,7 @@
 *However, a standalone SWRLTab is currently available [here](https://github.com/protegeproject/swrltab). 
 It contains all the functionality of the Protégé SWRLTab plugin. 
 The [SWRLTab build project](https://github.com/protegeproject/swrltab-project) can also be used to build this
-standalone application and and will ensure that the components it depends on are also built.*
+standalone application and will ensure that the components it depends on are also built.*
 
 This repository contains the SWRLAPI-based SWRLTab plugin for the Protégé 5.0+ Desktop ontology editor. 
 
