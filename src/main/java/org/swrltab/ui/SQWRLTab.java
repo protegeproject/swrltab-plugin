@@ -63,7 +63,7 @@ public class SQWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
       // Get the active OWL ontology
       OWLOntology ontology = this.modelManager.getActiveOntology();
 
-      DefaultPrefixManager prefixManager = null; // TODO
+      DefaultPrefixManager prefixManager = null; // TODO Where to get prefix manager in plugin?
 
       // Create a SQWRL query engine
       SQWRLQueryEngine queryEngine = SWRLAPIFactory.createSQWRLQueryEngine(ontology, prefixManager);
