@@ -13,7 +13,7 @@
   <properties>
     <java.version>1.8</java.version> 
 
-    <protege.version>5.0.0-beta-15</protege.version> 
+    <protege.version>5.0.0-beta-18-SNAPSHOT</protege.version> 
     <swrlapi.version>1.0.0</swrlapi.version>
     <owlapi.version>4.1.1</owlapi.version> 
 
@@ -30,7 +30,7 @@
 
     <dependency>
       <groupId>edu.stanford.protege</groupId>
-      <artifactId>org.protege.editor.owl</artifactId>
+      <artifactId>protege-editor-owl</artifactId>
       <version>${protege.version}</version>
     </dependency>
 
@@ -87,6 +87,7 @@
             <Import-Package>
               org.apache.log4j.*;version="[1.2,2)", 
               org.protege.editor.owl.*;version="[5.0, 6.0)",
+              org.semanticweb.owlapi.*;version="[4.0, 4.9)",
               org.swrlapi.*;version="${swrlapi.version}",
               *
             </Import-Package>
