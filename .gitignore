@@ -8,3 +8,6 @@ target/
 META-INF/
 
 *.iml
+
+pom.xml.releaseBackup
+release.properties
