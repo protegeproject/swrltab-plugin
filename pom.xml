@@ -20,7 +20,7 @@
     <java.version>1.8</java.version> 
 
     <protege.version>5.0.0-beta-18-SNAPSHOT</protege.version> 
-    <swrlapi.version>1.0.0</swrlapi.version>
+    <swrlapi.version>1.0.0-SNAPSHOT</swrlapi.version>
     <owlapi.version>4.1.3</owlapi.version> 
 
     <checker.framework.version>1.7.5</checker.framework.version>
