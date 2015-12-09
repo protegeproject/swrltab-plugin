@@ -37,6 +37,8 @@ public class SQWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 
     setToolTipText("SQWRLTab");
 
+    this.queriesView.initialize();
+
     this.modelManager = getOWLModelManager();
     this.modelManager.addListener(this.listener);
 
@@ -78,6 +80,10 @@ public class SQWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
       // Create the primary SQWRLTab view
       this.queriesView = new SQWRLQueriesView(sqwrlQueryEngineModel, dialogManager);
 
+      // Initialize the view
+      this.queriesView.initialize();
+
+      // Add it
       add(this.queriesView);
 
       log.info("SQWRLTab updated");
