@@ -31,14 +31,11 @@ public class SWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 
 	private boolean updating = false;
 
-	public SWRLTab()
-	{
-		setToolTipText("SWRLTab");
-	}
-
-	@Override public void initialise()
+	@Override public void initialize()
 	{
 		super.initialise();
+
+    setToolTipText("SWRLTab");
 
 		this.modelManager = getOWLModelManager();
 		this.modelManager.addListener(this.listener);
