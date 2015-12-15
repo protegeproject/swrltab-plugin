@@ -19,7 +19,7 @@
   <properties>
     <java.version>1.8</java.version> 
 
-    <protege.version>5.0.0-beta-18-SNAPSHOT</protege.version> 
+    <protege.version>5.0.0-beta-19</protege.version> 
     <swrlapi.version>1.0.0-SNAPSHOT</swrlapi.version>
     <owlapi.version>4.1.3</owlapi.version> 
 
