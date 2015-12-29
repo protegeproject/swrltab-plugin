@@ -1,7 +1,6 @@
 package org.swrltab.ui;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
-import org.apache.log4j.Logger;
 import org.protege.editor.owl.model.OWLModelManager;
 import org.protege.editor.owl.model.event.EventType;
 import org.protege.editor.owl.model.event.OWLModelManagerChangeEvent;
@@ -9,6 +8,8 @@ import org.protege.editor.owl.model.event.OWLModelManagerListener;
 import org.protege.editor.owl.ui.OWLWorkspaceViewsTab;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.swrlapi.core.SWRLRuleEngine;
 import org.swrlapi.factory.SWRLAPIFactory;
 import org.swrlapi.ui.dialog.SWRLRuleEngineDialogManager;
@@ -22,7 +23,7 @@ public class SWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 {
 	private static final long serialVersionUID = 1L;
 
-	private static final Logger log = Logger.getLogger(SWRLTab.class);
+	private static final Logger log = LoggerFactory.getLogger(SWRLTab.class);
 
 	private OWLModelManager modelManager;
 	private SWRLRulesView rulesView;
@@ -33,17 +34,25 @@ public class SWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 
 	@Override public void initialize()
 	{
+    System.out.println("SWRLTab initialize: ");
+    log.info("SWRLTab initialize: ");
 		super.initialise();
 
     setToolTipText("SWRLTab");
 
-		this.modelManager = getOWLModelManager();
-		this.modelManager.addListener(this.listener);
+    this.modelManager = getOWLModelManager();
 
-		setLayout(new BorderLayout());
+    if (this.modelManager != null) {
+      this.modelManager.addListener(this.listener);
 
-		if (this.modelManager.getActiveOntology() != null)
-			update();
+      setLayout(new BorderLayout());
+
+      log.info("SWRLTab initialize: " + this.modelManager.getActiveOntology());
+
+      if (this.modelManager.getActiveOntology() != null)
+        update();
+    } else
+      log.warn("SWRLTab initialization failed - no model manager");
 	}
 
 	@Override public void dispose()
@@ -59,6 +68,8 @@ public class SWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 		try {
 			// Get the active OWL ontology
 			OWLOntology ontology = this.modelManager.getActiveOntology();
+
+			log.info("SWRLTab update: " + ontology);
 
 			DefaultPrefixManager prefixManager = null; // TODO Where to get prefix manager in plugin?
 

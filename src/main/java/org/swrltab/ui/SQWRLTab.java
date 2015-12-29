@@ -1,7 +1,6 @@
 package org.swrltab.ui;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
-import org.apache.log4j.Logger;
 import org.protege.editor.owl.model.OWLModelManager;
 import org.protege.editor.owl.model.event.EventType;
 import org.protege.editor.owl.model.event.OWLModelManagerChangeEvent;
@@ -9,6 +8,8 @@ import org.protege.editor.owl.model.event.OWLModelManagerListener;
 import org.protege.editor.owl.ui.OWLWorkspaceViewsTab;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.swrlapi.factory.SWRLAPIFactory;
 import org.swrlapi.sqwrl.SQWRLQueryEngine;
 import org.swrlapi.ui.dialog.SWRLRuleEngineDialogManager;
@@ -20,7 +21,7 @@ import java.awt.*;
 
 public class SQWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 {
-  private static final Logger log = Logger.getLogger(SQWRLTab.class);
+  private static final Logger log = LoggerFactory.getLogger(SQWRLTab.class);
 
   private static final long serialVersionUID = 1L;
 
@@ -40,12 +41,17 @@ public class SQWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
     this.queriesView.initialize();
 
     this.modelManager = getOWLModelManager();
-    this.modelManager.addListener(this.listener);
 
-    setLayout(new BorderLayout());
+    if (this.modelManager != null) {
+      this.modelManager.addListener(this.listener);
 
-    if (this.modelManager.getActiveOntology() != null)
-      update();
+      setLayout(new BorderLayout());
+
+      if (this.modelManager.getActiveOntology() != null)
+        update();
+    } else
+      log.warn("SQWRLTab initialization failed - no model manager");
+
   }
 
   @Override public void dispose()
