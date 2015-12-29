@@ -7,19 +7,17 @@ import org.protege.editor.owl.model.event.OWLModelManagerChangeEvent;
 import org.protege.editor.owl.model.event.OWLModelManagerListener;
 import org.protege.editor.owl.ui.OWLWorkspaceViewsTab;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.swrlapi.core.SWRLRuleEngine;
 import org.swrlapi.factory.SWRLAPIFactory;
 import org.swrlapi.ui.dialog.SWRLRuleEngineDialogManager;
 import org.swrlapi.ui.model.SWRLRuleEngineModel;
-import org.swrlapi.ui.view.SWRLAPIView;
 import org.swrlapi.ui.view.rules.SWRLRulesView;
 
 import java.awt.*;
 
-public class SWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
+public class SWRLTab extends OWLWorkspaceViewsTab
 {
 	private static final long serialVersionUID = 1L;
 
@@ -32,10 +30,8 @@ public class SWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 
 	private boolean updating = false;
 
-	@Override public void initialize()
+	@Override public void initialise()
 	{
-    System.out.println("SWRLTab initialize: ");
-    log.info("SWRLTab initialize: ");
 		super.initialise();
 
     setToolTipText("SWRLTab");
@@ -47,7 +43,7 @@ public class SWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 
       setLayout(new BorderLayout());
 
-      log.info("SWRLTab initialize: " + this.modelManager.getActiveOntology());
+      log.info("SWRLTab initialized");
 
       if (this.modelManager.getActiveOntology() != null)
         update();
@@ -62,35 +58,35 @@ public class SWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 		log.info("SWRLTab disposed");
 	}
 
-	@Override public void update()
+  private void update()
 	{
 		this.updating = true;
 		try {
 			// Get the active OWL ontology
-			OWLOntology ontology = this.modelManager.getActiveOntology();
+			OWLOntology activeOntology = this.modelManager.getActiveOntology();
 
-			log.info("SWRLTab update: " + ontology);
+      if (activeOntology != null) {
 
-			DefaultPrefixManager prefixManager = null; // TODO Where to get prefix manager in plugin?
+        // Create a rule engine
+        SWRLRuleEngine ruleEngine = SWRLAPIFactory.createSWRLRuleEngine(activeOntology);
 
-			// Create a rule engine
-			SWRLRuleEngine ruleEngine = SWRLAPIFactory.createSWRLRuleEngine(ontology, prefixManager);
+        // Create a rule engine model. This is the core plugin model.
+        SWRLRuleEngineModel swrlRuleEngineModel = SWRLAPIFactory.createSWRLRuleEngineModel(ruleEngine);
 
-			// Create a rule engine model. This is the core plugin model.
-			SWRLRuleEngineModel swrlRuleEngineModel = SWRLAPIFactory.createSWRLRuleEngineModel(ruleEngine);
+        // Create the rule engine dialog manager
+        SWRLRuleEngineDialogManager dialogManager = SWRLAPIFactory.createSWRLRuleEngineDialogManager(swrlRuleEngineModel);
 
-			// Create the rule engine dialog manager
-			SWRLRuleEngineDialogManager dialogManager = SWRLAPIFactory.createSWRLRuleEngineDialogManager(swrlRuleEngineModel);
+        if (this.rulesView != null)
+          remove(this.rulesView);
 
-			if (this.rulesView != null)
-				remove(this.rulesView);
+        // Create the main SWRLTab plugin view
+        this.rulesView = new SWRLRulesView(swrlRuleEngineModel, dialogManager);
+        this.rulesView.initialize();
+        add(this.rulesView);
 
-			// Create the main SWRLTab plugin view
-			this.rulesView = new SWRLRulesView(swrlRuleEngineModel, dialogManager);
-			this.rulesView.initialize();
-			add(this.rulesView);
-
-			log.info("SWRLTab updated");
+        log.info("SWRLTab updated");
+      } else
+        log.warn("SWRLTab update failed - no active OWL ontology");
 		} catch (RuntimeException e) {
 			log.error("Error updating SWRLTab", e);
 		}

@@ -7,19 +7,17 @@ import org.protege.editor.owl.model.event.OWLModelManagerChangeEvent;
 import org.protege.editor.owl.model.event.OWLModelManagerListener;
 import org.protege.editor.owl.ui.OWLWorkspaceViewsTab;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.swrlapi.factory.SWRLAPIFactory;
 import org.swrlapi.sqwrl.SQWRLQueryEngine;
 import org.swrlapi.ui.dialog.SWRLRuleEngineDialogManager;
 import org.swrlapi.ui.model.SQWRLQueryEngineModel;
-import org.swrlapi.ui.view.SWRLAPIView;
 import org.swrlapi.ui.view.queries.SQWRLQueriesView;
 
 import java.awt.*;
 
-public class SQWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
+public class SQWRLTab extends OWLWorkspaceViewsTab
 {
   private static final Logger log = LoggerFactory.getLogger(SQWRLTab.class);
 
@@ -32,7 +30,7 @@ public class SQWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 
   private boolean updating = false;
 
-  @Override public void initialize()
+  @Override public void initialise()
   {
     super.initialise();
 
@@ -49,6 +47,7 @@ public class SQWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
 
       if (this.modelManager.getActiveOntology() != null)
         update();
+      log.info("SQWRLTab initialized");
     } else
       log.warn("SQWRLTab initialization failed - no model manager");
 
@@ -61,38 +60,39 @@ public class SQWRLTab extends OWLWorkspaceViewsTab implements SWRLAPIView
     log.info("SQWRLTab disposed");
   }
 
-  @Override public void update()
+  private void update()
   {
     this.updating = true;
     try {
       // Get the active OWL ontology
-      OWLOntology ontology = this.modelManager.getActiveOntology();
+      OWLOntology activeOntology = this.modelManager.getActiveOntology();
 
-      DefaultPrefixManager prefixManager = null; // TODO Where to get prefix manager in plugin?
+      if (activeOntology != null) {
+        // Create a SQWRL query engine
+        SQWRLQueryEngine queryEngine = SWRLAPIFactory.createSQWRLQueryEngine(activeOntology);
 
-      // Create a SQWRL query engine
-      SQWRLQueryEngine queryEngine = SWRLAPIFactory.createSQWRLQueryEngine(ontology, prefixManager);
+        // Create a query engine model. This is the core plugin model.
+        SQWRLQueryEngineModel sqwrlQueryEngineModel = SWRLAPIFactory.createSQWRLQueryEngineModel(queryEngine);
 
-      // Create a query engine model. This is the core plugin model.
-      SQWRLQueryEngineModel sqwrlQueryEngineModel = SWRLAPIFactory.createSQWRLQueryEngineModel(queryEngine);
+        // Create the dialog manager
+        SWRLRuleEngineDialogManager dialogManager = SWRLAPIFactory
+          .createSWRLRuleEngineDialogManager(sqwrlQueryEngineModel);
 
-      // Create the dialog manager
-      SWRLRuleEngineDialogManager dialogManager = SWRLAPIFactory
-        .createSWRLRuleEngineDialogManager(sqwrlQueryEngineModel);
+        if (this.queriesView != null)
+          remove(this.queriesView);
 
-      if (this.queriesView != null)
-        remove(this.queriesView);
+        // Create the primary SQWRLTab view
+        this.queriesView = new SQWRLQueriesView(sqwrlQueryEngineModel, dialogManager);
 
-      // Create the primary SQWRLTab view
-      this.queriesView = new SQWRLQueriesView(sqwrlQueryEngineModel, dialogManager);
+        // Initialize the view
+        this.queriesView.initialize();
 
-      // Initialize the view
-      this.queriesView.initialize();
+        // Add it
+        add(this.queriesView);
 
-      // Add it
-      add(this.queriesView);
-
-      log.info("SQWRLTab updated");
+        log.info("SQWRLTab updated");
+      } else
+        log.warn("SQWRLTab update failed - no active OWL ontology");
     } catch (RuntimeException e) {
       log.error("Error updating SQWRLTab", e);
     }
