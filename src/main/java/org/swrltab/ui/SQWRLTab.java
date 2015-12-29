@@ -36,8 +36,6 @@ public class SQWRLTab extends OWLWorkspaceViewsTab
 
     setToolTipText("SQWRLTab");
 
-    this.queriesView.initialize();
-
     this.modelManager = getOWLModelManager();
 
     if (this.modelManager != null) {
