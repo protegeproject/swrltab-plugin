@@ -157,7 +157,7 @@
             <Embed-Dependency>
               swrlapi, swrlapi-drools-engine, 
               axis,
-               drools-core, drools-compiler, knowledge-api, antlr-runtime, kie-api, kie-internal, mvel2, ecj, 
+              drools-core, drools-compiler, knowledge-api, drools-reteoo, antlr-runtime, kie-api, kie-internal, mvel2, ecj, 
               checker, checker-qual, 
               commons-codec, commons-discovery
             </Embed-Dependency>
