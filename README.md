@@ -10,10 +10,10 @@ Documentation for the SWRLAPI can be found [here](https://github.com/protegeproj
 
 To build and run this plugin you must have the following items installed:
 
-+ Apache's [Maven](http://maven.apache.org/index.html)
-+ A tool for checking out a [Git](http://git-scm.com/) repository
 + [Java 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
-+ A Protégé (5.0 beta 18 or higher) distribution. Download [here](http://protege.stanford.edu/download/protege/5.0/snapshots/)
++ A tool for checking out a [Git](http://git-scm.com/) repository
++ Apache's [Maven](http://maven.apache.org/index.html)
++ A Protégé (5.0.0 Beta 21 or higher) distribution. Download [here](http://protege.stanford.edu/products.php#desktop-protege).
 
 #### Building
 
@@ -33,20 +33,17 @@ Build it with Maven:
 
 #### Installing Plugin
 
-On build completion the ```target``` directory will contain a swrltab-plugin-${version}.jar file.
+On build completion the ```target``` directory will contain a swrltab-plugin-${version}.jar file. 
+The JAR contains both SWRLTab and SQWRLTab plugins.
 
 This JAR is generated in the OSGi bundle format required by Protégé's plugin-in mechanism.
 
-To install this plug-in into your local Protégé, copy the JAR file from the target directory to the "plugins" subdirectory of your Protégé installation (e.g.,
+To install these plugins into your local Protégé, copy the JAR file from the target directory to the "plugins" subdirectory of your Protégé installation (e.g.,
 /Applications/Protege-5.0.0-beta-21/plugins/).
  
-#### View the Plugin in Protégé
+#### View the Plugins in Protégé
 
-Launch your Protégé distribution. Select About Protégé from the Protégé menu to verify successful installation:
-
-The  bundle contains:
-
-+ Two custom tabs - "SWRLTab" and "SQWRLTab". Enable either tab via the Window | Tabs menu.
+Enable either tab via the Window | Tabs menu.
  
 #### Example plug-in screenshots
 
