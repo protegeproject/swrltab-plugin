@@ -17,9 +17,11 @@ To build and run this plugin you must have the following items installed:
 
 #### Building
 
+*The SWRLAPI libraries used by the SWRLTab Plugin are not yet on Maven central. They can be built using the [SWRLTab build project](https://github.com/protegeproject/swrltab-project).*
+
 Get a copy of the latest code:
 
-    git clone https://github.com/protegeproject/swrltab-plugin.git swrltab-plugin
+    git clone https://github.com/protegeproject/swrltab-plugin.git
     
 Change into the swrltab-plugin directory:
 
@@ -34,7 +36,7 @@ On build completion the ```target``` directory will contain a swrltab-plugin-${v
 This JAR is generated in the OSGi bundle format required by Protégé's plugin-in mechanism.
 
 To install this plug-in into your local Protégé, copy the JAR file from the target directory to the "plugins" subdirectory of your Protégé installation (e.g.,
-/Applications/Protege_5.0_beta/plugins/).
+/Applications/Protege_5.0.0-beta-21/plugins/).
  
 #### View the Plugin in Protégé
 
