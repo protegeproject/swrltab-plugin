@@ -10,17 +10,17 @@
 
   <groupId>edu.stanford.swrl</groupId>
   <artifactId>swrltab-plugin</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.0-beta-1-SNAPSHOT</version>
   <name>SWRLTab Protege 5.0+ Plugin</name>
   <description>SWRLTab Plugin for Desktop Protege 5.0+</description>
   <url>https://github.com/protegeproject/swrltab-plugin/wiki</url>
   <packaging>bundle</packaging>
   
   <properties>
-    <java.version>1.8</java.version> 
 
     <protege.version>5.0.0-beta-21</protege.version> 
-    <swrlapi.version>1.0.0-SNAPSHOT</swrlapi.version>
+    <swrlapi.version>1.0.0-beta-1</swrlapi.version>
+    <swrlapi.drools.version>1.0.0-beta-1</swrlapi.drools.version>
     <owlapi.version>4.1.3</owlapi.version> 
 
     <slf4j.version>1.7.13</slf4j.version>
@@ -33,7 +33,10 @@
     <maven.gpg.plugin.version>1.5</maven.gpg.plugin.version>
     <maven.scm.gitexe.version>1.9</maven.scm.gitexe.version>
     
+    <java.version>1.8</java.version> 
+
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
   </properties>
 
   <developers>
@@ -111,7 +114,7 @@
     <dependency>
       <groupId>edu.stanford.swrl</groupId>
       <artifactId>swrlapi-drools-engine</artifactId>
-      <version>${swrlapi.version}</version>
+      <version>${swrlapi.drools.version}</version>
     </dependency>
 
     <dependency>
