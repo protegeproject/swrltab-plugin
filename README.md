@@ -31,12 +31,14 @@ Build it with Maven:
 
     mvn clean package  
 
+#### Installing Plugin
+
 On build completion the ```target``` directory will contain a swrltab-plugin-${version}.jar file.
 
 This JAR is generated in the OSGi bundle format required by Protégé's plugin-in mechanism.
 
 To install this plug-in into your local Protégé, copy the JAR file from the target directory to the "plugins" subdirectory of your Protégé installation (e.g.,
-/Applications/Protege_5.0.0-beta-21/plugins/).
+/Applications/Protege-5.0.0-beta-21/plugins/).
  
 #### View the Plugin in Protégé
 
