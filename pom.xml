@@ -19,8 +19,8 @@
   <properties>
 
     <protege.version>5.0.0-beta-21</protege.version> 
-    <swrlapi.version>1.0.0-beta-3</swrlapi.version>
-    <swrlapi.drools.version>1.0.0-beta-2</swrlapi.drools.version>
+    <swrlapi.version>1.0.0-beta-4</swrlapi.version>
+    <swrlapi.drools.version>1.0.0-beta-6</swrlapi.drools.version>
     <owlapi.version>4.1.3</owlapi.version> 
 
     <slf4j.version>1.7.13</slf4j.version>
@@ -28,6 +28,7 @@
     <maven.compiler.plugin.version>2.3.2</maven.compiler.plugin.version>
     <maven.bundle.plugin.version>2.5.4</maven.bundle.plugin.version>
     <maven.release.plugin.version>2.5</maven.release.plugin.version>
+    <maven.nexus-staging.plugin.version>1.6.3</maven.nexus-staging.plugin.version>
     <maven.source.plugin.version>2.2.1</maven.source.plugin.version>
     <maven.javadoc.plugin.version>2.9.1</maven.javadoc.plugin.version>
     <maven.gpg.plugin.version>1.5</maven.gpg.plugin.version>
@@ -221,7 +222,7 @@
 
   <profiles>
     <profile>
-      <id>prepare-release</id>
+      <id>release</id>
       <activation>
 	<activeByDefault>false</activeByDefault>
       </activation>
@@ -273,7 +274,23 @@
 	      </execution>
 	    </executions>
 	  </plugin>
+
+          <!-- See http://central.sonatype.org/pages/apache-maven.html -->
+          <plugin>
+            <groupId>org.sonatype.plugins</groupId>
+            <artifactId>nexus-staging-maven-plugin</artifactId>
+            <version>${maven.nexus-staging.plugin.version}</version>
+            <extensions>true</extensions>
+            <configuration>
+              <serverId>ossrh</serverId>
+              <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+              <description>${project.version}</description>
+              <autoReleaseAfterClose>true</autoReleaseAfterClose>
+            </configuration>
+          </plugin>
+
 	</plugins>
+
       </build>
     </profile>
   </profiles>
