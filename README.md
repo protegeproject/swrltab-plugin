@@ -10,7 +10,7 @@ Documentation for the SWRLAPI can be found [here](https://github.com/protegeproj
 #### Installing
 
 Currently, the plugin must be installed manually by getting the latest JAR from the [project's GitHub Release area](https://github.com/protegeproject/swrltab-plugin/releases) and copying it to the ```plugins``` subdirectory of your Protégé installation (e.g.,
-/Applications/Protege-5.0.0-beta-21/plugins/).
+/Applications/Protege-5.0.0/plugins/).
 
 The plugin will be pre-installed in the next Protégé release.
 
@@ -27,6 +27,22 @@ SWRLTab:
 SQWRLTab:
 
 ![SQWRLTab](/img/SQWRLTab.png?raw=true "SQWRLTab")
+
+#### Downloading
+
+If you want to get the plugin JAR, either download the latest JAR from the [project's GitHub Release area](https://github.com/protegeproject/swrltab-plugin/releases) or use your favourite dependency management tool to download it from Maven Central. Here is the Maven dependency for this plugin:
+
+```
+  <dependency>
+    <groupId>edu.stanford.swrl</groupId>
+    <artifactId>swrltab-plugin</artifactId>
+    <version>1.0.0-beta-5</version>
+  </dependency>
+```
+
+#### Manually Installing
+
+Copying the plugin JAR to the ```plugins``` subdirectory of your Protégé installation (e.g., /Applications/Protege-5.0.0/plugins/).
 
 #### Building
 
@@ -53,7 +69,7 @@ On build completion the ```target``` directory will contain a swrltab-plugin-${v
 The JAR contains both SWRLTab and SQWRLTab components and is generated in the OSGi bundle format required by Protégé's plugin-in mechanism.
 
 To install in your local Protégé, copy this JAR file to the ```plugins``` subdirectory of your Protégé installation (e.g.,
-/Applications/Protege-5.0.0-beta-21/plugins/).  
+/Applications/Protege-5.0.0/plugins/).  
 
 #### Questions
 

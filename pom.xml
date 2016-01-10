@@ -19,8 +19,8 @@
   <properties>
 
     <protege.version>5.0.0-beta-21</protege.version> 
-    <swrlapi.version>1.0.0-beta-4</swrlapi.version>
-    <swrlapi.drools.version>1.0.0-beta-6</swrlapi.drools.version>
+    <swrlapi.version>1.0.0-beta-6</swrlapi.version>
+    <swrlapi.drools.version>1.0.0-beta-7</swrlapi.drools.version>
     <owlapi.version>4.1.3</owlapi.version> 
 
     <slf4j.version>1.7.13</slf4j.version>
@@ -35,7 +35,6 @@
     <maven.scm.gitexe.version>1.9</maven.scm.gitexe.version>
     
     <java.version>1.8</java.version> 
-
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
   </properties>
