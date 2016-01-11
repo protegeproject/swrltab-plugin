@@ -28,22 +28,6 @@ SQWRLTab:
 
 ![SQWRLTab](/img/SQWRLTab.png?raw=true "SQWRLTab")
 
-#### Downloading
-
-If you want to get the plugin JAR, either download the latest JAR from the [project's GitHub Release area](https://github.com/protegeproject/swrltab-plugin/releases) or use your favourite dependency management tool to download it from Maven Central. Here is the Maven dependency for this plugin:
-
-```
-  <dependency>
-    <groupId>edu.stanford.swrl</groupId>
-    <artifactId>swrltab-plugin</artifactId>
-    <version>1.0.0-beta-5</version>
-  </dependency>
-```
-
-#### Manually Installing
-
-Copying the plugin JAR to the ```plugins``` subdirectory of your Protégé installation (e.g., /Applications/Protege-5.0.0/plugins/).
-
 #### Building
 
 To build this plugin you must have the following items installed:
