@@ -1,5 +1,7 @@
 # swrltab-plugin
 
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/edu.stanford.swrl/swrltab-plugin/badge.svg)](https://maven-badges.herokuapp.com/maven-central/edu.stanford.swrl/swrltab-plugin)
+
 This repository contains the SWRLAPI-based SWRLTab plugin for the Protégé 5.0 Desktop ontology editor.
 The plugin contains SWRLTab and SQWRLTab components for working with SWRL rules and SQWRL queries.
 Note that the plugin will work only in version 5.0.0-Beta-21 and later.
@@ -54,6 +56,10 @@ The JAR contains both SWRLTab and SQWRLTab components and is generated in the OS
 
 To install in your local Protégé, copy this JAR file to the ```plugins``` subdirectory of your Protégé installation (e.g.,
 /Applications/Protege-5.0.0/plugins/).  
+
+#### License
+
+The software is licensed under the [BSD 2-clause License](https://github.com/protegeproject/swrltab-plugin/blob/master/license.txt).
 
 #### Questions
 
