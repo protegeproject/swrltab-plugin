@@ -1,5 +1,6 @@
 # swrltab-plugin
 
+[![Build Status](https://travis-ci.org/protegeproject/swrltab-plugin.svg?branch=master)](https://travis-ci.org/protegeproject/swrltab-plugin)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/edu.stanford.swrl/swrltab-plugin/badge.svg)](https://maven-badges.herokuapp.com/maven-central/edu.stanford.swrl/swrltab-plugin)
 
 This repository contains the SWRLAPI-based SWRLTab plugin for the Protégé 5.0 Desktop ontology editor.
