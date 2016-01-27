@@ -19,8 +19,8 @@
   <properties>
 
     <protege.version>5.0.0-beta-21</protege.version> 
-    <swrlapi.version>1.0.0-beta-8-SNAPSHOT</swrlapi.version>
-    <swrlapi.drools.version>1.0.0-beta-9-SNAPSHOT</swrlapi.drools.version>
+    <swrlapi.version>1.0.0-beta-8</swrlapi.version>
+    <swrlapi.drools.version>1.0.0-beta-9</swrlapi.drools.version>
     <owlapi.version>4.1.3</owlapi.version> 
 
     <slf4j.version>1.7.13</slf4j.version>
