@@ -23,7 +23,6 @@ public class SQWRLTab extends OWLWorkspaceViewsTab
 
   private static final long serialVersionUID = 1L;
 
-  private OWLModelManager modelManager;
   private SQWRLQueriesView queriesView;
 
   private final SQWRLTabListener listener = new SQWRLTabListener();
@@ -36,14 +35,12 @@ public class SQWRLTab extends OWLWorkspaceViewsTab
 
     setToolTipText("SQWRLTab");
 
-    this.modelManager = getOWLModelManager();
-
-    if (this.modelManager != null) {
-      this.modelManager.addListener(this.listener);
+    if (getOWLModelManager() != null) {
+      getOWLModelManager().addListener(this.listener);
 
       setLayout(new BorderLayout());
 
-      if (this.modelManager.getActiveOntology() != null)
+      if (getOWLModelManager().getActiveOntology() != null)
         update();
       log.info("SQWRLTab initialized");
     } else
@@ -54,7 +51,7 @@ public class SQWRLTab extends OWLWorkspaceViewsTab
   @Override public void dispose()
   {
     super.dispose();
-    this.modelManager.removeListener(this.listener);
+    getOWLModelManager().removeListener(this.listener);
     log.info("SQWRLTab disposed");
   }
 
@@ -63,7 +60,7 @@ public class SQWRLTab extends OWLWorkspaceViewsTab
     this.updating = true;
     try {
       // Get the active OWL ontology
-      OWLOntology activeOntology = this.modelManager.getActiveOntology();
+      OWLOntology activeOntology = getOWLModelManager().getActiveOntology();
 
       if (activeOntology != null) {
         // Create a SQWRL query engine

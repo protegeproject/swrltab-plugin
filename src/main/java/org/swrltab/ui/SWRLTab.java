@@ -1,7 +1,6 @@
 package org.swrltab.ui;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
-import org.protege.editor.owl.model.OWLModelManager;
 import org.protege.editor.owl.model.event.EventType;
 import org.protege.editor.owl.model.event.OWLModelManagerChangeEvent;
 import org.protege.editor.owl.model.event.OWLModelManagerListener;
@@ -19,51 +18,49 @@ import java.awt.*;
 
 public class SWRLTab extends OWLWorkspaceViewsTab
 {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	private static final Logger log = LoggerFactory.getLogger(SWRLTab.class);
+  private static final Logger log = LoggerFactory.getLogger(SWRLTab.class);
 
-	private OWLModelManager modelManager;
-	private SWRLRulesView rulesView;
+  private SWRLRulesView rulesView;
 
-	private final SWRLTabListener listener = new SWRLTabListener();
+  private final SWRLTabListener listener = new SWRLTabListener();
 
-	private boolean updating = false;
+  private boolean updating = false;
 
-	@Override public void initialise()
-	{
-		super.initialise();
+  @Override public void initialise()
+  {
+    super.initialise();
 
     setToolTipText("SWRLTab");
 
-    this.modelManager = getOWLModelManager();
 
-    if (this.modelManager != null) {
-      this.modelManager.addListener(this.listener);
+    if (getOWLModelManager() != null) {
+      getOWLModelManager().addListener(this.listener);
 
       setLayout(new BorderLayout());
 
       log.info("SWRLTab initialized");
 
-      if (this.modelManager.getActiveOntology() != null)
+      if (getOWLModelManager().getActiveOntology() != null)
         update();
     } else
       log.warn("SWRLTab initialization failed - no model manager");
-	}
+  }
 
-	@Override public void dispose()
-	{
-		super.dispose();
-		this.modelManager.removeListener(this.listener);
-		log.info("SWRLTab disposed");
-	}
+  @Override public void dispose()
+  {
+    super.dispose();
+    getOWLModelManager().removeListener(this.listener);
+    log.info("SWRLTab disposed");
+  }
 
   private void update()
-	{
-		this.updating = true;
-		try {
-			// Get the active OWL ontology
-			OWLOntology activeOntology = this.modelManager.getActiveOntology();
+  {
+    this.updating = true;
+    try {
+      // Get the active OWL ontology
+      OWLOntology activeOntology = getOWLModelManager().getActiveOntology();
 
       if (activeOntology != null) {
 
@@ -74,7 +71,8 @@ public class SWRLTab extends OWLWorkspaceViewsTab
         SWRLRuleEngineModel swrlRuleEngineModel = SWRLAPIFactory.createSWRLRuleEngineModel(ruleEngine);
 
         // Create the rule engine dialog manager
-        SWRLRuleEngineDialogManager dialogManager = SWRLAPIFactory.createSWRLRuleEngineDialogManager(swrlRuleEngineModel);
+        SWRLRuleEngineDialogManager dialogManager = SWRLAPIFactory
+          .createSWRLRuleEngineDialogManager(swrlRuleEngineModel);
 
         if (this.rulesView != null)
           remove(this.rulesView);
@@ -87,22 +85,22 @@ public class SWRLTab extends OWLWorkspaceViewsTab
         log.info("SWRLTab updated");
       } else
         log.warn("SWRLTab update failed - no active OWL ontology");
-		} catch (RuntimeException e) {
-			log.error("Error updating SWRLTab", e);
-		}
-		this.updating = false;
-	}
+    } catch (RuntimeException e) {
+      log.error("Error updating SWRLTab", e);
+    }
+    this.updating = false;
+  }
 
-	private class SWRLTabListener implements OWLModelManagerListener
-	{
-		@Override public void handleChange(@NonNull OWLModelManagerChangeEvent event)
-		{
-			if (!SWRLTab.this.updating) {
-				if (event.getType() == EventType.ACTIVE_ONTOLOGY_CHANGED) {
-					update();
-				}
-			} else
-				log.info("SWRLTab Ignoring update");
-		}
-	}
+  private class SWRLTabListener implements OWLModelManagerListener
+  {
+    @Override public void handleChange(@NonNull OWLModelManagerChangeEvent event)
+    {
+      if (!SWRLTab.this.updating) {
+        if (event.getType() == EventType.ACTIVE_ONTOLOGY_CHANGED) {
+          update();
+        }
+      } else
+        log.info("SWRLTab Ignoring update");
+    }
+  }
 }
