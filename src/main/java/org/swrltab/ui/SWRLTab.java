@@ -40,8 +40,6 @@ public class SWRLTab extends OWLWorkspaceViewsTab
 
       setLayout(new BorderLayout());
 
-      log.info("SWRLTab initialized");
-
       if (getOWLModelManager().getActiveOntology() != null)
         update();
     } else
@@ -52,7 +50,6 @@ public class SWRLTab extends OWLWorkspaceViewsTab
   {
     super.dispose();
     getOWLModelManager().removeListener(this.listener);
-    log.info("SWRLTab disposed");
   }
 
   private void update()
@@ -82,7 +79,6 @@ public class SWRLTab extends OWLWorkspaceViewsTab
         this.rulesView.initialize();
         add(this.rulesView);
 
-        log.info("SWRLTab updated");
       } else
         log.warn("SWRLTab update failed - no active OWL ontology");
     } catch (RuntimeException e) {
@@ -100,7 +96,7 @@ public class SWRLTab extends OWLWorkspaceViewsTab
           update();
         }
       } else
-        log.info("SWRLTab Ignoring update");
+        log.warn("SWRLTab ignoring new update - still processing old update");
     }
   }
 }

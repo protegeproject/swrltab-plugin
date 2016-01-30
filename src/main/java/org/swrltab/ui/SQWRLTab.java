@@ -42,7 +42,6 @@ public class SQWRLTab extends OWLWorkspaceViewsTab
 
       if (getOWLModelManager().getActiveOntology() != null)
         update();
-      log.info("SQWRLTab initialized");
     } else
       log.warn("SQWRLTab initialization failed - no model manager");
 
@@ -52,7 +51,6 @@ public class SQWRLTab extends OWLWorkspaceViewsTab
   {
     super.dispose();
     getOWLModelManager().removeListener(this.listener);
-    log.info("SQWRLTab disposed");
   }
 
   private void update()
@@ -85,7 +83,6 @@ public class SQWRLTab extends OWLWorkspaceViewsTab
         // Add it
         add(this.queriesView);
 
-        log.info("SQWRLTab updated");
       } else
         log.warn("SQWRLTab update failed - no active OWL ontology");
     } catch (RuntimeException e) {
@@ -103,7 +100,7 @@ public class SQWRLTab extends OWLWorkspaceViewsTab
           update();
         }
       } else
-        log.info("SQWRLTab Ignoring update");
+        log.warn("SQWRLTab ignoring new update - still processing old update");
     }
   }
 }
