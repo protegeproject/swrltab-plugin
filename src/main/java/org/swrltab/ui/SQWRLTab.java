@@ -1,7 +1,6 @@
 package org.swrltab.ui;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
-import org.protege.editor.owl.model.OWLModelManager;
 import org.protege.editor.owl.model.event.EventType;
 import org.protege.editor.owl.model.event.OWLModelManagerChangeEvent;
 import org.protege.editor.owl.model.event.OWLModelManagerListener;
@@ -9,6 +8,7 @@ import org.protege.editor.owl.ui.OWLWorkspaceViewsTab;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.swrlapi.core.IRIResolver;
 import org.swrlapi.factory.SWRLAPIFactory;
 import org.swrlapi.sqwrl.SQWRLQueryEngine;
 import org.swrlapi.ui.dialog.SWRLRuleEngineDialogManager;
@@ -61,8 +61,12 @@ public class SQWRLTab extends OWLWorkspaceViewsTab
       OWLOntology activeOntology = getOWLModelManager().getActiveOntology();
 
       if (activeOntology != null) {
+        // Create an IRI resolver using Protege's entity finder and entity renderer
+        IRIResolver iriResolver = new ProtegeIRIResolver(getOWLModelManager().getOWLEntityFinder(),
+          getOWLModelManager().getOWLEntityRenderer());
+
         // Create a SQWRL query engine
-        SQWRLQueryEngine queryEngine = SWRLAPIFactory.createSQWRLQueryEngine(activeOntology);
+        SQWRLQueryEngine queryEngine = SWRLAPIFactory.createSQWRLQueryEngine(activeOntology, iriResolver);
 
         // Create a query engine model. This is the core plugin model.
         SQWRLQueryEngineModel sqwrlQueryEngineModel = SWRLAPIFactory.createSQWRLQueryEngineModel(queryEngine);

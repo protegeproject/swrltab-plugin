@@ -8,6 +8,7 @@ import org.protege.editor.owl.ui.OWLWorkspaceViewsTab;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.swrlapi.core.IRIResolver;
 import org.swrlapi.core.SWRLRuleEngine;
 import org.swrlapi.factory.SWRLAPIFactory;
 import org.swrlapi.ui.dialog.SWRLRuleEngineDialogManager;
@@ -34,7 +35,6 @@ public class SWRLTab extends OWLWorkspaceViewsTab
 
     setToolTipText("SWRLTab");
 
-
     if (getOWLModelManager() != null) {
       getOWLModelManager().addListener(this.listener);
 
@@ -60,9 +60,12 @@ public class SWRLTab extends OWLWorkspaceViewsTab
       OWLOntology activeOntology = getOWLModelManager().getActiveOntology();
 
       if (activeOntology != null) {
+        // Create an IRI resolver using Protege's entity finder and entity renderer
+        IRIResolver iriResolver = new ProtegeIRIResolver(getOWLModelManager().getOWLEntityFinder(),
+          getOWLModelManager().getOWLEntityRenderer());
 
         // Create a rule engine
-        SWRLRuleEngine ruleEngine = SWRLAPIFactory.createSWRLRuleEngine(activeOntology);
+        SWRLRuleEngine ruleEngine = SWRLAPIFactory.createSWRLRuleEngine(activeOntology, iriResolver);
 
         // Create a rule engine model. This is the core plugin model.
         SWRLRuleEngineModel swrlRuleEngineModel = SWRLAPIFactory.createSWRLRuleEngineModel(ruleEngine);
