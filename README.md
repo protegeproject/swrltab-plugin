@@ -13,11 +13,9 @@ Documentation for the SWRLAPI can be found [here](https://github.com/protegeproj
 
 #### Installing and Updating
 
-The plugin can be installed by via the 'File -> Check for plugins...' menu item in Protégé. 
+The plugin can be installed via the 'File -> Check for plugins...' menu item in Protégé. 
 A popup listing available plugins can be used to select and download the plugin.
-This menu item can also be used to update to the latest SWRLTab plugin release.
-
-The plugin will be pre-installed in the next Protégé release.
+This menu item can also be used to update to new versions of the SWRLTab plugin as they are released.
 
 #### View the Plugin Tabs in Protégé
 
