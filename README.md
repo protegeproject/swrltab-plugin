@@ -2,7 +2,8 @@
 
 [![Build Status](https://travis-ci.org/protegeproject/swrltab-plugin.svg?branch=master)](https://travis-ci.org/protegeproject/swrltab-plugin)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/edu.stanford.swrl/swrltab-plugin/badge.svg)](https://maven-badges.herokuapp.com/maven-central/edu.stanford.swrl/swrltab-plugin)
-[![Dependency Status](https://www.versioneye.com/user/projects/56a24ab29b5998003c000063/badge.svg?style=flat)](https://www.versioneye.com/user/projects/56a24ab29b5998003c000063)
+# Maven Bundle Plugin 3.0.0+ does not seem to embed dependencies properly so still usong 2.5.4 version 
+#[![Dependency Status](https://www.versioneye.com/user/projects/56a24ab29b5998003c000063/badge.svg?style=flat)](https://www.versioneye.com/user/projects/56a24ab29b5998003c000063)
 
 This repository contains the SWRLAPI-based SWRLTab plugin for the Protégé 5.0 Desktop ontology editor.
 The plugin contains SWRLTab and SQWRLTab components for working with SWRL rules and SQWRL queries.
@@ -31,7 +32,7 @@ SQWRLTab:
 
 ![SQWRLTab](/img/SQWRLTab.png?raw=true "SQWRLTab")
 
-#### Building
+#### Building from Source
 
 To build this plugin you must have the following items installed:
 
