@@ -19,9 +19,9 @@ The 'Protégé->About Protégé' menu uption can be used to display the current 
 
 #### View the Plugin Tabs in Protégé
 
-The SWRLTab and SQWRLTab can be enabled via the Window | Tabs menu.
+The SWRLTab and SQWRLTab can be enabled via the 'Window -> Tabs' menu item.
 
-#### Example plug-in screenshots
+#### Example Plug-in Screenshots
 
 SWRLTab:
 
@@ -38,7 +38,7 @@ To build this plugin you must have the following items installed:
 + [Java 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 + A tool for checking out a [Git](http://git-scm.com/) repository
 + Apache's [Maven](http://maven.apache.org/index.html)
-+ A Protégé (5.0.0 Beta 21 or higher) distribution. Download [here](http://protege.stanford.edu/products.php#desktop-protege).
++ A Protégé (5.0.0 Beta 23 or higher) distribution. Download [here](http://protege.stanford.edu/products.php#desktop-protege).
 
 Get a copy of the latest code:
 
