@@ -5,16 +5,17 @@
 
 This repository contains the SWRLAPI-based SWRLTab plugin for the Protégé 5.0 Desktop ontology editor.
 The plugin contains SWRLTab and SQWRLTab components for working with SWRL rules and SQWRL queries.
-Note that the plugin will work only in Protégé version 5.0.0 Beta 21 and later.
+Note that the plugin will work only in Protégé version 5.0.0 Beta 23 and later.
 
 Plugin documentation can be found [here](https://github.com/protegeproject/swrltab-plugin/wiki).
 Documentation for the SWRLAPI can be found [here](https://github.com/protegeproject/swrlapi/wiki).
 
 #### Installing and Updating
 
-The plugin can be installed via the 'File -> Check for plugins...' menu item in Protégé. 
-A popup listing available plugins can be used to select and download the plugin.
-This menu item can also be used to update to new versions of the SWRLTab plugin as they are released.
+The plugin comes preinstalled with Protégé. 
+The plugin can be updated to the latest version via the 'File -> Check for plugins...' menu item in Protégé. 
+A popup listing available plugins can be used to select and update the plugin.
+The 'Protégé->About Protégé' menu uption can be used to display the current version of the plugin.
 
 #### View the Plugin Tabs in Protégé
 
