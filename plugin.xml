@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?eclipse version="3.0"?>
 
-<plugin name="SWRLAPI Plugin for Desktop Protege" version="1.0.5">
+<plugin name="SWRLAPI Plugin for Desktop Protege" version="1.0.0">
 
 	<extension id="SWRLTab" point="org.protege.editor.core.application.WorkspaceTab">
 		<label value="SWRLTab"/>
