@@ -5,7 +5,10 @@ import org.protege.editor.owl.model.event.EventType;
 import org.protege.editor.owl.model.event.OWLModelManagerChangeEvent;
 import org.protege.editor.owl.model.event.OWLModelManagerListener;
 import org.protege.editor.owl.ui.OWLWorkspaceViewsTab;
+import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyChange;
+import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.swrlapi.core.IRIResolver;
@@ -23,6 +26,7 @@ public class SQWRLTab extends OWLWorkspaceViewsTab
 
   private static final long serialVersionUID = 1L;
 
+  private SQWRLQueryEngineModel sqwrlQueryEngineModel;
   private SQWRLQueriesView queriesView;
 
   private final SQWRLTabListener listener = new SQWRLTabListener();
@@ -51,6 +55,7 @@ public class SQWRLTab extends OWLWorkspaceViewsTab
   {
     super.dispose();
     getOWLModelManager().removeListener(this.listener);
+    this.sqwrlQueryEngineModel.unregisterOntologyListener();
   }
 
   private void update()
@@ -69,7 +74,7 @@ public class SQWRLTab extends OWLWorkspaceViewsTab
         SQWRLQueryEngine queryEngine = SWRLAPIFactory.createSQWRLQueryEngine(activeOntology, iriResolver);
 
         // Create a query engine model. This is the core plugin model.
-        SQWRLQueryEngineModel sqwrlQueryEngineModel = SWRLAPIFactory.createSQWRLQueryEngineModel(queryEngine);
+        sqwrlQueryEngineModel = SWRLAPIFactory.createSQWRLQueryEngineModel(queryEngine);
 
         // Create the dialog manager
         SWRLRuleEngineDialogManager dialogManager = SWRLAPIFactory
@@ -86,6 +91,8 @@ public class SQWRLTab extends OWLWorkspaceViewsTab
 
         // Add it
         add(this.queriesView);
+
+        this.sqwrlQueryEngineModel.registerOntologyListener();
 
       } else
         log.warn("SQWRLTab update failed - no active OWL ontology");
@@ -104,7 +111,7 @@ public class SQWRLTab extends OWLWorkspaceViewsTab
           update();
         }
       } else
-        log.warn("SQWRLTab ignoring new update - still processing old update");
+        log.warn("SQWRLTab ignoring ontology change - still processing old change");
     }
   }
 }
