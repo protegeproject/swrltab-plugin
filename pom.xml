@@ -5,24 +5,16 @@
   <parent>
     <groupId>edu.stanford.swrl</groupId>
     <artifactId>swrlapi-parent</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.0-beta-25-SNAPSHOT</version>
   </parent>
 
   <groupId>edu.stanford.swrl</groupId>
   <artifactId>swrltab-plugin</artifactId>
-  <version>1.0.0-beta-25-SNAPSHOT</version>
   <name>SWRLTab Protege 5.0+ Plugin</name>
   <description>SWRLTab Plugin for Desktop Protege 5.0+</description>
   <url>https://github.com/protegeproject/swrltab-plugin/wiki</url>
   <packaging>bundle</packaging>
   
-  <properties>
-
-    <swrlapi.version>${project.version}</swrlapi.version>
-    <swrlapi.drools.version>${project.version}</swrlapi.drools.version>
-    
-  </properties>
-
   <scm>
     <connection>scm:git:git@github.com:protegeproject/swrltab-plugin.git</connection>
     <developerConnection>scm:git:git@github.com:protegeproject/swrltab-plugin.git</developerConnection>
