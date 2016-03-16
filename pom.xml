@@ -3,14 +3,14 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.sonatype.oss</groupId>
-    <artifactId>oss-parent</artifactId>
-    <version>7</version>
+    <groupId>edu.stanford.swrl</groupId>
+    <artifactId>swrlapi-parent</artifactId>
+    <version>1.0.0</version>
   </parent>
 
   <groupId>edu.stanford.swrl</groupId>
   <artifactId>swrltab-plugin</artifactId>
-  <version>1.0.0-beta-20-SNAPSHOT</version>
+  <version>1.0.0-beta-25-SNAPSHOT</version>
   <name>SWRLTab Protege 5.0+ Plugin</name>
   <description>SWRLTab Plugin for Desktop Protege 5.0+</description>
   <url>https://github.com/protegeproject/swrltab-plugin/wiki</url>
@@ -18,56 +18,10 @@
   
   <properties>
 
-    <protege.version>5.0.0-beta-23</protege.version> 
-    <swrlapi.version>1.0.0-beta-23-SNAPSHOT</swrlapi.version>
-    <swrlapi.drools.version>1.0.0-beta-22-SNAPSHOT</swrlapi.drools.version>
-    <owlapi.version>4.2.1</owlapi.version> 
-
-    <slf4j.version>1.7.18</slf4j.version>
-
-    <maven.compiler.plugin.version>3.5.1</maven.compiler.plugin.version>
-    <maven.release.plugin.version>2.5.3</maven.release.plugin.version>
-    <maven.nexus-staging.plugin.version>1.6.7</maven.nexus-staging.plugin.version>
-    <maven.source.plugin.version>3.0.0</maven.source.plugin.version>
-    <maven.javadoc.plugin.version>2.10.3</maven.javadoc.plugin.version>
-    <maven.gpg.plugin.version>1.6</maven.gpg.plugin.version>
-    <maven.scm.gitexe.version>1.9.4</maven.scm.gitexe.version>
+    <swrlapi.version>${project.version}</swrlapi.version>
+    <swrlapi.drools.version>${project.version}</swrlapi.drools.version>
     
-    <!-- 3.0.0 and 3.0.1 do not appear to embed dependencies properly -->
-    <maven.bundle.plugin.version>2.5.4</maven.bundle.plugin.version>
-
-    <java.version>1.8</java.version> 
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
   </properties>
-
-  <developers>
-    <developer>
-      <name>Martin O'Connor</name>
-      <email>martin.oconnor@stanford.edu</email>
-      <organization>Stanford Center for Biomedical Informatics Research</organization>
-      <organizationUrl>http://bmir.stanford.edu</organizationUrl>
-    </developer>
-  </developers>
-
-  <licenses>
-    <license>
-      <name>BSD 2-Clause License</name>
-      <url>http://opensource.org/licenses/BSD-2-Clause</url>
-    </license>
-  </licenses>  
-
-  <!-- The SWRLTab Plugin is hosted on Sonatype OSSRH (OSS Repository Hosting Service). -->
-  <distributionManagement>
-    <snapshotRepository>
-      <id>sonatype-nexus-snapshots</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-    </snapshotRepository>
-    <repository>
-      <id>ossrh</id>
-      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-    </repository>
-  </distributionManagement>
 
   <scm>
     <connection>scm:git:git@github.com:protegeproject/swrltab-plugin.git</connection>
@@ -86,25 +40,21 @@
     <dependency>
       <groupId>edu.stanford.protege</groupId>
       <artifactId>protege-common</artifactId>
-      <version>${protege.version}</version>
     </dependency>
 
     <dependency>
       <groupId>edu.stanford.protege</groupId>
       <artifactId>protege-editor-core</artifactId>
-      <version>${protege.version}</version>
     </dependency>
 
     <dependency>
       <groupId>edu.stanford.protege</groupId>
       <artifactId>protege-editor-owl</artifactId>
-      <version>${protege.version}</version>
     </dependency>
 
     <dependency>
       <groupId>net.sourceforge.owlapi</groupId>
       <artifactId>owlapi-osgidistribution</artifactId>
-      <version>${owlapi.version}</version>
     </dependency>
 
     <dependency>
@@ -122,13 +72,11 @@
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
-      <version>${slf4j.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-log4j12</artifactId>
-      <version>${slf4j.version}</version>
       <scope>test</scope>
     </dependency>
 
@@ -139,17 +87,11 @@
       <plugin>
 	<groupId>org.apache.maven.plugins</groupId>
 	<artifactId>maven-compiler-plugin</artifactId>
-	<version>${maven.compiler.plugin.version}</version>
-	<configuration>
-	  <source>${java.version}</source>
-	  <target>${java.version}</target>
-	</configuration>
       </plugin>
       
       <plugin>
 	<groupId>org.apache.felix</groupId>
 	<artifactId>maven-bundle-plugin</artifactId>
-	<version>${maven.bundle.plugin.version}</version>
 	<extensions>true</extensions>
 	<configuration>
 
@@ -204,96 +146,7 @@
 
 	</configuration>
       </plugin>
-
-      <plugin>
-	<artifactId>maven-release-plugin</artifactId>
-        <version>${maven.release.plugin.version}</version>
-	<dependencies>
-	  <dependency>
-	    <groupId>org.apache.maven.scm</groupId>
-	    <artifactId>maven-scm-provider-gitexe</artifactId>
-	    <version>${maven.scm.gitexe.version}</version>
-	  </dependency>
-	</dependencies>
-      </plugin>
-
-    </plugins>
-
+      </plugins>
   </build>
-
-  <profiles>
-    <profile>
-      <id>release</id>
-      <activation>
-	<activeByDefault>false</activeByDefault>
-      </activation>
-      <build>
-	<plugins>
-	  <plugin>
-	    <groupId>org.apache.maven.plugins</groupId>
-	    <artifactId>maven-source-plugin</artifactId>
-            <version>${maven.source.plugin.version}</version>
-	    <executions>
-	      <execution>
-		<id>attach-sources</id>
-		<goals>
-		  <goal>jar</goal>
-		</goals>
-	      </execution>
-	    </executions>
-	  </plugin>
-	  
-	  <plugin>
-	    <groupId>org.apache.maven.plugins</groupId>
-	    <artifactId>maven-javadoc-plugin</artifactId>
-	    <version>${maven.javadoc.plugin.version}</version>
-	    <executions>
-	      <execution>
-		<id>attach-javadocs</id>
-		<goals>
-		  <goal>jar</goal>
-		</goals>
-		<configuration>
-		  <failOnError>false</failOnError>
-		  <quiet>true</quiet>
-		</configuration>
-	      </execution>
-	    </executions>
-	  </plugin>
-	  
-	  <plugin>
-	    <groupId>org.apache.maven.plugins</groupId>
-	    <artifactId>maven-gpg-plugin</artifactId>
-	    <version>${maven.gpg.plugin.version}</version>
-	    <executions>
-	      <execution>
-		<id>sign-artifacts</id>
-		<phase>verify</phase>
-		<goals>
-		  <goal>sign</goal>
-		</goals>
-	      </execution>
-	    </executions>
-	  </plugin>
-
-          <!-- See http://central.sonatype.org/pages/apache-maven.html -->
-          <plugin>
-            <groupId>org.sonatype.plugins</groupId>
-            <artifactId>nexus-staging-maven-plugin</artifactId>
-            <version>${maven.nexus-staging.plugin.version}</version>
-            <extensions>true</extensions>
-            <configuration>
-              <serverId>ossrh</serverId>
-              <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-              <description>${project.version}</description>
-              <autoReleaseAfterClose>true</autoReleaseAfterClose>
-            </configuration>
-          </plugin>
-
-	</plugins>
-
-      </build>
-    </profile>
-  </profiles>
 
 </project>
