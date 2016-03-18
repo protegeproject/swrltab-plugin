@@ -30,6 +30,18 @@
   <dependencies>
 
     <dependency>
+      <groupId>edu.stanford.swrl</groupId>
+      <artifactId>swrlapi</artifactId>
+      <version>${swrlapi.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>edu.stanford.swrl</groupId>
+      <artifactId>swrlapi-drools-engine</artifactId>
+      <version>${swrlapi.drools.version}</version>
+    </dependency>
+
+    <dependency>
       <groupId>edu.stanford.protege</groupId>
       <artifactId>protege-common</artifactId>
     </dependency>
@@ -49,16 +61,30 @@
       <artifactId>owlapi-osgidistribution</artifactId>
     </dependency>
 
-    <dependency>
-      <groupId>edu.stanford.swrl</groupId>
-      <artifactId>swrlapi</artifactId>
-      <version>${swrlapi.version}</version>
+
+ <dependency>
+      <groupId>org.apache.geronimo.bundles</groupId>
+      <artifactId>commons-discovery</artifactId>
+    </dependency>
+
+  <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>edu.stanford.swrl</groupId>
-      <artifactId>swrlapi-drools-engine</artifactId>
-      <version>${swrlapi.drools.version}</version>
+      <groupId>org.checkerframework</groupId>
+      <artifactId>checker</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.checkerframework</groupId>
+      <artifactId>checker-qual</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.checkerframework</groupId>
+      <artifactId>jdk8</artifactId>
     </dependency>
 
     <dependency>
@@ -95,7 +121,7 @@
             <Embed-Transitive>true</Embed-Transitive>
             <Embed-Dependency>
               swrlapi, swrlapi-drools-engine, 
-              axis,
+              axis, guava,
               drools-core, drools-compiler, knowledge-api, drools-reteoo, antlr-runtime, kie-api, kie-internal, mvel2, ecj, 
               checker, checker-qual, 
               commons-codec, commons-discovery
@@ -106,6 +132,7 @@
               org.semanticweb.owlapi.*;version="[4.1.3,5.0.0)",
               org.swrlapi.*;version="1.0.0",
               org.swrlapi.drools.*;version="1.0.0",
+              com.google.common.base.*;version="19.0",
               com.ibm.*;resolution:=optional,
               com.sun.*;resolution:=optional,
               sun.*;resolution:=optional,
@@ -138,7 +165,7 @@
 
 	</configuration>
       </plugin>
-      </plugins>
+    </plugins>
   </build>
 
 </project>
