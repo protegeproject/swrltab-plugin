@@ -5,11 +5,12 @@
   <parent>
     <groupId>edu.stanford.swrl</groupId>
     <artifactId>swrlapi-parent</artifactId>
-    <version>1.0.0-beta-30-SNAPSHOT</version>
+    <version>1.0.0-beta-30</version>
   </parent>
 
   <groupId>edu.stanford.swrl</groupId>
   <artifactId>swrltab-plugin</artifactId>
+  <version>1.0.0-beta-30-SNAPSHOT</version>
   <name>SWRLTab Protege 5.0+ Plugin</name>
   <description>SWRLTab Plugin for Desktop Protege 5.0+</description>
   <url>https://github.com/protegeproject/swrltab-plugin/wiki</url>
@@ -32,13 +33,11 @@
     <dependency>
       <groupId>edu.stanford.swrl</groupId>
       <artifactId>swrlapi</artifactId>
-      <version>${swrlapi.version}</version>
     </dependency>
 
     <dependency>
       <groupId>edu.stanford.swrl</groupId>
       <artifactId>swrlapi-drools-engine</artifactId>
-      <version>${swrlapi.drools.version}</version>
     </dependency>
 
     <dependency>
