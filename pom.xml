@@ -33,11 +33,13 @@
     <dependency>
       <groupId>edu.stanford.swrl</groupId>
       <artifactId>swrlapi</artifactId>
+    <version>1.0.0-beta-30</version>
     </dependency>
 
     <dependency>
       <groupId>edu.stanford.swrl</groupId>
       <artifactId>swrlapi-drools-engine</artifactId>
+    <version>1.0.0-beta-30</version>
     </dependency>
 
     <dependency>
