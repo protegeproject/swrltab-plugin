@@ -5,7 +5,7 @@
   <parent>
     <groupId>edu.stanford.swrl</groupId>
     <artifactId>swrlapi-parent</artifactId>
-    <version>1.0.0-beta-31-SNAPSHOT</version>
+    <version>1.0.0-beta-31</version>
   </parent>
 
   <groupId>edu.stanford.swrl</groupId>
@@ -15,6 +15,13 @@
   <description>SWRLTab Plugin for Desktop Protege 5.0+</description>
   <url>https://github.com/protegeproject/swrltab-plugin/wiki</url>
   <packaging>bundle</packaging>
+
+  <properties>
+
+    <swrlapi.version>1.0.0-beta-31</swrlapi.version>
+    <swrlapi.drools.version>1.0.0-beta-31</swrlapi.drools.version>
+
+  </properties>
   
   <scm>
     <connection>scm:git:git@github.com:protegeproject/swrltab-plugin.git</connection>
@@ -33,13 +40,13 @@
     <dependency>
       <groupId>edu.stanford.swrl</groupId>
       <artifactId>swrlapi</artifactId>
-    <version>1.0.0-beta-30</version>
+      <version>${swrlapi.version}</version>
     </dependency>
 
     <dependency>
       <groupId>edu.stanford.swrl</groupId>
       <artifactId>swrlapi-drools-engine</artifactId>
-    <version>1.0.0-beta-30</version>
+      <version>${swrlapi.drools.version}</version>
     </dependency>
 
     <dependency>
@@ -63,7 +70,7 @@
     </dependency>
 
 
- <dependency>
+    <dependency>
       <groupId>org.apache.geronimo.bundles</groupId>
       <artifactId>commons-discovery</artifactId>
     </dependency>
