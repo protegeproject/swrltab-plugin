@@ -14,5 +14,5 @@ notifications:
 script: '[ ${TRAVIS_PULL_REQUEST} = ''false'' ] && mvn clean deploy --settings .m2/travis-settings.xml'
 env:
   global:
-  - secure: ceDGPfGU7Z0yrIOy9L9asf5mF6e8ZkoLM5lfmQxktc5w9ft6TU4/XED3R3KgwfYw3fc1gmOw8j5skjxV2IpdHrLftVoYX3TD7zULfUg3gwhdUwXvT9uY5G/zl3kXkmUaYZ6S5aFJ0msavZ5qCyzeKzVthh0gxman2hlVUjWLKxw=
-  - secure: Psfk8STMWCt6cvFLze5mkDSOzbPv4jhi+PjyBNXhtTdb4f0e9XgN8RzTbUKne61wF5Iru23BoUVdTKO8MW1oUztfUnFV2zrA/GbTAAo2Pyt5PS2iUDGe9Ok6fhsr0Izh5sUObsLce6YCWeieO/u4dyUx5L0M/FcPhD9j2lwbJ94=
+  - secure: Cap77mkOGD3QNODie6f38rAxfmEJcWeSbFod6SKUHcQ+1sPiWVDuBkJNIWHHVznJEL97STHYE1RFCn9lFtHF2qUcAM7o/DrYn9sADb7j3MmXjWUt45JZ37Z8y09f8X7VoJ8w1/aCTl/KQY77VU3axMu/v9GQyjYYxxblxJG22y0=
+  - secure: FnX2Nm2xaJw6iXzEexUbeSyd/VLAtfgHDMtWOZYxLIKcDgFHLz86bElKf1NIHuJ0TZmLz5B/bhBEarNJM0jDJ66xmxXE+HwL09uhLUvFL/ScNdT0/D4Y+gvMJtHmrohJJLqNet6uxzWsfaxz7qtyNSmIEdUA/YugebiDGmGTP+0=
