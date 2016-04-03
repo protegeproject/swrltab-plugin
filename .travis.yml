@@ -1,22 +1,18 @@
 language: java
-
 jdk:
 - oraclejdk8
-
 branches:
   only:
-    - master
-
+  - master
+  - development
 notifications:
   email:
     recipients:
     - martin.oconnor@stanford.edu
     on_success: never
     on_failure: always
-
 script: '[ ${TRAVIS_PULL_REQUEST} = ''false'' ] && mvn clean deploy --settings .m2/travis-settings.xml'
-
 env:
   global:
-  - secure: CswgNY7B9Je11DjdYXNK8gsmaLJpzdwoFzKjyx35+MIkFfm8Q5XjXmb43CbY37yqUjT/Gak1KGY+COpE1u1sZV2u97Gfd6qGazHReH4yupXRyP4uTDZf4AFhGD7ov/BwLsuK/18aH0QmbpvsEf+FjUju/7Y2DHQz+2VLbQ698eQ=
-  - secure: fJTtZJ99svPeMj7hsg+nnx+Fb66H59Wi62ti2SlM24v9KeH2U55je5OoWYT9PW//mMfzAh6R7Vk6vFwE99MyZ+xZY5mkXJYuEzjkycTTdlFbR2ouV/K3YlPxI1KwZnWSWR/pr8pkPBid/JkRcgdlXLqxY/N9aZZZV+NrLNH6FYc=
+  - secure: ceDGPfGU7Z0yrIOy9L9asf5mF6e8ZkoLM5lfmQxktc5w9ft6TU4/XED3R3KgwfYw3fc1gmOw8j5skjxV2IpdHrLftVoYX3TD7zULfUg3gwhdUwXvT9uY5G/zl3kXkmUaYZ6S5aFJ0msavZ5qCyzeKzVthh0gxman2hlVUjWLKxw=
+  - secure: Psfk8STMWCt6cvFLze5mkDSOzbPv4jhi+PjyBNXhtTdb4f0e9XgN8RzTbUKne61wF5Iru23BoUVdTKO8MW1oUztfUnFV2zrA/GbTAAo2Pyt5PS2iUDGe9Ok6fhsr0Izh5sUObsLce6YCWeieO/u4dyUx5L0M/FcPhD9j2lwbJ94=
