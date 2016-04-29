@@ -11,7 +11,7 @@ notifications:
     - martin.oconnor@stanford.edu
     on_success: never
     on_failure: always
-install: '[ ${TRAVIS_PULL_REQUEST} = ''false'' ] && mvn install --settings .m2/travis-settings.xml'
+script: '[ ${TRAVIS_PULL_REQUEST} = ''false'' ] && mvn clean deploy --settings .m2/travis-settings.xml'
 env:
   global:
   - secure: eVqJvxPFAe2iQIXTZUimXZE+THDg6sXD78m5ZEsckZvvTCU6tVyB179dmBzEClCK/x6ax1Y0Mgl7WTNeYTcSEAKpadbVJn8BV6zsNU5Go+pKFXAfpNPd7jPhJrBm2o/OgmkUb8ZieemDT/mIPNcSTY5sRRvR+DGdWKo6DdyOC7Q=
