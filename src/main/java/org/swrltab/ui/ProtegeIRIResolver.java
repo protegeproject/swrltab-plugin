@@ -31,17 +31,14 @@ public class ProtegeIRIResolver extends DefaultIRIResolver
     Optional<@NonNull String> prefixedName = super.iri2PrefixedName(iri);
 
     if (prefixedName.isPresent()) {
-      //  log.warn("iri " + iri + ", prefixed name " + prefixedName);
       return Optional.of(prefixedName.get());
     } else {
-      //log.warn("iri " + iri + ", prefixed name " + this.entityRender.render(iri));
       return Optional.of(this.entityRender.render(iri));
     }
   }
 
   @Override @NonNull public Optional<@NonNull String> iri2ShortForm(@NonNull IRI iri)
   {
-    //log.warn("iri " + iri + ", short form " + this.entityRender.render(iri));
     return Optional.of(this.entityRender.render(iri));
   }
 
