@@ -3,7 +3,6 @@ jdk:
 - oraclejdk8
 branches:
   only:
-  - master
   - development
 notifications:
   email:
