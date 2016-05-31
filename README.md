@@ -3,9 +3,9 @@
 [![Build Status](https://travis-ci.org/protegeproject/swrltab-plugin.svg?branch=master)](https://travis-ci.org/protegeproject/swrltab-plugin)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/edu.stanford.swrl/swrltab-plugin/badge.svg)](https://maven-badges.herokuapp.com/maven-central/edu.stanford.swrl/swrltab-plugin)
 
-This repository contains the SWRLAPI-based SWRLTab plugin for the Protégé 5.0 Desktop ontology editor.
+This repository contains the SWRLAPI-based SWRLTab plugin for the Protégé 5 Desktop ontology editor.
 The plugin contains SWRLTab and SQWRLTab components for working with SWRL rules and SQWRL queries.
-Note that the plugin will work only in Protégé version 5.0.0 RC 2 and later.
+Note that the plugin will work only in Protégé version 5.0.0 and later.
 
 Plugin documentation can be found [here](https://github.com/protegeproject/swrltab-plugin/wiki).
 Documentation for the SWRLAPI can be found [here](https://github.com/protegeproject/swrlapi/wiki).
@@ -38,7 +38,7 @@ To build this plugin you must have the following items installed:
 + [Java 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 + A tool for checking out a [Git](http://git-scm.com/) repository
 + Apache's [Maven](http://maven.apache.org/index.html)
-+ A Protégé (5.0.0 RC2 or higher) distribution. Download [here](http://protege.stanford.edu/products.php#desktop-protege).
++ A Protégé (5.0.0 or higher) distribution. Download [here](http://protege.stanford.edu/products.php#desktop-protege).
 
 Get a copy of the latest code:
 
