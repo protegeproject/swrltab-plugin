@@ -14,7 +14,7 @@ Documentation for the SWRLAPI can be found [here](https://github.com/protegeproj
 
 The plugin comes preinstalled with Protégé. 
 The plugin can be updated to the latest version via the 'File -> Check for plugins...' menu item in Protégé. 
-A popup listing available plugins can be used to select and update the plugin.
+A popup will appear listing updatable plugins.
 The 'Protégé->About Protégé' menu uption can be used to display the current version of the plugin.
 
 #### View the Plugin Tabs in Protégé
@@ -56,7 +56,7 @@ On build completion the ```target``` directory will contain a swrltab-plugin-${v
 The JAR contains both SWRLTab and SQWRLTab components and is generated in the OSGi bundle format required by Protégé's plugin-in mechanism.
 
 To install in your local Protégé, copy this JAR file to the ```plugins``` subdirectory of your Protégé installation (e.g.,
-/Applications/Protege-5.0.0/plugins/).  
+/Applications/Protégé.app/Contents/Java/plugins/).  
 
 #### License
 
