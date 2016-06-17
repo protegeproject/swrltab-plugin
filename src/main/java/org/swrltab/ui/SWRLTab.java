@@ -55,8 +55,11 @@ public class SWRLTab extends OWLWorkspaceViewsTab
   @Override public void dispose()
   {
     super.dispose();
+
     getOWLModelManager().removeListener(this.listener);
-    this.swrlRuleEngineModel.unregisterOntologyListener();
+
+    if (this.swrlRuleEngineModel != null)
+      this.swrlRuleEngineModel.unregisterOntologyListener();
   }
 
   private void update()
