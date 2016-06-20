@@ -33,6 +33,8 @@ SQWRLTab:
 
 #### Building from Source
 
+Note that the release JARs can be downloaded from the [GitHub Releases area](https://github.com/protegeproject/swrltab-plugin/releases).
+
 To build this plugin you must have the following items installed:
 
 + [Java 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
