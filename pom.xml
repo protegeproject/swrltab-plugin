@@ -17,15 +17,8 @@
   <packaging>bundle</packaging>
 
   <properties>
-<<<<<<< HEAD
-    <swrlapi.version>1.0.10</swrlapi.version>
-    <swrlapi.drools.version>1.0.10</swrlapi.drools.version>
-=======
-
     <swrlapi.version>1.0.11</swrlapi.version>
     <swrlapi.drools.version>1.0.11</swrlapi.drools.version>
-
->>>>>>> release-1.0.11
   </properties>
   
   <scm>
