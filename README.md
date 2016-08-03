@@ -34,7 +34,7 @@ SQWRLTab:
 
 #### Building from Source
 
-Note that the release JARs can be downloaded from the [GitHub Releases area](https://github.com/protegeproject/swrltab-plugin/releases).
+Note that the release JARs can be downloaded from the repo's [Releases Area](https://github.com/protegeproject/swrltab-plugin/releases).
 
 To build this plugin you must have the following items installed:
 
@@ -59,7 +59,7 @@ On build completion the ```target``` directory will contain a swrltab-plugin-${v
 The JAR contains both SWRLTab and SQWRLTab components and is generated in the OSGi bundle format required by Protégé's plugin-in mechanism.
 
 To install in your local Protégé, copy this JAR file to the ```plugins``` subdirectory of your Protégé installation (e.g.,
-/Applications/Protégé.app/Contents/Java/plugins/).  
+/Applications/Protégé-5.0.0/Protégé.app/Contents/Java/plugins/).  
 
 #### License
 
