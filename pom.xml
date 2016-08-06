@@ -10,7 +10,7 @@
 
   <groupId>edu.stanford.swrl</groupId>
   <artifactId>swrltab-plugin</artifactId>
-  <version>1.0.13-SNAPSHOT</version>
+  <version>1.1.0</version>
   <name>SWRLTab Protege 5.0+ Plugin</name>
   <description>SWRLTab Plugin for Desktop Protege 5.0+</description>
   <url>https://github.com/protegeproject/swrltab-plugin/wiki</url>
@@ -27,7 +27,7 @@
     <connection>scm:git:git@github.com:protegeproject/swrltab-plugin.git</connection>
     <developerConnection>scm:git:git@github.com:protegeproject/swrltab-plugin.git</developerConnection>
     <url>https://github.com/protegeproject/swrltab-plugin</url>
-    <tag>HEAD</tag>
+    <tag>release-1.1.0</tag>
   </scm>
 
   <issueManagement>
