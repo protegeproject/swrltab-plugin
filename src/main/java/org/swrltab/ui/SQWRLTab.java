@@ -67,7 +67,7 @@ public class SQWRLTab extends OWLWorkspaceViewsTab
       if (activeOntology != null) {
         // Create an IRI resolver using Protege's entity finder and entity renderer
         IRIResolver iriResolver = new ProtegeIRIResolver(getOWLModelManager().getOWLEntityFinder(),
-          getOWLModelManager().getOWLEntityRenderer());
+          getOWLModelManager().getOWLEntityRenderer(), getOWLModelManager().getOWLObjectRenderer());
 
         // Create a SQWRL query engine
         SQWRLQueryEngine queryEngine = SWRLAPIFactory.createSQWRLQueryEngine(activeOntology, iriResolver);
