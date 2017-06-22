@@ -1,4 +1,4 @@
-package org.swrltab.ui;
+package org.swrltab.core;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.protege.editor.owl.model.find.OWLEntityFinder;

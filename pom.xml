@@ -69,10 +69,15 @@
       <artifactId>owlapi-osgidistribution</artifactId>
     </dependency>
 
-
     <dependency>
       <groupId>org.apache.geronimo.bundles</groupId>
       <artifactId>commons-discovery</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.eclipse.equinox</groupId>
+      <artifactId>org.eclipse.equinox.registry</artifactId>
+      <version>3.5.0.v20100503</version>
     </dependency>
 
     <dependency>
