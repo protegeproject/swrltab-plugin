@@ -16,8 +16,8 @@ import org.swrlapi.ui.dialog.SWRLRuleEngineDialogManager;
 import org.swrlapi.ui.model.SQWRLQueryEngineModel;
 import org.swrlapi.ui.view.queries.SQWRLQueriesView;
 import org.swrltab.core.ProtegeIRIResolver;
-import org.swrltab.core.SWRLBuiltInLibraryProtegePlugin;
-import org.swrltab.core.SWRLBuiltInLibraryProtegePluginLoader;
+import org.swrltab.core.SWRLBuiltInLibraryFactoryPlugin;
+import org.swrltab.core.SWRLBuiltInLibraryFactoryLoader;
 
 import java.awt.*;
 import java.util.Set;
@@ -78,10 +78,10 @@ public class SQWRLTab extends OWLWorkspaceViewsTab
         // Create a SQWRL query engine
         SQWRLQueryEngine queryEngine = SWRLAPIFactory.createSQWRLQueryEngine(activeOntology, iriResolver);
 
-        SWRLBuiltInLibraryProtegePluginLoader loader = new SWRLBuiltInLibraryProtegePluginLoader();
-        Set<SWRLBuiltInLibraryProtegePlugin> swrlBuiltInLibraryProtegePlugins = loader.getPlugins();
+        SWRLBuiltInLibraryFactoryLoader loader = new SWRLBuiltInLibraryFactoryLoader();
+        Set<SWRLBuiltInLibraryFactoryPlugin> swrlBuiltInLibraryProtegePlugins = loader.getPlugins();
 
-        for (SWRLBuiltInLibraryProtegePlugin plugin : swrlBuiltInLibraryProtegePlugins) {
+        for (SWRLBuiltInLibraryFactoryPlugin plugin : swrlBuiltInLibraryProtegePlugins) {
           SWRLBuiltInLibrary library = plugin.newInstance().getSWRLBuiltInLibrary();
           // TODO add library to query engine
           log.info("Loading SWRL built-in library " + library.getPrefix());

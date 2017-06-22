@@ -3,14 +3,9 @@ package org.swrltab.core;
 import org.protege.editor.core.plugin.ProtegePluginInstance;
 import org.swrlapi.builtins.SWRLBuiltInLibrary;
 
-public class SWRLBuiltInLibraryProtegePluginInstance implements ProtegePluginInstance
+public class SWRLBuiltInLibraryFactory implements ProtegePluginInstance
 {
   private SWRLBuiltInLibrary swrlBuiltInLibrary;
-
-  public void setSWRLBuiltInLibrary(SWRLBuiltInLibrary swrlBuiltInLibrary)
-  {
-    this.swrlBuiltInLibrary = swrlBuiltInLibrary;
-  }
 
   public SWRLBuiltInLibrary getSWRLBuiltInLibrary()
   {
@@ -19,6 +14,7 @@ public class SWRLBuiltInLibraryProtegePluginInstance implements ProtegePluginIns
 
   @Override public void initialise() throws Exception
   {
+    this.swrlBuiltInLibrary = null; // TODO create it
     this.swrlBuiltInLibrary.reset();
   }
 
