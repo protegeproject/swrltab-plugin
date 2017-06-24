@@ -5,27 +5,34 @@
   <parent>
     <groupId>edu.stanford.swrl</groupId>
     <artifactId>swrlapi-parent</artifactId>
-    <version>2.0.0</version>
+    <version>2.0.1</version>
   </parent>
 
   <groupId>edu.stanford.swrl</groupId>
   <artifactId>swrltab-plugin</artifactId>
-  <version>2.0.0</version>
+  <version>2.0.1</version>
   <name>SWRLTab Protege 5.0+ Plugin</name>
   <description>SWRLTab Plugin for Desktop Protege 5.0+</description>
   <url>https://github.com/protegeproject/swrltab-plugin/wiki</url>
   <packaging>bundle</packaging>
 
   <properties>
+<<<<<<< HEAD
     <swrlapi.version>2.0.0</swrlapi.version>
     <swrlapi.drools.version>2.0.0</swrlapi.drools.version>
+=======
+
+    <swrlapi.version>2.0.1</swrlapi.version>
+    <swrlapi.drools.version>2.0.1</swrlapi.drools.version>
+
+>>>>>>> release-2.0.1
   </properties>
   
   <scm>
     <connection>scm:git:git@github.com:protegeproject/swrltab-plugin.git</connection>
     <developerConnection>scm:git:git@github.com:protegeproject/swrltab-plugin.git</developerConnection>
     <url>https://github.com/protegeproject/swrltab-plugin</url>
-    <tag>release-2.0.0</tag>
+    <tag>release-2.0.1</tag>
   </scm>
 
   <issueManagement>
@@ -67,10 +74,15 @@
       <artifactId>owlapi-osgidistribution</artifactId>
     </dependency>
 
-
     <dependency>
       <groupId>org.apache.geronimo.bundles</groupId>
       <artifactId>commons-discovery</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.eclipse.equinox</groupId>
+      <artifactId>org.eclipse.equinox.registry</artifactId>
+      <version>3.5.0.v20100503</version>
     </dependency>
 
     <dependency>

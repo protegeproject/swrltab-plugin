@@ -14,6 +14,7 @@ import org.swrlapi.factory.SWRLAPIFactory;
 import org.swrlapi.ui.dialog.SWRLRuleEngineDialogManager;
 import org.swrlapi.ui.model.SWRLRuleEngineModel;
 import org.swrlapi.ui.view.rules.SWRLRulesView;
+import org.swrltab.core.ProtegeIRIResolver;
 
 import java.awt.*;
 
