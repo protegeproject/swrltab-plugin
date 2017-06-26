@@ -44,7 +44,12 @@ public class ProtegeIRIResolver extends DefaultIRIResolver
 
   @NonNull @Override public Optional<@NonNull String> iri2ShortForm(@NonNull IRI iri)
   {
-    return Optional.of(this.entityRenderer.render(iri));
+    Optional<@NonNull String> shortForm = super.iri2ShortForm(iri);
+
+    if (shortForm.isPresent())
+      return Optional.of(shortForm.get());
+     else
+      return Optional.of(this.entityRenderer.render(iri));
   }
 
   @NonNull @Override public Optional<@NonNull IRI> prefixedName2IRI(@NonNull String prefixedName)
