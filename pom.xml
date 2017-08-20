@@ -18,8 +18,8 @@
 
   <properties>
 
-    <swrlapi.version>2.0.4-SNAPSHOT</swrlapi.version>
-    <swrlapi.drools.version>2.0.4-SNAPSHOT</swrlapi.drools.version>
+    <swrlapi.version>2.0.4</swrlapi.version>
+    <swrlapi.drools.version>2.0.4</swrlapi.drools.version>
 
   </properties>
   
