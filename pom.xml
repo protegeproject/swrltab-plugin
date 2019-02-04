@@ -104,18 +104,6 @@
     </dependency>
 
     <dependency>
-      <groupId>org.drools</groupId>
-      <artifactId>knowledge-api</artifactId>
-      <version>${drools.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.drools</groupId>
-      <artifactId>drools-reteoo</artifactId>
-      <version>${drools.version}</version>
-    </dependency>
-
-    <dependency>
       <groupId>org.kie</groupId>
       <artifactId>kie-api</artifactId>
       <version>${drools.version}</version>
@@ -200,7 +188,7 @@
               swrlapi, swrlapi-drools-engine, 
               axis, commons-codec, commons-discovery,
               checker, checker-qual,
-              drools-core, drools-compiler, knowledge-api, drools-reteoo, antlr-runtime, kie-api, kie-internal, mvel2, ecj
+              drools-core, drools-compiler, kie-api, kie-internal, antlr-runtime, mvel2, ecj
             </Embed-Dependency>
             <Import-Package>
               org.protege.editor.core.*;version="5.0.0",
