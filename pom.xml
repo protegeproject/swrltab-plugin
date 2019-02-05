@@ -11,8 +11,8 @@
   <groupId>edu.stanford.swrl</groupId>
   <artifactId>swrltab-plugin</artifactId>
   <version>2.0.7-SNAPSHOT</version>
-  <name>SWRLTab Protege 5.0+ Plugin</name>
-  <description>SWRLTab Plugin for Desktop Protege 5.0+</description>
+  <name>SWRLTab Protege 5.5+ Plugin</name>
+  <description>SWRLTab Plugin for Desktop Protege 5.5+</description>
   <url>https://github.com/protegeproject/swrltab-plugin/wiki</url>
   <packaging>bundle</packaging>
 
@@ -71,17 +71,7 @@
 
     <dependency>
       <groupId>org.apache.geronimo.bundles</groupId>
-      <artifactId>commons-discovery</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.geronimo.bundles</groupId>
       <artifactId>axis</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>commons-codec</groupId>
-      <artifactId>commons-codec</artifactId>
     </dependency>
 
     <dependency>
@@ -123,6 +113,16 @@
     <dependency>
       <groupId>org.mvel</groupId>
       <artifactId>mvel2</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.geronimo.bundles</groupId>
+      <artifactId>commons-discovery</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-codec</groupId>
+      <artifactId>commons-codec</artifactId>
     </dependency>
 
     <dependency>
@@ -186,9 +186,9 @@
             <Embed-Transitive>true</Embed-Transitive>
             <Embed-Dependency>
               swrlapi, swrlapi-drools-engine, 
-              axis, commons-codec, commons-discovery,
+              axis, 
               checker, checker-qual,
-              drools-core, drools-compiler, kie-api, kie-internal, antlr-runtime, mvel2, ecj
+              drools-core, drools-compiler, kie-api, kie-internal, antlr-runtime, mvel2, ecj, commons-codec, commons-discovery,
             </Embed-Dependency>
             <Import-Package>
               org.protege.editor.core.*;version="${protege.version}",
