@@ -191,11 +191,11 @@
               drools-core, drools-compiler, kie-api, kie-internal, antlr-runtime, mvel2, ecj
             </Embed-Dependency>
             <Import-Package>
-              org.protege.editor.core.*;version="5.0.0",
-              org.protege.editor.owl.*;version="5.0.0",
-              org.semanticweb.owlapi.*;version="[4.2.5,5.0.0)",
-              org.swrlapi.*;version="1.0.0",
-              org.swrlapi.drools.*;version="1.0.0",
+              org.protege.editor.core.*;version="${protege.version}",
+              org.protege.editor.owl.*;version="${protege.version}",
+              org.semanticweb.owlapi.*;version="[${owlapi.version},5.0.0)",
+              org.swrlapi.*;version="${swrlapi.version}",
+              org.swrlapi.drools.*;version="${swrlapi.version}",
               com.ibm.*;resolution:=optional,
               com.sun.*;resolution:=optional,
               sun.*;resolution:=optional,
