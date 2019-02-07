@@ -188,7 +188,7 @@
               swrlapi, swrlapi-drools-engine, 
               axis, 
               checker, checker-qual,
-              drools-core, drools-compiler, kie-api, kie-internal, antlr-runtime, mvel2, ecj, commons-codec, commons-discovery,
+              drools-core, drools-compiler, kie-api, kie-internal, antlr-runtime, mvel2, ecj, commons-codec, commons-discovery
             </Embed-Dependency>
             <Import-Package>
               org.protege.editor.core.*;version="${protege.version}",
