@@ -73,12 +73,7 @@
       <artifactId>axis</artifactId>
     </dependency>
 
-    <dependency>
-      <groupId>javax.xml.bind</groupId>
-      <artifactId>jaxb-api</artifactId>
-    </dependency>
-
-    <!-- Start of Drools dependencies -->
+    <!-- Drools dependencies -->
 
     <dependency>
       <groupId>org.drools</groupId>
@@ -115,6 +110,16 @@
     </dependency>
 
     <dependency>
+      <groupId>org.eclipse.jdt.core.compiler</groupId>
+      <artifactId>ecj</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.eclipse.equinox</groupId>
+      <artifactId>org.eclipse.equinox.registry</artifactId>
+    </dependency>
+
+    <dependency>
       <groupId>org.apache.geronimo.bundles</groupId>
       <artifactId>commons-discovery</artifactId>
     </dependency>
@@ -125,16 +130,16 @@
     </dependency>
 
     <dependency>
-      <groupId>org.eclipse.jdt.core.compiler</groupId>
-      <artifactId>ecj</artifactId>
+      <groupId>javax.xml.bind</groupId>
+      <artifactId>jaxb-api</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>org.eclipse.equinox</groupId>
-      <artifactId>org.eclipse.equinox.registry</artifactId>
+      <groupId>javax.enterprise</groupId>
+      <artifactId>cdi-api</artifactId>
     </dependency>
 
-    <!-- End of Drools dependencies -->
+    <!-- Checker dependencies -->
     
     <dependency>
       <groupId>org.checkerframework</groupId>
@@ -149,6 +154,13 @@
     <dependency>
       <groupId>org.checkerframework</groupId>
       <artifactId>jdk8</artifactId>
+    </dependency>
+
+    <!-- Test dependencies -->
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
     </dependency>
 
     <dependency>
@@ -187,7 +199,7 @@
               swrlapi, swrlapi-drools-engine, 
               axis, 
               checker, checker-qual,
-              drools-core, drools-compiler, kie-api, kie-internal, antlr-runtime, mvel2, ecj, commons-codec, commons-discovery
+              drools-core, drools-compiler, kie-api, kie-internal, antlr-runtime, mvel2, ecj, commons-discovery, commons-codec
             </Embed-Dependency>
             <Import-Package>
               org.protege.editor.core.*;version="${protege.version}",
