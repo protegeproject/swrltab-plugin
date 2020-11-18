@@ -9,7 +9,7 @@ The plugin contains SWRLTab and SQWRLTab components for working with SWRL rules 
 Plugin documentation can be found [here](https://github.com/protegeproject/swrltab-plugin/wiki).
 Documentation for the SWRLAPI can be found [here](https://github.com/protegeproject/swrlapi/wiki).
 
-Note that the plugin will work only in Protégé version 5.2 and later.
+Note that the plugin will work only in Protégé version 5.5 and later.
 
 #### Installing and Updating
 
@@ -41,7 +41,7 @@ To build this plugin you must have the following items installed:
 + [Java 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 + A tool for checking out a [Git](http://git-scm.com/) repository
 + Apache's [Maven](http://maven.apache.org/index.html)
-+ A Protégé (5.2 or higher) distribution. Download [here](http://protege.stanford.edu/products.php#desktop-protege).
++ A Protégé (5.5 or higher) distribution. Download [here](http://protege.stanford.edu/products.php#desktop-protege).
 
 Get a copy of the latest code:
 
