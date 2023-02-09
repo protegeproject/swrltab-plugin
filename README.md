@@ -9,7 +9,7 @@ The plugin contains SWRLTab and SQWRLTab components for working with SWRL rules 
 Plugin documentation can be found [here](https://github.com/protegeproject/swrltab-plugin/wiki).
 Documentation for the SWRLAPI can be found [here](https://github.com/protegeproject/swrlapi/wiki).
 
-Note that the plugin will work only in Protégé version 5.5 and later.
+Note that the plugin will work only in Protégé version 5.6.0 and later.
 
 #### Installing and Updating
 
@@ -38,10 +38,10 @@ Note that the release JARs can be downloaded from the repo's [Releases Area](htt
 
 To build this plugin you must have the following items installed:
 
-+ [Java 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
-+ A tool for checking out a [Git](http://git-scm.com/) repository
-+ Apache's [Maven](http://maven.apache.org/index.html)
-+ A Protégé (5.5 or higher) distribution. Download [here](http://protege.stanford.edu/products.php#desktop-protege).
++ [Java 11](https://www.oracle.com/java/technologies/downloads/archive/)
++ A tool for checking out a [Git](https://git-scm.com/) repository
++ Apache's [Maven](https://maven.apache.org/index.html)
++ A Protégé (5.6.0 or higher) distribution. Download [here](https://protege.stanford.edu/products.php#desktop-protege).
 
 Get a copy of the latest code:
 
@@ -59,7 +59,7 @@ On build completion the ```target``` directory will contain a ```swrltab-plugin-
 The JAR contains both SWRLTab and SQWRLTab components and is generated in the OSGi bundle format required by Protégé's plugin-in mechanism.
 
 To install in your local Protégé, copy this JAR file to the ```plugins``` subdirectory of your Protégé installation (e.g.,
-```/Applications/Protégé-5.0.0/Protégé.app/Contents/Java/plugins/```).  
+```/Applications/Protégé-5.6.0/Protégé.app/Contents/plugins/```).  
 
 #### License
 
