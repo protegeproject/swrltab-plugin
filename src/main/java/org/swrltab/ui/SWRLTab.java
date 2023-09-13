@@ -1,6 +1,7 @@
 package org.swrltab.ui;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.protege.editor.core.ProtegeApplication;
 import org.protege.editor.owl.model.event.EventType;
 import org.protege.editor.owl.model.event.OWLModelManagerChangeEvent;
 import org.protege.editor.owl.model.event.OWLModelManagerListener;
@@ -17,12 +18,15 @@ import org.swrlapi.ui.view.rules.SWRLRulesView;
 import org.swrltab.core.ProtegeIRIResolver;
 
 import java.awt.*;
+import java.io.File;
 
 public class SWRLTab extends OWLWorkspaceViewsTab
 {
   private static final long serialVersionUID = 1L;
 
   private static final Logger log = LoggerFactory.getLogger(SWRLTab.class);
+
+  private static final File pluginsFolder = new File(System.getProperty(ProtegeApplication.BUNDLE_DIR_PROP));
 
   private SWRLRuleEngineModel swrlRuleEngineModel;
   private SWRLRulesView rulesView;
@@ -72,6 +76,8 @@ public class SWRLTab extends OWLWorkspaceViewsTab
 
         // Create a rule engine
         SWRLRuleEngine ruleEngine = SWRLAPIFactory.createSWRLRuleEngine(activeOntology, iriResolver);
+
+        ruleEngine.loadExternalSWRLBuiltInLibraries(pluginsFolder);
 
         // Create a rule engine model. This is the core plugin model.
         this.swrlRuleEngineModel = SWRLAPIFactory.createSWRLRuleEngineModel(ruleEngine);
