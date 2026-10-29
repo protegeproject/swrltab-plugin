@@ -281,12 +281,15 @@
               antlr-runtime, mvel2, 
               commons-discovery, commons-codec
             </Embed-Dependency>
+            <!-- Axis CORBAProvider is unused by SWRLAPI; it must not require a CORBA runtime. -->
             <Import-Package>
               org.protege.editor.core.*;version="${protege.version}",
               org.protege.editor.owl.*;version="${protege.version}",
               org.semanticweb.owlapi.*;version="[${owlapi.version},5.0.0)",
               org.swrlapi.*;version="${swrlapi.version}",
               org.swrlapi.drools.*;version="${swrlapi.version}",
+              org.omg.CORBA;resolution:=optional,
+              org.omg.CosNaming;resolution:=optional,
               org.drools.cdi.*;resolution:=optional,
               org.drools.persistence.jpa.*;resolution:=optional,
               org.drools.compiler.shade.org.eclipse.jdt.core.index.*;resolution:=optional,
