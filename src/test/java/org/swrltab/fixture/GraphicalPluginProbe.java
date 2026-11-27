@@ -39,6 +39,13 @@ public class GraphicalPluginProbe implements BundleActivator
               .filter(iri -> iri.toString().equals("urn:swrlapi:smoke")).isPresent()) continue;
             timer.stop();
             run(kit);
+            if (Boolean.getBoolean("swrlapi.guiSmoke.closeEditor")) {
+              // Release window listeners while the OSGi registry is still active.
+              ProtegeManager.getInstance().getEditorKitManager().removeEditorKit(kit);
+              kit.dispose();
+              require(activeFactories() == 0, "Closing the editor leaked contributed factories");
+              evidence.append("PASS: editor closed before framework shutdown\n");
+            }
             Files.writeString(Path.of(output), evidence + "GRAPHICAL PLUGIN PASS\n");
             return;
           }
