@@ -23,6 +23,8 @@ public class SWRLTabEngineFactory extends DefaultSWRLRuleAndQueryEngineFactory i
     this(new SWRLBuiltInLibraryFactoryLoader().getPlugins());
   }
 
+  // Registration uses the initialized parent registry and does not call tab-specific overrides.
+  @SuppressWarnings("nullness:method.invocation")
   public SWRLTabEngineFactory(Collection<SWRLBuiltInLibraryFactoryPlugin> plugins)
   {
     this.plugins = new ArrayList<>(plugins);

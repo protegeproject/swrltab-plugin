@@ -1,5 +1,7 @@
 package org.swrltab.ui;
 
+import javax.swing.JDialog;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.protege.editor.owl.model.event.EventType;
 import org.protege.editor.owl.model.event.OWLModelManagerChangeEvent;
@@ -25,14 +27,14 @@ public class SQWRLTab extends OWLWorkspaceViewsTab
 
   private static final long serialVersionUID = 1L;
 
-  private SQWRLQueryEngineModel sqwrlQueryEngineModel;
-  private SQWRLQueriesView queriesView;
+  private @Nullable SQWRLQueryEngineModel sqwrlQueryEngineModel;
+  private @Nullable SQWRLQueriesView queriesView;
 
   private final SQWRLTabListener listener = new SQWRLTabListener();
 
   private boolean updating = false;
-  private SWRLTabEngineFactory engineFactory;
-  private javax.swing.JDialog ruleEditorDialog;
+  private @Nullable SWRLTabEngineFactory engineFactory;
+  private @Nullable JDialog ruleEditorDialog;
 
   @Override public void initialise()
   {
@@ -100,23 +102,25 @@ public class SQWRLTab extends OWLWorkspaceViewsTab
         SQWRLQueryEngine queryEngine = this.engineFactory.createSQWRLQueryEngine(activeOntology, iriResolver);
 
         // Create a query engine model. This is the core plugin model.
-        sqwrlQueryEngineModel = SWRLAPIFactory.createSQWRLQueryEngineModel(queryEngine);
+        SQWRLQueryEngineModel model = SWRLAPIFactory.createSQWRLQueryEngineModel(queryEngine);
+        this.sqwrlQueryEngineModel = model;
 
         // Create the dialog manager
         SWRLRuleEngineDialogManager dialogManager = SWRLAPIFactory
-          .createSWRLRuleEngineDialogManager(sqwrlQueryEngineModel);
+          .createSWRLRuleEngineDialogManager(model);
         this.ruleEditorDialog = dialogManager.getSWRLRuleEditorDialog(this);
 
         // Create the primary SQWRLTab view
-        this.queriesView = new SQWRLQueriesView(sqwrlQueryEngineModel, dialogManager);
+        SQWRLQueriesView view = new SQWRLQueriesView(model, dialogManager);
+        this.queriesView = view;
 
         // Initialize the view
-        this.queriesView.initialize();
+        view.initialize();
 
         // Add it
-        add(this.queriesView);
+        add(view);
 
-        this.sqwrlQueryEngineModel.registerOntologyListener();
+        model.registerOntologyListener();
 
       } else
         log.warn("SQWRLTab update failed - no active OWL ontology");

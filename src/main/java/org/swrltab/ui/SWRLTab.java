@@ -1,5 +1,7 @@
 package org.swrltab.ui;
 
+import javax.swing.JDialog;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.protege.editor.owl.model.event.EventType;
 import org.protege.editor.owl.model.event.OWLModelManagerChangeEvent;
@@ -25,14 +27,14 @@ public class SWRLTab extends OWLWorkspaceViewsTab
 
   private static final Logger log = LoggerFactory.getLogger(SWRLTab.class);
 
-  private SWRLRuleEngineModel swrlRuleEngineModel;
-  private SWRLRulesView rulesView;
+  private @Nullable SWRLRuleEngineModel swrlRuleEngineModel;
+  private @Nullable SWRLRulesView rulesView;
 
   private final SWRLTabListener listener = new SWRLTabListener();
 
   private boolean updating = false;
-  private SWRLTabEngineFactory engineFactory;
-  private javax.swing.JDialog ruleEditorDialog;
+  private @Nullable SWRLTabEngineFactory engineFactory;
+  private @Nullable JDialog ruleEditorDialog;
 
   @Override public void initialise()
   {
@@ -98,19 +100,21 @@ public class SWRLTab extends OWLWorkspaceViewsTab
         SWRLRuleEngine ruleEngine = this.engineFactory.createSWRLRuleEngine(activeOntology, iriResolver);
 
         // Create a rule engine model. This is the core plugin model.
-        this.swrlRuleEngineModel = SWRLAPIFactory.createSWRLRuleEngineModel(ruleEngine);
+        SWRLRuleEngineModel model = SWRLAPIFactory.createSWRLRuleEngineModel(ruleEngine);
+        this.swrlRuleEngineModel = model;
 
         // Create the rule engine dialog manager
         SWRLRuleEngineDialogManager dialogManager = SWRLAPIFactory
-          .createSWRLRuleEngineDialogManager(swrlRuleEngineModel);
+          .createSWRLRuleEngineDialogManager(model);
         this.ruleEditorDialog = dialogManager.getSWRLRuleEditorDialog(this);
 
         // Create the main SWRLTab plugin view
-        this.rulesView = new SWRLRulesView(swrlRuleEngineModel, dialogManager);
-        this.rulesView.initialize();
-        add(this.rulesView);
+        SWRLRulesView view = new SWRLRulesView(model, dialogManager);
+        this.rulesView = view;
+        view.initialize();
+        add(view);
 
-        this.swrlRuleEngineModel.registerOntologyListener();
+        model.registerOntologyListener();
 
       } else
         log.warn("SWRLTab update failed - no active OWL ontology");

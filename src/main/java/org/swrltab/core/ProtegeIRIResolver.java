@@ -28,10 +28,10 @@ public class ProtegeIRIResolver extends DefaultIRIResolver
 {
   private static final Logger log = LoggerFactory.getLogger(ProtegeIRIResolver.class);
 
-  @NonNull private final OWLEntityFinder entityFinder;
-  @NonNull private final OWLModelManagerEntityRenderer entityRenderer;
-  @NonNull private final OWLObjectRenderer objectRenderer;
-  @NonNull private Optional<SWRLBuiltInLibraryManager> builtInLibraryManager = Optional.empty();
+  private final @NonNull OWLEntityFinder entityFinder;
+  private final @NonNull OWLModelManagerEntityRenderer entityRenderer;
+  private final @NonNull OWLObjectRenderer objectRenderer;
+  private @NonNull Optional<SWRLBuiltInLibraryManager> builtInLibraryManager = Optional.empty();
 
   public ProtegeIRIResolver(@NonNull OWLEntityFinder owlEntityFinder,
     @NonNull OWLModelManagerEntityRenderer entityRenderer, @NonNull OWLObjectRenderer objectRenderer)
@@ -47,7 +47,7 @@ public class ProtegeIRIResolver extends DefaultIRIResolver
     this.builtInLibraryManager = Optional.of(manager);
   }
 
-  @Override @NonNull public Optional<@NonNull String> iri2PrefixedName(@NonNull IRI iri)
+  @Override public @NonNull Optional<@NonNull String> iri2PrefixedName(@NonNull IRI iri)
   {
     // Registered library names take precedence over ontology aliases and generated prefixes.
     Optional<String> builtInName = this.builtInLibraryManager.flatMap(manager -> manager.swrlBuiltInIRI2PrefixedName(iri));
@@ -62,7 +62,7 @@ public class ProtegeIRIResolver extends DefaultIRIResolver
     }
   }
 
-  @NonNull @Override public Optional<@NonNull String> iri2ShortForm(@NonNull IRI iri)
+  @Override public @NonNull Optional<@NonNull String> iri2ShortForm(@NonNull IRI iri)
   {
     Optional<@NonNull String> shortForm = super.iri2ShortForm(iri);
 
@@ -72,7 +72,7 @@ public class ProtegeIRIResolver extends DefaultIRIResolver
       return Optional.of(this.entityRenderer.render(iri));
   }
 
-  @NonNull @Override public Optional<@NonNull IRI> prefixedName2IRI(@NonNull String prefixedName)
+  @Override public @NonNull Optional<@NonNull IRI> prefixedName2IRI(@NonNull String prefixedName)
   {
     Optional<IRI> builtInIRI = this.builtInLibraryManager.flatMap(manager -> manager.swrlBuiltInPrefixedName2IRI(prefixedName));
     if (builtInIRI.isPresent())
@@ -85,7 +85,7 @@ public class ProtegeIRIResolver extends DefaultIRIResolver
       return super.prefixedName2IRI(prefixedName);
   }
 
-  @NonNull @Override public String render(@Nonnull OWLObject owlObject)
+  @Override public @NonNull String render(@Nonnull OWLObject owlObject)
   {
     if (owlObject instanceof SWRLObject) {
       StringWriter writer = new StringWriter();
@@ -98,6 +98,8 @@ public class ProtegeIRIResolver extends DefaultIRIResolver
   /** Keeps rule syntax independent of the host's entity short-name display. */
   private class SWRLObjectRenderer extends ManchesterOWLSyntaxObjectRenderer
   {
+    // Both inherited renderer settings are initialized by the superclass constructor.
+    @SuppressWarnings("nullness:method.invocation")
     SWRLObjectRenderer(StringWriter writer)
     {
       super(writer, entityRenderer::render);
