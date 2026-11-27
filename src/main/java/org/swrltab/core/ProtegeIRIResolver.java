@@ -15,6 +15,7 @@ import org.semanticweb.owlapi.manchestersyntax.renderer.ManchesterOWLSyntaxObjec
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.swrlapi.factory.DefaultIRIResolver;
+import org.swrlapi.builtins.SWRLBuiltInLibraryManager;
 
 import javax.annotation.Nonnull;
 import java.io.StringWriter;
@@ -28,6 +29,7 @@ public class ProtegeIRIResolver extends DefaultIRIResolver
   @NonNull private final OWLEntityFinder entityFinder;
   @NonNull private final OWLModelManagerEntityRenderer entityRenderer;
   @NonNull private final OWLObjectRenderer objectRenderer;
+  @NonNull private Optional<SWRLBuiltInLibraryManager> builtInLibraryManager = Optional.empty();
 
   public ProtegeIRIResolver(@NonNull OWLEntityFinder owlEntityFinder,
     @NonNull OWLModelManagerEntityRenderer entityRenderer, @NonNull OWLObjectRenderer objectRenderer)
@@ -38,8 +40,17 @@ public class ProtegeIRIResolver extends DefaultIRIResolver
     this.objectRenderer = objectRenderer;
   }
 
+  void setBuiltInLibraryManager(@NonNull SWRLBuiltInLibraryManager manager)
+  {
+    this.builtInLibraryManager = Optional.of(manager);
+  }
+
   @Override @NonNull public Optional<@NonNull String> iri2PrefixedName(@NonNull IRI iri)
   {
+    // Registered library names take precedence over ontology aliases and generated prefixes.
+    Optional<String> builtInName = this.builtInLibraryManager.flatMap(manager -> manager.swrlBuiltInIRI2PrefixedName(iri));
+    if (builtInName.isPresent())
+      return builtInName;
     Optional<@NonNull String> prefixedName = super.iri2PrefixedName(iri);
 
     if (prefixedName.isPresent()) {
@@ -61,6 +72,9 @@ public class ProtegeIRIResolver extends DefaultIRIResolver
 
   @NonNull @Override public Optional<@NonNull IRI> prefixedName2IRI(@NonNull String prefixedName)
   {
+    Optional<IRI> builtInIRI = this.builtInLibraryManager.flatMap(manager -> manager.swrlBuiltInPrefixedName2IRI(prefixedName));
+    if (builtInIRI.isPresent())
+      return builtInIRI;
     OWLEntity owlEntity = this.entityFinder.getOWLEntity(prefixedName);
 
     if (owlEntity != null)

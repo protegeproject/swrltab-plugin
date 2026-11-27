@@ -3,11 +3,9 @@ package org.swrltab.core;
 import org.eclipse.core.runtime.IExtension;
 import org.protege.editor.core.plugin.AbstractProtegePlugin;
 
-//Declare an extension point in your plugin.xml that plugins to the SWRL tab will implement
-//  <extension-point id="SWRLBuiltInLibraryFactoryPlugin" name="SWRL Built-in Library Factory"/>
-
 public class SWRLBuiltInLibraryFactoryPlugin extends AbstractProtegePlugin<SWRLBuiltInLibraryFactory>
 {
+  public static final String PLUGIN_ID = "swrltab-plugin";
   public static final String ID = "SWRLBuiltInLibraryFactoryPlugin";
 
   public SWRLBuiltInLibraryFactoryPlugin(IExtension extension)
@@ -23,11 +21,17 @@ public class SWRLBuiltInLibraryFactoryPlugin extends AbstractProtegePlugin<SWRLB
   @Override public SWRLBuiltInLibraryFactory newInstance()
     throws ClassNotFoundException, IllegalAccessException, InstantiationException
   {
+    SWRLBuiltInLibraryFactory factory = super.newInstance();
     try {
-      SWRLBuiltInLibraryFactory swrlBuiltInLibraryFactory = super.newInstance();
-      return swrlBuiltInLibraryFactory;
+      factory.initialise();
+      return factory;
     } catch (Exception e) {
-      throw new RuntimeException(e);
+      try {
+        factory.dispose();
+      } catch (Exception cleanup) {
+        e.addSuppressed(cleanup);
+      }
+      throw new IllegalStateException("Could not initialize built-in library contribution " + getId(), e);
     }
   }
 }

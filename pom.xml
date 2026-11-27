@@ -173,6 +173,15 @@
           <instructions>
             <Bundle-SymbolicName>${project.artifactId};singleton:=true</Bundle-SymbolicName>
             <Include-Resource>plugin.xml, {maven-resources}</Include-Resource>
+            <!-- Re-export the embedded core API so contributors share the engine's class identity. -->
+            <Export-Package>org.swrltab.*</Export-Package>
+            <_exportcontents>
+              !org.swrlapi.drools.*,org.swrlapi.*;version="${project.version}",
+              org.apache.axis.*,org.apache.commons.discovery,
+              org.checkerframework.checker.nullness.qual,
+              org.checkerframework.dataflow.qual,
+              org.checkerframework.framework.qual
+            </_exportcontents>
             <Embed-Transitive>true</Embed-Transitive>
             <!-- Embed the rule engine; OWLAPI, Protégé and logging come from the host. -->
             <Embed-Dependency>

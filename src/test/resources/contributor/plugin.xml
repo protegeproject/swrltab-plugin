@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+  <extension id="example" point="swrltab-plugin.SWRLBuiltInLibraryFactoryPlugin">
+    <name value="Contributed test library"/>
+    <class value="org.swrltab.fixture.ExampleLibraryFactory"/>
+  </extension>
+</plugin>

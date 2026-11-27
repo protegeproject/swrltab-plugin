@@ -8,7 +8,6 @@ import org.protege.editor.owl.ui.OWLWorkspaceViewsTab;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.swrlapi.builtins.SWRLBuiltInLibrary;
 import org.swrlapi.core.IRIResolver;
 import org.swrlapi.factory.SWRLAPIFactory;
 import org.swrlapi.sqwrl.SQWRLQueryEngine;
@@ -16,11 +15,9 @@ import org.swrlapi.ui.dialog.SWRLRuleEngineDialogManager;
 import org.swrlapi.ui.model.SQWRLQueryEngineModel;
 import org.swrlapi.ui.view.queries.SQWRLQueriesView;
 import org.swrltab.core.ProtegeIRIResolver;
-import org.swrltab.core.SWRLBuiltInLibraryFactoryPlugin;
-import org.swrltab.core.SWRLBuiltInLibraryFactoryLoader;
+import org.swrltab.core.SWRLTabEngineFactory;
 
 import java.awt.*;
-import java.util.Set;
 
 public class SQWRLTab extends OWLWorkspaceViewsTab
 {
@@ -34,6 +31,7 @@ public class SQWRLTab extends OWLWorkspaceViewsTab
   private final SQWRLTabListener listener = new SQWRLTabListener();
 
   private boolean updating = false;
+  private SWRLTabEngineFactory engineFactory;
 
   @Override public void initialise()
   {
@@ -61,12 +59,19 @@ public class SQWRLTab extends OWLWorkspaceViewsTab
 
     if (this.sqwrlQueryEngineModel != null)
       this.sqwrlQueryEngineModel.unregisterOntologyListener();
+    if (this.engineFactory != null)
+      this.engineFactory.close();
   }
 
   private void update()
   {
     this.updating = true;
     try {
+      if (this.sqwrlQueryEngineModel != null)
+        this.sqwrlQueryEngineModel.unregisterOntologyListener();
+      if (this.engineFactory != null)
+        this.engineFactory.close();
+
       // Get the active OWL ontology
       OWLOntology activeOntology = getOWLModelManager().getActiveOntology();
 
@@ -76,16 +81,8 @@ public class SQWRLTab extends OWLWorkspaceViewsTab
           getOWLModelManager().getOWLEntityRenderer(), getOWLModelManager().getOWLObjectRenderer());
 
         // Create a SQWRL query engine
-        SQWRLQueryEngine queryEngine = SWRLAPIFactory.createSQWRLQueryEngine(activeOntology, iriResolver);
-
-        SWRLBuiltInLibraryFactoryLoader loader = new SWRLBuiltInLibraryFactoryLoader();
-        Set<SWRLBuiltInLibraryFactoryPlugin> swrlBuiltInLibraryProtegePlugins = loader.getPlugins();
-
-        for (SWRLBuiltInLibraryFactoryPlugin plugin : swrlBuiltInLibraryProtegePlugins) {
-          SWRLBuiltInLibrary library = plugin.newInstance().getSWRLBuiltInLibrary();
-          // TODO add library to query engine
-          log.info("Loading SWRL built-in library " + library.getPrefix());
-        }
+        this.engineFactory = new SWRLTabEngineFactory();
+        SQWRLQueryEngine queryEngine = this.engineFactory.createSQWRLQueryEngine(activeOntology, iriResolver);
 
         // Create a query engine model. This is the core plugin model.
         sqwrlQueryEngineModel = SWRLAPIFactory.createSQWRLQueryEngineModel(queryEngine);
@@ -110,7 +107,9 @@ public class SQWRLTab extends OWLWorkspaceViewsTab
 
       } else
         log.warn("SQWRLTab update failed - no active OWL ontology");
-    } catch (RuntimeException | ClassNotFoundException | IllegalAccessException | InstantiationException e) {
+    } catch (RuntimeException e) {
+      if (this.engineFactory != null)
+        this.engineFactory.close();
       log.error("Error updating SQWRLTab", e);
     }
     this.updating = false;

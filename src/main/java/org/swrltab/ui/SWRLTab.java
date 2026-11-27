@@ -15,6 +15,7 @@ import org.swrlapi.ui.dialog.SWRLRuleEngineDialogManager;
 import org.swrlapi.ui.model.SWRLRuleEngineModel;
 import org.swrlapi.ui.view.rules.SWRLRulesView;
 import org.swrltab.core.ProtegeIRIResolver;
+import org.swrltab.core.SWRLTabEngineFactory;
 
 import java.awt.*;
 
@@ -30,6 +31,7 @@ public class SWRLTab extends OWLWorkspaceViewsTab
   private final SWRLTabListener listener = new SWRLTabListener();
 
   private boolean updating = false;
+  private SWRLTabEngineFactory engineFactory;
 
   @Override public void initialise()
   {
@@ -56,12 +58,19 @@ public class SWRLTab extends OWLWorkspaceViewsTab
 
     if (this.swrlRuleEngineModel != null)
       this.swrlRuleEngineModel.unregisterOntologyListener();
+    if (this.engineFactory != null)
+      this.engineFactory.close();
   }
 
   private void update()
   {
     this.updating = true;
     try {
+      if (this.swrlRuleEngineModel != null)
+        this.swrlRuleEngineModel.unregisterOntologyListener();
+      if (this.engineFactory != null)
+        this.engineFactory.close();
+
       // Get the active OWL ontology
       OWLOntology activeOntology = getOWLModelManager().getActiveOntology();
 
@@ -71,7 +80,8 @@ public class SWRLTab extends OWLWorkspaceViewsTab
           getOWLModelManager().getOWLEntityRenderer(), getOWLModelManager().getOWLObjectRenderer());
 
         // Create a rule engine
-        SWRLRuleEngine ruleEngine = SWRLAPIFactory.createSWRLRuleEngine(activeOntology, iriResolver);
+        this.engineFactory = new SWRLTabEngineFactory();
+        SWRLRuleEngine ruleEngine = this.engineFactory.createSWRLRuleEngine(activeOntology, iriResolver);
 
         // Create a rule engine model. This is the core plugin model.
         this.swrlRuleEngineModel = SWRLAPIFactory.createSWRLRuleEngineModel(ruleEngine);
@@ -93,6 +103,8 @@ public class SWRLTab extends OWLWorkspaceViewsTab
       } else
         log.warn("SWRLTab update failed - no active OWL ontology");
     } catch (RuntimeException e) {
+      if (this.engineFactory != null)
+        this.engineFactory.close();
       log.error("Error updating SWRLTab", e);
     }
     this.updating = false;

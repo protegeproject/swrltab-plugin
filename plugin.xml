@@ -3,6 +3,8 @@
 
 <plugin name="SWRLAPI Plugin for Desktop Protege" version="1.0.0">
 
+  <extension-point id="SWRLBuiltInLibraryFactoryPlugin" name="SWRL Built-in Library Factory"/>
+
 	<extension id="SWRLTab" point="org.protege.editor.core.application.WorkspaceTab">
 		<label value="SWRLTab"/>
 		<class value="org.swrltab.ui.SWRLTab"/>
