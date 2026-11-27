@@ -1,0 +1,12 @@
+name: Plugin update channels
+on:
+  push:
+    branches: [protege-6]
+  pull_request:
+    branches: [protege-6]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify-update-channels:
+    uses: protegeproject/swrlapi-project/.github/workflows/plugin-update-channels.yml@protege-6
