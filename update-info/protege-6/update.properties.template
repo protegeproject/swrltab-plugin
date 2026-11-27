@@ -1,0 +1,8 @@
+# Release preparation template; do not register this file as an update feed.
+name=SWRLTab
+id=swrltab-plugin
+version=@VERSION@
+download=https://github.com/protegeproject/swrltab-plugin/releases/download/release-@VERSION@/swrltab-plugin-@VERSION@.jar
+readme=https://raw.githubusercontent.com/protegeproject/swrltab-plugin/release-@VERSION@/src/main/resources/readme.html
+license=https://opensource.org/licenses/BSD-2-Clause
+author=Stanford University

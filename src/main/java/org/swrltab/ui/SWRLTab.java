@@ -32,6 +32,7 @@ public class SWRLTab extends OWLWorkspaceViewsTab
 
   private boolean updating = false;
   private SWRLTabEngineFactory engineFactory;
+  private javax.swing.JDialog ruleEditorDialog;
 
   @Override public void initialise()
   {
@@ -52,24 +53,37 @@ public class SWRLTab extends OWLWorkspaceViewsTab
 
   @Override public void dispose()
   {
+    releaseEngine();
+    if (getOWLModelManager() != null)
+      getOWLModelManager().removeListener(this.listener);
     super.dispose();
+  }
 
-    getOWLModelManager().removeListener(this.listener);
-
-    if (this.swrlRuleEngineModel != null)
+  private void releaseEngine()
+  {
+    if (this.ruleEditorDialog != null) {
+      this.ruleEditorDialog.dispose();
+      this.ruleEditorDialog = null;
+    }
+    if (this.swrlRuleEngineModel != null) {
       this.swrlRuleEngineModel.unregisterOntologyListener();
-    if (this.engineFactory != null)
+      this.swrlRuleEngineModel = null;
+    }
+    if (this.engineFactory != null) {
       this.engineFactory.close();
+      this.engineFactory = null;
+    }
+    if (this.rulesView != null) {
+      remove(this.rulesView);
+      this.rulesView = null;
+    }
   }
 
   private void update()
   {
     this.updating = true;
     try {
-      if (this.swrlRuleEngineModel != null)
-        this.swrlRuleEngineModel.unregisterOntologyListener();
-      if (this.engineFactory != null)
-        this.engineFactory.close();
+      releaseEngine();
 
       // Get the active OWL ontology
       OWLOntology activeOntology = getOWLModelManager().getActiveOntology();
@@ -89,9 +103,7 @@ public class SWRLTab extends OWLWorkspaceViewsTab
         // Create the rule engine dialog manager
         SWRLRuleEngineDialogManager dialogManager = SWRLAPIFactory
           .createSWRLRuleEngineDialogManager(swrlRuleEngineModel);
-
-        if (this.rulesView != null)
-          remove(this.rulesView);
+        this.ruleEditorDialog = dialogManager.getSWRLRuleEditorDialog(this);
 
         // Create the main SWRLTab plugin view
         this.rulesView = new SWRLRulesView(swrlRuleEngineModel, dialogManager);
@@ -103,11 +115,13 @@ public class SWRLTab extends OWLWorkspaceViewsTab
       } else
         log.warn("SWRLTab update failed - no active OWL ontology");
     } catch (RuntimeException e) {
-      if (this.engineFactory != null)
-        this.engineFactory.close();
+      releaseEngine();
       log.error("Error updating SWRLTab", e);
+    } finally {
+      this.updating = false;
+      revalidate();
+      repaint();
     }
-    this.updating = false;
   }
 
   private class SWRLTabListener implements OWLModelManagerListener

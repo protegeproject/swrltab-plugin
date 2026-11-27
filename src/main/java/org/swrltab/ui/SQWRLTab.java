@@ -32,6 +32,7 @@ public class SQWRLTab extends OWLWorkspaceViewsTab
 
   private boolean updating = false;
   private SWRLTabEngineFactory engineFactory;
+  private javax.swing.JDialog ruleEditorDialog;
 
   @Override public void initialise()
   {
@@ -54,23 +55,37 @@ public class SQWRLTab extends OWLWorkspaceViewsTab
 
   @Override public void dispose()
   {
+    releaseEngine();
+    if (getOWLModelManager() != null)
+      getOWLModelManager().removeListener(this.listener);
     super.dispose();
-    getOWLModelManager().removeListener(this.listener);
+  }
 
-    if (this.sqwrlQueryEngineModel != null)
+  private void releaseEngine()
+  {
+    if (this.ruleEditorDialog != null) {
+      this.ruleEditorDialog.dispose();
+      this.ruleEditorDialog = null;
+    }
+    if (this.sqwrlQueryEngineModel != null) {
       this.sqwrlQueryEngineModel.unregisterOntologyListener();
-    if (this.engineFactory != null)
+      this.sqwrlQueryEngineModel = null;
+    }
+    if (this.engineFactory != null) {
       this.engineFactory.close();
+      this.engineFactory = null;
+    }
+    if (this.queriesView != null) {
+      remove(this.queriesView);
+      this.queriesView = null;
+    }
   }
 
   private void update()
   {
     this.updating = true;
     try {
-      if (this.sqwrlQueryEngineModel != null)
-        this.sqwrlQueryEngineModel.unregisterOntologyListener();
-      if (this.engineFactory != null)
-        this.engineFactory.close();
+      releaseEngine();
 
       // Get the active OWL ontology
       OWLOntology activeOntology = getOWLModelManager().getActiveOntology();
@@ -90,9 +105,7 @@ public class SQWRLTab extends OWLWorkspaceViewsTab
         // Create the dialog manager
         SWRLRuleEngineDialogManager dialogManager = SWRLAPIFactory
           .createSWRLRuleEngineDialogManager(sqwrlQueryEngineModel);
-
-        if (this.queriesView != null)
-          remove(this.queriesView);
+        this.ruleEditorDialog = dialogManager.getSWRLRuleEditorDialog(this);
 
         // Create the primary SQWRLTab view
         this.queriesView = new SQWRLQueriesView(sqwrlQueryEngineModel, dialogManager);
@@ -108,11 +121,13 @@ public class SQWRLTab extends OWLWorkspaceViewsTab
       } else
         log.warn("SQWRLTab update failed - no active OWL ontology");
     } catch (RuntimeException e) {
-      if (this.engineFactory != null)
-        this.engineFactory.close();
+      releaseEngine();
       log.error("Error updating SQWRLTab", e);
+    } finally {
+      this.updating = false;
+      revalidate();
+      repaint();
     }
-    this.updating = false;
   }
 
   private class SQWRLTabListener implements OWLModelManagerListener

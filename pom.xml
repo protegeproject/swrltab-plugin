@@ -171,6 +171,7 @@
         <extensions>true</extensions>
         <configuration>
           <instructions>
+            <_donotcopy>(.*[/])?module-info[.]class</_donotcopy>
             <Bundle-SymbolicName>${project.artifactId};singleton:=true</Bundle-SymbolicName>
             <Include-Resource>plugin.xml, {maven-resources}</Include-Resource>
             <!-- Re-export the embedded core API so contributors share the engine's class identity. -->
