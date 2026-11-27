@@ -1,5 +1,5 @@
 # Release preparation template; do not register this file as an update feed.
-name=SWRLTab
+name=SWRLTab (Protege 6 only)
 id=swrltab-plugin
 version=@VERSION@
 download=https://github.com/protegeproject/swrltab-plugin/releases/download/release-@VERSION@/swrltab-plugin-@VERSION@.jar

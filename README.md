@@ -5,6 +5,27 @@ This **`protege-6` / 2.1.5-SNAPSHOT** branch targets **unmodified Protégé
 6.0.0-alpha-1** on `protege6/release-6.0.0-alpha-1`, using **OWLAPI 5.5.1** and
 **JDK 17**. It is a development build, not a released update for Protégé 5.
 
+## Update channels and host compatibility
+
+Protégé uses a plugin registry listing `update.properties` files. The Protégé 5
+channel stays on SWRLTab **2.1.4**, with its jar and readme pinned to that release.
+The separate Protégé 6 template is labelled **SWRLTab (Protege 6 only)** and must
+be registered only in the Protégé 6 registry after a verified release is uploaded.
+This snapshot is not advertised as an update in either registry.
+
+The updater does not filter these properties by host version. Feed separation
+prevents the normal Protégé 5 update path from offering the new plugin; mandatory
+OSGi imports in `[6.0.0,7.0.0)` prevent it loading if someone manually copies it
+into Protégé 5. Adding an unsupported minimum-version property would not protect
+the download path. CI guards the legacy feed, release URLs, explicit host label,
+and mandatory host imports; release verification checks the packaged manifest too.
+
+The unmodified Protégé 6.0.0-alpha-1 still defaults to the Protégé 5 registry and
+preference key. This is recorded for its maintainers in the
+[roadmap](https://github.com/protegeproject/swrlapi-project/blob/protege-6/ops/roadmap.md).
+Public registration of this plugin requires the correct Protégé 6 registry;
+never repoint the Protégé 5 feed to make the alpha host discover it.
+
 ## Build and load
 
 Clone the matching SWRLAPI sibling repositories and follow the
