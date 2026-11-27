@@ -7,11 +7,18 @@ import org.protege.editor.owl.ui.renderer.OWLObjectRenderer;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
+import org.semanticweb.owlapi.model.SWRLDArgument;
+import org.semanticweb.owlapi.model.SWRLObject;
+import org.semanticweb.owlapi.model.SWRLVariable;
+import org.semanticweb.owlapi.manchestersyntax.renderer.ManchesterOWLSyntaxObjectRenderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.swrlapi.factory.DefaultIRIResolver;
 
 import javax.annotation.Nonnull;
+import java.io.StringWriter;
+import java.util.Iterator;
 import java.util.Optional;
 
 public class ProtegeIRIResolver extends DefaultIRIResolver
@@ -64,6 +71,46 @@ public class ProtegeIRIResolver extends DefaultIRIResolver
 
   @NonNull @Override public String render(@Nonnull OWLObject owlObject)
   {
+    if (owlObject instanceof SWRLObject) {
+      StringWriter writer = new StringWriter();
+      owlObject.accept(new SWRLObjectRenderer(writer));
+      return writer.toString();
+    }
     return this.objectRenderer.render(owlObject);
+  }
+
+  /** Keeps rule syntax independent of the host's entity short-name display. */
+  private class SWRLObjectRenderer extends ManchesterOWLSyntaxObjectRenderer
+  {
+    SWRLObjectRenderer(StringWriter writer)
+    {
+      super(writer, entityRenderer::render);
+      setUseWrapping(false);
+      setUseTabbing(false);
+    }
+
+    @Override public void visit(IRI iri)
+    {
+      write(entityRenderer.render(iri));
+    }
+
+    @Override public void visit(SWRLVariable variable)
+    {
+      write("?");
+      write(iri2VariableName(variable.getIRI()).orElse(variable.getIRI().getShortForm()));
+    }
+
+    @Override public void visit(SWRLBuiltInAtom atom)
+    {
+      write(iri2PrefixedName(atom.getPredicate()).orElse("<" + atom.getPredicate() + ">"));
+      write("(");
+      Iterator<SWRLDArgument> arguments = atom.getArguments().iterator();
+      while (arguments.hasNext()) {
+        arguments.next().accept(this);
+        if (arguments.hasNext())
+          write(", ");
+      }
+      write(")");
+    }
   }
 }

@@ -9,18 +9,15 @@
     <relativePath>../swrlapi-parent/pom.xml</relativePath>
   </parent>
 
-  <groupId>edu.stanford.swrl</groupId>
   <artifactId>swrltab-plugin</artifactId>
-  <version>2.1.5-SNAPSHOT</version>
   <name>SWRLTab Plugin</name>
   <url>https://github.com/protegeproject/swrltab-plugin/wiki</url>
   <packaging>bundle</packaging>
 
   <properties>
-
-    <swrlapi.version>2.1.5-SNAPSHOT</swrlapi.version>
-    <swrlapi.drools.version>2.1.5-SNAPSHOT</swrlapi.drools.version>
-
+    <protege.version>6.0.0-alpha-1</protege.version>
+    <!-- The Protégé 6 host exports SLF4J 1.7; use its logging API in this bundle. -->
+    <slf4j.version>1.7.36</slf4j.version>
   </properties>
   
   <scm>
@@ -35,187 +32,102 @@
     <url>https://github.com/protegeproject/swrltab-plugin/issues</url>
   </issueManagement>
 
+  <!-- Drools dependencies come transitively from swrlapi-drools-engine. -->
   <dependencies>
-
     <dependency>
       <groupId>edu.stanford.swrl</groupId>
       <artifactId>swrlapi</artifactId>
-      <version>${swrlapi.version}</version>
+      <version>${project.version}</version>
+      <!-- Only annotation types are needed at runtime, not the old checker/compiler. -->
+      <exclusions>
+        <exclusion>
+          <groupId>org.checkerframework</groupId>
+          <artifactId>checker</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.checkerframework</groupId>
+          <artifactId>jdk8</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>
       <groupId>edu.stanford.swrl</groupId>
       <artifactId>swrlapi-drools-engine</artifactId>
-      <version>${swrlapi.drools.version}</version>
+      <version>${project.version}</version>
+      <!-- Only annotation types are needed at runtime, not the old checker/compiler. -->
+      <exclusions>
+        <exclusion>
+          <groupId>org.checkerframework</groupId>
+          <artifactId>checker</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.checkerframework</groupId>
+          <artifactId>jdk8</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
+    <!-- Drools' compiler references this OSGi adapter; its Spring support is unused. -->
     <dependency>
-      <groupId>org.apache.geronimo.bundles</groupId>
-      <artifactId>axis</artifactId>
-    </dependency>
-
-    <!-- Protege and OWLAPI dependencies -->
-
-    <dependency>
-      <groupId>edu.stanford.protege</groupId>
-      <artifactId>protege-common</artifactId>
+      <groupId>org.kie</groupId>
+      <artifactId>kie-osgi-integration</artifactId>
+      <version>${drools.version}</version>
+      <scope>runtime</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.kie</groupId>
+          <artifactId>kie-spring</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-beans</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-context</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.springframework.osgi</groupId>
+          <artifactId>spring-osgi-core</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>
       <groupId>edu.stanford.protege</groupId>
       <artifactId>protege-editor-core</artifactId>
+      <scope>provided</scope>
     </dependency>
-    
+
     <dependency>
       <groupId>edu.stanford.protege</groupId>
       <artifactId>protege-editor-owl</artifactId>
+      <scope>provided</scope>
     </dependency>
 
     <dependency>
       <groupId>net.sourceforge.owlapi</groupId>
       <artifactId>owlapi-osgidistribution</artifactId>
+      <scope>provided</scope>
     </dependency>
 
     <dependency>
       <groupId>org.eclipse.equinox</groupId>
       <artifactId>org.eclipse.equinox.registry</artifactId>
-    </dependency>
-
-    <!-- Drools dependencies -->
-
-    <dependency>
-      <groupId>org.drools</groupId>
-      <artifactId>drools-core</artifactId>
-      <version>${drools.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.drools</groupId>
-      <artifactId>drools-core-dynamic</artifactId>
-      <version>${drools.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.drools</groupId>
-      <artifactId>drools-compiler</artifactId>
-      <version>${drools.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.drools</groupId>
-      <artifactId>drools-mvel</artifactId>
-      <version>${drools.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.drools</groupId>
-      <artifactId>drools-cdi</artifactId>
-      <version>${drools.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.drools</groupId>
-      <artifactId>drools-persistence-jpa</artifactId>
-      <version>${drools.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.drools</groupId>
-      <artifactId>drools-persistence-api</artifactId>
-      <version>${drools.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.drools</groupId>
-      <artifactId>drools-core-reflective</artifactId>
-      <version>${drools.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.drools</groupId>
-      <artifactId>drools-ecj</artifactId>
-      <version>${drools.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.kie</groupId>
-      <artifactId>kie-api</artifactId>
-      <version>${drools.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.kie</groupId>
-      <artifactId>kie-memory-compiler</artifactId>
-      <version>${drools.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.kie</groupId>
-      <artifactId>kie-internal</artifactId>
-      <version>${drools.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.kie.soup</groupId>
-      <artifactId>kie-soup-maven-integration</artifactId>
-      <version>${drools.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.kie.soup</groupId>
-      <artifactId>kie-soup-commons</artifactId>
-      <version>${drools.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.kie.soup</groupId>
-      <artifactId>kie-soup-maven-support</artifactId>
-      <version>${drools.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.kie.soup</groupId>
-      <artifactId>kie-soup-project-datamodel-commons</artifactId>
-      <version>${drools.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.kie.soup</groupId>
-      <artifactId>kie-soup-project-datamodel-api</artifactId>
-      <version>${drools.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.kie</groupId>
-      <artifactId>kie-osgi-integration</artifactId>
-      <version>${drools.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.antlr</groupId>
-      <artifactId>antlr-runtime</artifactId>
-    </dependency>
-    
-    <dependency>
-      <groupId>org.mvel</groupId>
-      <artifactId>mvel2</artifactId>
+      <scope>provided</scope>
     </dependency>
 
     <dependency>
       <groupId>org.apache.geronimo.bundles</groupId>
       <artifactId>commons-discovery</artifactId>
+      <scope>runtime</scope>
     </dependency>
 
     <dependency>
       <groupId>commons-codec</groupId>
       <artifactId>commons-codec</artifactId>
-    </dependency>
-
-    <!-- Checker dependencies -->
-    
-    <dependency>
-      <groupId>org.checkerframework</groupId>
-      <artifactId>checker</artifactId>
+      <scope>runtime</scope>
     </dependency>
 
     <dependency>
@@ -224,126 +136,96 @@
     </dependency>
 
     <dependency>
-      <groupId>org.checkerframework</groupId>
-      <artifactId>jdk8</artifactId>
-    </dependency>
-
-    <!-- Test dependencies -->
-
-    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
+      <scope>test</scope>
     </dependency>
 
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-log4j12</artifactId>
-      <scope>test</scope>
+      <scope>provided</scope>
     </dependency>
 
     <dependency>
       <groupId>com.google.code.findbugs</groupId>
       <artifactId>jsr305</artifactId>
+      <scope>provided</scope>
     </dependency>
 
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
-
   <build>
     <plugins>
       <plugin>
-	<groupId>org.apache.maven.plugins</groupId>
-	<artifactId>maven-compiler-plugin</artifactId>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
       </plugin>
-      
       <plugin>
-	<groupId>org.apache.felix</groupId>
-	<artifactId>maven-bundle-plugin</artifactId>
-	<extensions>true</extensions>
-	<configuration>
-
-	  <instructions>
-	    <Bundle-Activator>org.protege.editor.owl.ProtegeOWL</Bundle-Activator>
-	    <Bundle-SymbolicName>${project.artifactId};singleton:=true</Bundle-SymbolicName>
-	    <Include-Resource>plugin.xml, {maven-resources}</Include-Resource>
-            <Bundle-ClassPath>.</Bundle-ClassPath>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <extensions>true</extensions>
+        <configuration>
+          <instructions>
+            <Bundle-SymbolicName>${project.artifactId};singleton:=true</Bundle-SymbolicName>
+            <Include-Resource>plugin.xml, {maven-resources}</Include-Resource>
             <Embed-Transitive>true</Embed-Transitive>
+            <!-- Embed the rule engine; OWLAPI, Protégé and logging come from the host. -->
             <Embed-Dependency>
-              swrlapi, swrlapi-drools-engine, 
-              axis, 
-              checker, checker-qual,
+              swrlapi, swrlapi-drools-engine, axis, checker-qual,
               drools-core, drools-compiler, drools-core-dynamic, drools-mvel, drools-core-reflective, drools-ecj,
               kie-api, kie-internal, kie-memory-compiler, kie-osgi-integration,
-              kie-soup-maven-integration, kie-soup-maven-support, kie-soup-commons, kie-soup-project-datamodel-commons, kie-soup-project-datamodel-api,
-              antlr-runtime, mvel2, 
-              commons-discovery, commons-codec
+              kie-soup-maven-support, kie-soup-commons, kie-soup-project-datamodel-commons, kie-soup-project-datamodel-api,
+              antlr-runtime, mvel2, commons-discovery, commons-codec
             </Embed-Dependency>
-            <!-- Axis CORBAProvider is unused by SWRLAPI; it must not require a CORBA runtime. -->
+            <!-- OWLAPI versions its packages independently; bnd derives their ranges.
+                 Optional imports cover unused Drools integrations and Axis SOAP providers. -->
             <Import-Package>
-              org.protege.editor.core.*;version="${protege.version}",
-              org.protege.editor.owl.*;version="${protege.version}",
-              org.semanticweb.owlapi.*;version="[${owlapi.version},5.0.0)",
-              org.swrlapi.*;version="${swrlapi.version}",
-              org.swrlapi.drools.*;version="${swrlapi.version}",
-              org.omg.CORBA;resolution:=optional,
-              org.omg.CosNaming;resolution:=optional,
+              org.protege.editor.core.*;version="[6.0.0,7.0.0)",
+              org.protege.editor.owl.*;version="[6.0.0,7.0.0)",
+              org.omg.*;resolution:=optional,
               org.drools.cdi.*;resolution:=optional,
               org.drools.persistence.jpa.*;resolution:=optional,
               org.drools.compiler.shade.org.eclipse.jdt.core.index.*;resolution:=optional,
               org.drools.compiler.shade.org.eclipse.jdt.core.util.*;resolution:=optional,
               org.kie.soup.xstream.*;resolution:=optional,
               org.kie.spring.*;resolution:=optional,
-              org.springframework.beans.factory.config.*;resolution:=optional,
-              org.springframework.context.*;resolution:=optional,
-              org.springframework.osgi.context.support.*;resolution:=optional,
-              org.overlord.dtgov.jbpm.util.*;resolution:=optional,
-              org.sonatype.plexus.components.cipher.*;resolution:=optional,
-              org.sonatype.plexus.components.sec.dispatcher.*;resolution:=optional,
+              org.springframework.*;resolution:=optional,
+              org.appformer.maven.integration.*;resolution:=optional,
               com.ibm.*;resolution:=optional,
               com.sun.*;resolution:=optional,
               sun.*;resolution:=optional,
-              javax.*;resolution:=optional,
+              javax.activation*;resolution:=optional,
+              javax.enterprise.*;resolution:=optional,
+              javax.inject*;resolution:=optional,
+              javax.jms*;resolution:=optional,
+              javax.mail*;resolution:=optional,
+              javax.rmi*;resolution:=optional,
+              javax.servlet*;resolution:=optional,
+              javax.wsdl*;resolution:=optional,
+              javax.xml.bind*;resolution:=optional,
+              javax.xml.rpc*;resolution:=optional,
+              javax.xml.soap*;resolution:=optional,
               org.jboss.vfs.*;resolution:=optional,
-              org.jbpm.persistence.*;resolution:=optional,
               org.apache.tools.ant.*;resolution:=optional,
               org.apache.bsf.*;resolution:=optional,
-              org.apache.maven.*;resolution:=optional,
               org.apache.commons.httpclient.*;resolution:=optional,
               org.apache.commons.logging.*;resolution:=optional,
               org.apache.commons.net.*;resolution:=optional,
               org.apache.commons.modeler.*;resolution:=optional,
               org.apache.xerces.jaxp.*;resolution:=optional,
               com.thoughtworks.xstream.*;resolution:=optional,
-              com.google.inject.*;resolution:=optional,
-              com.google.inject.kotlin.*;resolution:=optional,
               org.antlr.stringtemplate.*;resolution:=optional,
-              org.codehaus.plexus.*;resolution:=optional,
-              org.codehaus.janino.*;resolution:=optional,
-              org.eclipse.jdt.*;resolution:=optional,
-              org.eclipse.aether.*;resolution:=optional,
               org.exolab.castor.xml.*;resolution:=optional,
-              org.junit.*;resolution:=optional,
               *
             </Import-Package>
-   	  </instructions>
-
-	  <executions>
-	    <execution>
-	      <id>bundle-manifest</id>
-	      <phase>install</phase>
-	      <goals>    
-		<goal>manifest</goal>
-	      </goals>   
-	    </execution>
-	  </executions>
-
-	</configuration>
+          </instructions>
+        </configuration>
       </plugin>
     </plugins>
   </build>
-
 </project>
