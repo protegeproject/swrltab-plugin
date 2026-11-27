@@ -22,6 +22,8 @@ import java.io.StringWriter;
 import java.util.Iterator;
 import java.util.Optional;
 
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+
 public class ProtegeIRIResolver extends DefaultIRIResolver
 {
   private static final Logger log = LoggerFactory.getLogger(ProtegeIRIResolver.class);
@@ -118,7 +120,7 @@ public class ProtegeIRIResolver extends DefaultIRIResolver
     {
       write(iri2PrefixedName(atom.getPredicate()).orElse("<" + atom.getPredicate() + ">"));
       write("(");
-      Iterator<SWRLDArgument> arguments = atom.getArguments().iterator();
+      Iterator<SWRLDArgument> arguments = asList(atom.arguments()).iterator();
       while (arguments.hasNext()) {
         arguments.next().accept(this);
         if (arguments.hasNext())
