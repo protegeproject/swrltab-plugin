@@ -1,74 +1,52 @@
-# swrltab-plugin
+# SWRLTab plugin for Protégé 6
 
-[![Build Status](https://travis-ci.org/protegeproject/swrltab-plugin.svg?branch=master)](https://travis-ci.org/protegeproject/swrltab-plugin)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/edu.stanford.swrl/swrltab-plugin/badge.svg)](https://maven-badges.herokuapp.com/maven-central/edu.stanford.swrl/swrltab-plugin)
+SWRLTab and SQWRLTab provide rule and query editing/execution in Protégé Desktop.
+This **`protege-6` / 2.1.5-SNAPSHOT** branch targets **unmodified Protégé
+6.0.0-alpha-1** on `protege6/release-6.0.0-alpha-1`, using **OWLAPI 5.5.1** and
+**JDK 17**. It is a development build, not a released update for Protégé 5.
 
-This repository contains the SWRLAPI-based SWRLTab plugin for the Protégé 5 Desktop ontology editor.
-The plugin contains SWRLTab and SQWRLTab components for working with SWRL rules and SQWRL queries.
+## Build and load
 
-Plugin documentation can be found [here](https://github.com/protegeproject/swrltab-plugin/wiki).
-Documentation for the SWRLAPI can be found [here](https://github.com/protegeproject/swrlapi/wiki).
+Clone the matching SWRLAPI sibling repositories and follow the
+[host reactor instructions](https://github.com/protegeproject/swrlapi-project/blob/protege-6/ops/runbook.md#prot%C3%A9g%C3%A9-6-plugin-experiment).
+For unchanged host APIs already built/resolved, package current SWRLAPI sources from
+the workspace root:
 
-Note that the plugin will work only in Protégé version 5.6.0 and later.
+```sh
+mvn -B -f swrlapi-project/pom.xml -Pcore,protege-plugin \
+  -pl :swrltab-plugin -am package
+```
 
-#### Installing and Updating
+This runs producer/plugin unit tests and creates
+`target/swrltab-plugin-2.1.5-SNAPSHOT.jar`; the full core `verify` gate remains separate.
+Place the jar in the matching Protégé distribution's `plugins` directory, ensuring
+only one SWRLTab bundle is present, then restart Protégé. For validation, the
+[packaged and graphical harnesses](https://github.com/protegeproject/swrlapi-project/blob/protege-6/ops/runbook.md#packaged-and-graphical-validation)
+use isolated caches and a temporary copy of the host. Keep the host's original
+OWLAPI, Guava and Jackson bundles; the runbook checks duplicate or substituted bundles.
 
-The plugin comes preinstalled with Protégé. 
-The plugin can be updated to the latest version via the ```File -> Check for plugins...``` menu item in Protégé. 
-A popup will appear listing updatable plugins.
-The ```Protégé->About Protégé``` menu uption can be used to display the current version of the plugin.
+Enable **Window → Tabs → SWRLTab** and **SQWRLTab**. For rules, use
+**OWL+SWRL→Drools**, **Run Drools**, then **Drools→OWL**. For a quick query, enter
+`swrlb:add(?sum, 2, 3) -> sqwrl:select(?sum)` and check the result is `5`.
 
-#### View the Plugin Tabs in Protégé
+## Contribute built-ins
 
-The SWRLTab and SQWRLTab can be enabled via the ```Window -> Tabs``` menu item.
+The [registration guide](docs/built-in-registration.md) covers the exact extension
+point, factory and library code, prefix rendering, OSGi imports, lifecycle,
+collision/error behavior and a built contributor jar exercised in the real host.
 
-#### Example Plug-in Screenshots
+## Compatibility and releases
 
-SWRLTab:
+The host's Aqua appearance-menu exception on macOS/JDK 17 is a known, separate
+host limitation recorded in the runbook; it does not require host dependency
+upgrades for the tested rule/query workflows. Plugin Manager release metadata is
+maintained separately in the [release procedure](https://github.com/protegeproject/swrlapi-project/blob/protege-6/release/README.md).
+The [wiki](https://github.com/protegeproject/swrltab-plugin/wiki) distinguishes this
+branch from released Protégé 5 builds. Existing screenshots under `img/` illustrate
+the older UI and are not evidence of the current alpha build.
 
-![SWRLTab](/img/SWRLTab.png?raw=true "SWRLTab")
+[Build guide](https://github.com/protegeproject/swrlapi-project/blob/protege-6/README.md) · [Runbook](https://github.com/protegeproject/swrlapi-project/blob/protege-6/ops/runbook.md) · [Roadmap](https://github.com/protegeproject/swrlapi-project/blob/protege-6/ops/roadmap.md)
 
-SQWRLTab:
+## License
 
-![SQWRLTab](/img/SQWRLTab.png?raw=true "SQWRLTab")
-
-#### Building from Source
-
-Note that the release JARs can be downloaded from the repo's [Releases Area](https://github.com/protegeproject/swrltab-plugin/releases).
-
-To build this plugin you must have the following items installed:
-
-+ [Java 11](https://www.oracle.com/java/technologies/downloads/archive/) or later
-+ A tool for checking out a [Git](https://git-scm.com/) repository
-+ Apache's [Maven](https://maven.apache.org/index.html)
-+ A Protégé (5.6.4 or higher) distribution. Download [here](https://protege.stanford.edu/products.php#desktop-protege).
-
-Get a copy of the latest code:
-
-    git clone https://github.com/protegeproject/swrltab-plugin.git
-    
-Change into the swrltab-plugin directory:
-
-    cd swrltab-plugin
-
-Build with Maven:
-
-    mvn clean package  
-
-On build completion the ```target``` directory will contain a ```swrltab-plugin-${version}.jar``` file. 
-The JAR contains both SWRLTab and SQWRLTab components and is generated in the OSGi bundle format required by Protégé's plugin-in mechanism.
-
-To install in your local Protégé, copy this JAR file to the ```plugins``` subdirectory of your Protégé installation (e.g.,
-```/Applications/Protégé-5.6.0/Protégé.app/Contents/plugins/```).  
-
-#### License
-
-The software is licensed under the [BSD 2-clause License](https://github.com/protegeproject/swrltab-plugin/blob/master/license.txt).
-
-#### Questions
-
-If you have questions about this plug-in, please go to the main
-Protégé website and subscribe to the [Protégé Developer Support
-mailing list](http://protege.stanford.edu/support.php#mailingListSupport).
-After subscribing, send messages to protege-dev at lists.stanford.edu.
-
+[BSD 2-Clause](license.txt), copyright Stanford University.
